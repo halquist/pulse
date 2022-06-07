@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import Logo from '../Logo/Logo';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 
@@ -27,6 +28,7 @@ function Navigation({ isLoaded }){
     <div className='navBar'>
       <ul className='navContainer'>
         <li className='navContent'>
+          <Logo />
           <NavLink exact to="/" className='homeText'>Home</NavLink>
           {isLoaded && sessionLinks}
         </li>
