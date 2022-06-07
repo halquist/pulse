@@ -63,4 +63,6 @@ router.get('/', restoreUser, (req, res) => {
   } else return res.json({});
 });
 
+console.log('hey')
+
 module.exports = router;
