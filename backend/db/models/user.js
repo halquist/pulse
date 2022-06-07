@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [60, 60]
       }
+    },
+    profileImageUrl: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   },
   {
@@ -52,8 +56,8 @@ module.exports = (sequelize, DataTypes) => {
 });
 
   User.prototype.toSafeObject = function () {
-    const { id, username, email } = this;
-    return { id, username, email};
+    const { id, username, email, profileImageUrl } = this;
+    return { id, username, email, profileImageUrl };
   };
 
   User.prototype.validatePassword = function (password) {
@@ -79,18 +83,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  User.signup = async function ({ username, email, password }) {
+  User.signup = async function ({ username, email, password, profileImageUrl }) {
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
       username,
       email,
-      hashedPassword
+      hashedPassword,
+      profileImageUrl
     });
     return await User.scope('currentUser').findByPk(user.id);
   };
 
   User.associate = function(models) {
     // associations can be defined here
+    User.hasMany(models.Poll, { foreignKey: 'userId' })
   };
   return User;
 };
