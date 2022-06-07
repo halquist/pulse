@@ -42,6 +42,37 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
   }, {});
+
+  Poll.createPoll = async function ({ title, description, optionOneTitle, optionTwoTitle }) {
+    const poll = await Poll.create({
+      title,
+      description,
+      optionOneTitle,
+      optionTwoTitle
+    });
+    return await Poll.findByPk(poll.id);
+  };
+
+  Poll.updatePoll = async function ({ pollId, title, description, optionOneTitle, optionTwoTitle }) {
+    const poll = await Pong.findByPk( pollId )
+
+    poll.title = title;
+    poll.description = description;
+    poll.optionOneTitle = optionOneTitle;
+    poll.optionTwoTitle = optionTwoTitle
+
+    await poll.save();
+    return poll;
+  };
+
+  Poll.deletePoll = async function ({ id }) {
+    const poll = await Poll.findByPk(id.pollId);
+    await poll.destroy();
+    return {
+      message: 'Success'
+    }
+  }
+
   Poll.associate = function(models) {
     // associations can be defined here
     Poll.belongsTo(models.User, { foreignKey: 'userId' })
