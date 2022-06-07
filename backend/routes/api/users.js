@@ -26,16 +26,16 @@ const validateSignup = [
       .exists({ checkFalsy: true })
       .isLength({ min: 6})
       .withMessage('Password must be 6 character or more'),
-    handleValidationErrors
+    // handleValidationErrors
 ];
 
 // sign up
 router.post(
   '/',
-  validateSignup,
+  validateSignup, handleValidationErrors,
   asyncHandler( async (req, res) => {
-    const { email, password, username } = req.body;
-    const user = await User.signup({ email, username, password });
+    const { email, password, username, profileImageUrl } = req.body;
+    const user = await User.signup({ email, username, password, profileImageUrl });
 
     await setTokenCookie(res, user);
 
