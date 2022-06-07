@@ -2,43 +2,43 @@
 module.exports = (sequelize, DataTypes) => {
   const Poll = sequelize.define('Poll', {
     userId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     title: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     description: {
-      type: Sequelize.TEXT,
+      type: DataTypes.TEXT,
       allowNull: true
     },
     imageUrl: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: true
     },
     optionOneTitle: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     optionTwoTitle: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     optionOneVotes: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     optionTwoVotes: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     startTime: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       allowNull: true
     },
     endTime: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       allowNull: true
     },
   }, {});

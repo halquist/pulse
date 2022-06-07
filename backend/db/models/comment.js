@@ -1,27 +1,24 @@
 'use strict';
-
-const { Sequelize } = require("sequelize/types");
-
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define('Comment', {
     body: {
-      type: Sequelize.TEXT,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     userId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     pollId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     topLevel: {
-      type: Sequelize.BOOLEAN,
+      type: DataTypes.BOOLEAN,
       allowNull: false
     },
     commentId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
   }, {});

@@ -2,15 +2,15 @@
 module.exports = (sequelize, DataTypes) => {
   const UserVote = sequelize.define('UserVote', {
     userId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     pollId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     voteSelection: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
   }, {});
