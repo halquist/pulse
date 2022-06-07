@@ -2,50 +2,51 @@
 module.exports = (sequelize, DataTypes) => {
   const Poll = sequelize.define('Poll', {
     userId: {
-      type: Datatypes.INTEGER,
-      allowNull: false,
-      references: { model: 'Users' }
+      type: Sequelize.INTEGER,
+      allowNull: false
     },
     title: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     },
     description: {
-      type: DataTypes.TEXT,
+      type: Sequelize.TEXT,
       allowNull: true
     },
     imageUrl: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: true
     },
     optionOneTitle: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     },
     optionTwoTitle: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     },
     optionOneVotes: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       allowNull: true
     },
     optionTwoVotes: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       allowNull: true
     },
     startTime: {
-      type: DataTypes.DATE,
+      type: Sequelize.DATE,
       allowNull: true
     },
     endTime: {
-      type: DataTypes.DATE,
+      type: Sequelize.DATE,
       allowNull: true
     },
   }, {});
   Poll.associate = function(models) {
     // associations can be defined here
     Poll.belongsTo(models.User, { foreignKey: 'userId' })
+    Poll.hasMany(models.Comment, { foreignKey: 'pollId' })
+    Poll.hasMany(models.UserVote, { foreignKey: 'pollId' })
   };
   return Poll;
 };

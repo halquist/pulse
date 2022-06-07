@@ -1,48 +1,36 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Polls', {
+    return queryInterface.createTable('Comments', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      body: {
+        allowNull: false,
+        type: Sequelize.TEXT
+      },
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: { model: 'Users'}
       },
-      title: {
+      pollId: {
         allowNull: false,
-        type: Sequelize.STRING(100)
+        type: Sequelize.INTEGER,
+        references: { model: 'Polls'}
       },
-      description: {
+      topLevel: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
+      },
+      commentId: {
         allowNull: true,
-        type: Sequelize.TEXT
-      },
-      imageUrl: {
-        type: Sequelize.STRING(2048)
-      },
-      optionOneTitle: {
-        allowNull: false,
-        type: Sequelize.STRING(50)
-      },
-      optionTwoTitle: {
-        allowNull: false,
-        type: Sequelize.STRING(50)
-      },
-      optionOneVotes: {
-        type: Sequelize.INTEGER
-      },
-      optionTwoVotes: {
-        type: Sequelize.INTEGER
-      },
-      startTime: {
-        type: Sequelize.DATE
-      },
-      endTime: {
-        type: Sequelize.DATE
+        type: Sequelize.INTEGER,
+        references: { model: 'Comments'}
       },
       createdAt: {
         allowNull: false,
@@ -57,6 +45,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Polls');
+    return queryInterface.dropTable('Comments');
   }
 };

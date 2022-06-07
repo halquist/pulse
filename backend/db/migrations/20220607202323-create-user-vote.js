@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Polls', {
+    return queryInterface.createTable('UserVotes', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,36 +13,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Users'}
       },
-      title: {
+      pollId: {
         allowNull: false,
-        type: Sequelize.STRING(100)
+        type: Sequelize.INTEGER,
+        references: { model: 'Polls'}
       },
-      description: {
-        allowNull: true,
-        type: Sequelize.TEXT
-      },
-      imageUrl: {
-        type: Sequelize.STRING(2048)
-      },
-      optionOneTitle: {
+      voteSelection: {
         allowNull: false,
-        type: Sequelize.STRING(50)
-      },
-      optionTwoTitle: {
-        allowNull: false,
-        type: Sequelize.STRING(50)
-      },
-      optionOneVotes: {
         type: Sequelize.INTEGER
-      },
-      optionTwoVotes: {
-        type: Sequelize.INTEGER
-      },
-      startTime: {
-        type: Sequelize.DATE
-      },
-      endTime: {
-        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -57,6 +35,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Polls');
+    return queryInterface.dropTable('UserVotes');
   }
 };
