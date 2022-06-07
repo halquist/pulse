@@ -1,0 +1,16 @@
+.titleBar {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #495151;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, .2);
+}
+
+.titleText {
+  font-size: 1.8em;
+  color: rgb(218, 224, 230);
+}

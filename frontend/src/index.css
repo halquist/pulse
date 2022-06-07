@@ -1,11 +1,82 @@
-html {
-  background-color: rgb(45, 52, 59);
-  font-family: 'Montserrat', sans-serif;
-  padding: 100px 0 0;
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
+* {
+  box-sizing: border-box;
+  font-family: 'Varela Round', sans-serif;
+}
+
+html {
+  background-color: #363D44;
+  padding: 100px 0 0;
 }
 
 .root {
   margin: 0;
   padding: 100px 0 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #539A94;
+}
+
+ul {
+  text-align: center;
+  padding-left: 0px;
+
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  transition: .2s;
+  border: none;
+}
+
+button:active{
+  transform: scale(.95);
+}
+
+.pinkButton {
+  background-color: #B76A91;
+  color: rgb(218, 224, 230);
+  border-radius: 3px;
+  padding: 6px 10px;
+  font-size: 1em;
+}
+
+.pinkButton:hover {
+  background-color: #b44c80;
+}
+
+.greenButton {
+  background-color: #539A94;
+  color: rgb(218, 224, 230);
+  border-radius: 3px;
+  padding: 6px 10px;
+  font-size: 1em;
+}
+
+.greenButton:hover {
+  background-color: #2a8b85;
+}
+
+.errorText {
+  color: #DDB3D3;
+  max-width: 100%;
+  padding: 4px 0px;
+  max-width: 90%;
+}
+
+.errorList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

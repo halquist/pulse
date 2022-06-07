@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import TitleBar from '../TitleBar/TitleBar';
+import { NavLink } from 'react-router-dom';
 
 import './LoginForm.css';
 
@@ -23,19 +25,19 @@ const LoginFormPage = () => {
       .catch(async (res) => {
         const data = await res.json();
         if(data && data.errors) setErrors(data.errors);
-        console.log(data)
       });
   }
 
   return (
+    <div id='loginContainer'>
+      <TitleBar title='Log In'/>
       <div className='loginFormDiv'>
-        <div className='title'>Log In</div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id='loginForm'>
           <ul>
-            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+            {errors.map((error, idx) => <li key={idx} className='errorText'>{error}</li>)}
           </ul>
           <label>
-            Username or Email
+            Email
           </label>
             <input
               type="text"
@@ -52,9 +54,16 @@ const LoginFormPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-          <button type="submit">Log In</button>
+          <div id='demoLoginDiv'>
+            <button type="submit" className='pinkButton'>Log In</button>
+            <button className='greenButton'> Demo Log In</button>
+          </div>
+          <NavLink to='/signup'>
+            <div className='bottomText'>Don't have an account? Sign Up!</div>
+          </NavLink>
         </form>
       </div>
+    </div>
   )
 }
 

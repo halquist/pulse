@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
+import TitleBar from '../TitleBar/TitleBar';
+import { NavLink } from 'react-router-dom';
+
+
 
 import './SignupForm.css';
 
@@ -34,11 +38,12 @@ function SignupFormPage() {
   };
 
   return (
+    <div id='loginContainer'>
+      <TitleBar title='Sign Up' />
       <div className='formDiv'>
-        <div className='title'>Sign Up</div>
-        <form onSubmit={handleSubmit}>
-          <ul>
-            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        <form onSubmit={handleSubmit} id='loginForm'>
+          <ul className='errorList'>
+            {errors.map((error, idx) => <li key={idx} className='errorText'>{error}</li>)}
           </ul>
           <label>
             Email
@@ -77,9 +82,16 @@ function SignupFormPage() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
-          <button type="submit">Sign Up</button>
+          <div id='demoLoginDiv'>
+            <button type="submit" className='pinkButton'>Create Account</button>
+            <button className='greenButton'>Demo Log In</button>
+          </div>
+          <NavLink to='/login'>
+            <div className='bottomText'>Already have an account? Log In!</div>
+          </NavLink>
         </form>
       </div>
+    </div>
   );
 }
 
