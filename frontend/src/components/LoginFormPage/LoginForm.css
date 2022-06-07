@@ -8,40 +8,33 @@ body,html {
 * {
   box-sizing: border-box;
 }
-.containerDiv {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .loginFormDiv {
-  margin-top: 20%;
+  margin-top: 8px;
   min-height: 100px;
   max-width: 500px;
-  background-color: rgb(112, 122, 139);
+  background-color: #495151;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid rgb(30, 32, 34);
-  border-radius: 20px;
-
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, .2);
+  color: rgb(218, 224, 230);
+  font-size: 1em;
 }
 
 textarea:focus, input:focus{
   outline: none;
 }
 
-form {
+#loginForm {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 500px;
   min-width: 300px;
-  font-weight: bold;
-  margin-bottom: 50px;
-
+  margin-bottom: 16px;
 }
 
 input {
@@ -49,38 +42,38 @@ input {
   border: none;
   padding: 5px 10px;
   margin: 10px;
-  min-width: 50%;
+  width: 60%;
+  min-width: 300px;
+  background-color: #363D44;
+  color: rgb(218, 224, 230)
 }
 
-ul {
-  text-align: center;
-  padding-left: 0px;
 
+#loginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
 }
 
-li {
-  list-style: none;
+#demoLoginDiv {
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
 }
 
-.title {
-  margin-top: 20px;
-  font-size: 2em;
-  font-weight: bold;
-}
-
-button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: white;
+.bottomText {
+  margin-top: 16px;
+  color: #8ED0B9;
   transition: .2s;
 }
 
-button:hover{
-  background-color: rgb(208, 208, 208)
+.bottomText:hover {
+  color: #539A94;
 }
 
-button:active{
-  transform: scale(.9);
+.bottomText:active {
+  transform: scale(.95);
 }
