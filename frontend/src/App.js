@@ -5,21 +5,29 @@ import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
 import * as sessionActions from './store/session';
 import Navigation from "./components/Navigation";
+import PollDisplay from './components/PollDisplay';
 import Texture from './components/Texture';
 
 function App() {
   const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser()).then(() => setLoaded(true));
   }, [dispatch]);
+
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <>
       {/* <Texture /> */}
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
+      <Navigation isLoaded={loaded} />
+      {loaded && (
       <Switch>
+        <Route path='/'>
+          <PollDisplay />
+        </Route>
         <Route path='/signup'>
           <SignupFormPage />
         </Route>
