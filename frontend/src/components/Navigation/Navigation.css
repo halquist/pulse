@@ -1,11 +1,13 @@
 .navBar {
   width: 100%;
-  background-color: rgb(58, 79, 97);
+  background-color: #495151;
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
-  height: 60px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;

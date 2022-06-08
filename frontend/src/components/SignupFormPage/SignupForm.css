@@ -20,7 +20,7 @@ body,html {
   align-items: center;
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, .3);
-  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, .2);
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
   color: rgb(218, 224, 230);
   font-size: 1em;
 }
