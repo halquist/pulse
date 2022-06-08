@@ -88,3 +88,10 @@ button:active{
   justify-content: center;
   align-items: center;
 }
+
+.loadingContainer{
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

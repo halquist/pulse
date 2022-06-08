@@ -23,7 +23,7 @@ router.get(
 
 // get one poll
 router.get(
-  '/',
+  '/:id(\\d+)',
   asyncHandler( async (req, res) => {
     const pollId = req.params.id;
     const poll = await Poll.findByPk(pollId, {
@@ -55,8 +55,8 @@ router.post(
   '/',
   validatePoll, requireAuth, restoreUser,
   asyncHandler( async (req, res) => {
-    const { title, description, optionOneTitle, optionTwoTitle } = req.body;
-    const poll = await Poll.createPoll({ title, description, optionOneTitle, optionTwoTitle });
+    const { title, description, userId, optionOneTitle, optionTwoTitle } = req.body;
+    const poll = await Poll.createPoll({ title, description, userId, optionOneTitle, optionTwoTitle });
     return res.json({
       poll
     });
@@ -65,10 +65,11 @@ router.post(
 
 // edit poll
 router.put(
-  '/',
+  '/:id(\\d+)',
   validatePoll, requireAuth, restoreUser,
   asyncHandler( async (req, res) => {
-    const { pollId, title, description, optionOneTitle, optionTwoTitle } = req.body;
+    const pollId = req.params.id;
+    const { title, description, optionOneTitle, optionTwoTitle } = req.body;
     const updatePoll = await Poll.findByPk(pollId, {
       include: [
         { model: User},
@@ -77,7 +78,7 @@ router.put(
     });
 
     if (updatePoll.User.id === req.user.id) {
-      const poll = await Poll.updatePoll({ pollId, title, description, optionOneTitle, optionTwoTitle });
+      const poll = await Poll.updatePoll({ title, description, optionOneTitle, optionTwoTitle });
       return res.json({
         poll
       })
@@ -94,15 +95,13 @@ router.put(
 // delete poll
 
 router.delete(
-  '/',
+  '/:id(\\d+)',
   requireAuth, restoreUser,
   asyncHandler( async (req, res, next) => {
-
-    const { id } = req.body;
-    const findPoll = await Poll.findByPk(id.pollId, {include: { model: User}});
-
+    const pollId = req.params.id;
+    const findPoll = await Poll.findByPk(pollId, {include: { model: User}});
     if (findPoll.User.id === req.user.id) {
-      const poll = await Poll.deletePoll({ id });
+      const poll = await Poll.deletePoll({ pollId });
       return res.json({
         poll
       });
