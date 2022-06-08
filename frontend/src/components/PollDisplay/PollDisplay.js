@@ -56,8 +56,8 @@ const PollDisplay = () => {
           </div>
         </div>
         <div className='votePercentageBar'>
-          <div className='optionOnePercent'>{votePercent}</div>
-          <div className='optionTwoPercent'>{100 - votePercent}</div>
+          <div className='optionOnePercent' style={{ width: `${votePercent}%` }}>{votePercent}%</div>
+          <div className='optionTwoPercent' style={{ width: `${100 - votePercent}%` }}>{100 - votePercent}%</div>
         </div>
         <div className='pollDisplayBottomBar'>
           <div className='pollDisplayCommentNum'>{onePoll.Comments.length} Comments</div>
