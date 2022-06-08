@@ -5,6 +5,7 @@ import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
 import * as sessionActions from './store/session';
 import Navigation from "./components/Navigation";
+import Texture from './components/Texture';
 
 function App() {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <>
+      {/* <Texture /> */}
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
       <Switch>

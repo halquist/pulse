@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import TitleBar from '../TitleBar/TitleBar';
 import { NavLink } from 'react-router-dom';
-
 import './LoginForm.css';
 
 const LoginFormPage = () => {
