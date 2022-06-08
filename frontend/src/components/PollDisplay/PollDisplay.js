@@ -4,30 +4,39 @@ import { useEffect, useState } from 'react';
 import { getOnePoll, getPolls } from '../../store/poll';
 import XMark from '../XMark';
 
-const PollDisplay = () => {
+const PollDisplay = ({ pollId }) => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  const polls = useSelector(state => state.poll.allPolls)
-  const onePoll = useSelector(state => state.poll.singlePoll)
+  const polls = useSelector(state => state.poll.allPolls);
+  const onePoll = useSelector(state => state.poll.singlePoll);
   const [loaded, setLoaded] = useState(false);
-  const [votePercent, setVotePercent] = useState(0)
+  const [votePercent, setVotePercent] = useState(0);
+  const [truncate, setTruncate] = useState('truncateBlock');
 
   useEffect(() => {
     dispatch(getPolls())
-    dispatch(getOnePoll(1))
+    dispatch(getOnePoll(pollId))
     .then(() => setLoaded(true))
-  },[dispatch])
+  },[dispatch]);
 
   useEffect(() => {
     setVotePercent(Math.floor((onePoll.optionOneVotes / (onePoll.optionOneVotes + onePoll.optionTwoVotes)) * 100))
-  },[onePoll])
+  },[onePoll]);
+
+  const expandText = () => {
+    if (truncate === 'truncateBlock') {
+      setTruncate('unTruncate')
+    } else {
+      setTruncate('truncateBlock')
+    }
+  }
 
   if (!loaded) {
     return (
     <div className='loadingContainer'>
         <h1>Loading...</h1>
     </div>
-    )
+    );
 }
 
   return (
@@ -39,7 +48,10 @@ const PollDisplay = () => {
         </div>
         <div className='pollDisplayText'>
           <div className='pollTitle'>{onePoll.title}</div>
-          <div className='pollDescription'>{onePoll.description}</div>
+              <div className={`pollDescription ${truncate}`}>{onePoll.description}</div>
+              <div className='moreTextBar'>
+                <div className='moreText' onClick={expandText}>{truncate === 'truncateBlock' ? 'Expand' : 'Collapse'}</div>
+              </div>
         </div>
         <div className='pollDisplayVoteBar'>
           <div className='pollDisplayOptionOne'>
@@ -56,8 +68,12 @@ const PollDisplay = () => {
           </div>
         </div>
         <div className='votePercentageBar'>
-          <div className='optionOnePercent' style={{ width: `${votePercent}%` }}>{votePercent}%</div>
-          <div className='optionTwoPercent' style={{ width: `${100 - votePercent}%` }}>{100 - votePercent}%</div>
+          <div className='optionOnePercent' style={{ width: `${votePercent}%` }}>
+            {votePercent ? `${votePercent}%` : `0%`}
+            </div>
+          <div className='optionTwoPercent' style={{ width: `${100 - votePercent}%` }}>
+            {100 - votePercent ? `${100 - votePercent}%` : `0%`}
+            </div>
         </div>
         <div className='pollDisplayBottomBar'>
           <div className='pollDisplayCommentNum'>{onePoll.Comments.length} Comments</div>
@@ -66,6 +82,6 @@ const PollDisplay = () => {
       </div>
     </div>
   )
-}
+};
 
 export default PollDisplay

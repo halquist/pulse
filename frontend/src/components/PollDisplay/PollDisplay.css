@@ -1,18 +1,8 @@
-.tempPollContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-}
-
 .pollDisplayDiv {
   margin-top: 8px;
   min-height: 100px;
   width: 100%;
   max-width: 700px;
-  /* min-width: 300px; */
   flex-shrink: .5;
   background-color: #539A94;
   display: flex;
@@ -49,12 +39,76 @@
 .pollTitle {
   color: rgb(218, 224, 230);
   font-size: 1.6em;
+  overflow-wrap: break-word;
 }
 
 .pollDescription {
   margin-top: 8px;
   color: #003B31;
   font-size: 1.1em;
+  overflow-wrap: break-word;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  width: 100%;
+  transition:max-height 1s ease-out;
+}
+
+.truncateBlock {
+  /* max-height: 100px; */
+  /* hide text if it more than N lines  */
+  overflow: hidden;
+  /* for set '...' in absolute position */
+  position: relative;
+  /* use this value to count block height */
+  line-height: 1.1em;
+  /* max-height = line-height (1.1) * lines max number (3) */
+  max-height: 3.3em;
+  /* fix problem when last visible word doesn't adjoin right side  */
+  text-align: justify;
+  /* place for '...' */
+  margin-right: -1em;
+  padding-right: 1em;
+}
+/* create the ... */
+.truncateBlock:before {
+  /* points in the end */
+  content: '...';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of block */
+  right: 0;
+  bottom: 0;
+}
+/* hide ... if we have text, which is less than or equal to max lines */
+.truncateBlock:after {
+  /* points in the end */
+  content: '';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of text */
+  right: 0;
+  /* set width and height */
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  /* bg color = bg color under block */
+  background: white;
+}
+
+
+.moreTextBar {
+  display: flex;
+  justify-content: center;
+}
+
+.moreText {
+  margin-top: 4px;
+  color: #8ED0B9;
+  cursor: pointer;
+}
+
+.moreText:hover {
+  color: #c2e9db;
 }
 
 .pollDisplayVoteBar {
@@ -174,6 +228,7 @@
   display: flex;
   justify-content: center;
   color: #003B31;
+  min-width: 30px;
 }
 .optionTwoPercent {
   background-color: #DDB3D3;
@@ -187,4 +242,5 @@
   display: flex;
   justify-content: center;
   color: #680F3F;
+  min-width: 30px;
 }

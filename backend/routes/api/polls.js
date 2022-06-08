@@ -40,7 +40,9 @@ router.get(
 const validatePoll = [
   check('title')
     .exists({ checkFalsy: true })
-    .withMessage('Title field is required'),
+    .withMessage('Title field is required')
+    .isLength({min:0, max:100})
+    .withMessage('Title must be 100 characters or less'),
   check('optionOneTitle')
     .exists({ checkFalsy: true})
     .withMessage('Choice #1 is required'),
