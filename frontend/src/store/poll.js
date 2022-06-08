@@ -60,7 +60,7 @@ export const getOnePoll = (id) => async dispatch => {
 
 // creates a new poll
 export const createPoll = (poll) => async (dispatch) => {
-  const { title, description, optionOneTitle, optionTwoTitle, id } = poll;
+  const { title, description, optionOneTitle, optionTwoTitle, userId } = poll;
   const response = await csrfFetch('/api/polls', {
     method: 'POST',
     headers: {
@@ -69,7 +69,7 @@ export const createPoll = (poll) => async (dispatch) => {
     body: JSON.stringify({
       title,
       description,
-      userId: id,
+      userId,
       optionOneTitle,
       optionTwoTitle
     })

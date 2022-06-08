@@ -1,4 +1,4 @@
-import './PollDisplay.css'
+import './PollDisplay.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getOnePoll, getPolls } from '../../store/poll';

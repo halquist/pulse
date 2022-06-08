@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
-import TitleBar from '../TitleBar/TitleBar';
+import TitleBar from '../TitleBar';
 import { NavLink } from 'react-router-dom';
 
 
@@ -53,6 +53,7 @@ function SignupFormPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoFocus='true'
             />
 
           <label>

@@ -1,0 +1,101 @@
+#createPollContainer {
+  min-height: 100px;
+  width: 100%;
+  max-width: 700px;
+}
+
+#createPollFormDiv {
+  min-height: 100px;
+  width: 100%;
+  max-width: 700px;
+}
+
+#pollFormTitleDesc{
+  margin-top: 10px;
+  background-color: #B76A91;
+  border: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
+  border-radius: 3px;
+  color: rgb(218, 224, 230);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+#titleInput,
+#descriptionInput {
+  width: 98% !important;
+}
+
+#descriptionInput {
+  height: 100px;
+}
+
+#titleDiv,
+#descDiv {
+  width: 100% !important;
+}
+
+#titleDiv > label,
+#descDiv > label {
+  margin-left: 12px;
+}
+
+#formOptionsDiv {
+  display: flex;
+  justify-content: space-between;
+  gap:10px;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 700px;
+}
+
+#optionOneDiv,
+#optionTwoDiv {
+  background-color: #B76A91;
+  border: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
+  border-radius: 3px;
+  color: rgb(218, 224, 230);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2em;
+  padding: 10px;
+  width: 50%;
+}
+
+
+#optionOneTitleInput,
+#optionTwoTitleInput {
+  width: 94% !important;
+  min-width: 94% !important;
+}
+
+#optionOneSubDiv > label,
+#optionTwoSubDiv > label {
+  margin-left: 12px;
+}
+
+#optionOneDiv {
+ background-color: #539A94;
+}
+
+#pollButtonBar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+#pollErrors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: none;
+  color: #DDB3D3;
+  max-width: 100%;
+  padding: 4px 0px;
+  /* max-width: 90%; */
+}
