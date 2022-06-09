@@ -1,19 +1,29 @@
+#loading_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #logo_svg {
   height: 44px;
   margin-top: 4px;
 }
 
+#logo_svg_loading {
+  height: 100px;
+}
+
 #middle_line {
   /* transition: .5s; */
-  animation: wiggle_line .5s ease-in-out alternate 8;
+  animation: wiggle_line .5s ease-in-out alternate infinite;
 }
 
 #upper_circle {
-  animation: wiggle_upper .5s ease-in-out alternate 8;
+  animation: wiggle_upper .5s ease-in-out alternate infinite;
 }
 
 #lower_circle {
-  animation: wiggle_lower .5s ease-in-out alternate 8;
+  animation: wiggle_lower .5s ease-in-out alternate infinite;
 }
 
 
