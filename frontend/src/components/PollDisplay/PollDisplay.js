@@ -44,7 +44,6 @@ const PollDisplay = ({ pollId }) => {
 
   // handles deletion of poll
   const handleDelete = async () => {
-    console.log(pollId)
     let deletePoll = await dispatch(pollActions.removePoll(pollId))
       if (deletePoll.poll.message === 'Success') {
         history.push('/')

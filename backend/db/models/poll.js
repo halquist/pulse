@@ -67,7 +67,6 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Poll.deletePoll = async function ({ pollId }) {
-    console.log('poll model id', pollId)
     const poll = await Poll.findByPk(pollId);
     await poll.destroy();
     return {
