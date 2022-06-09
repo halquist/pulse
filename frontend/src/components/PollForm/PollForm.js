@@ -68,7 +68,7 @@ const PollForm = () => {
               </input>
             </div>
             <div id='descDiv'>
-              <label htmlFor='description'>Poll Description (not required)</label>
+              <label htmlFor='description'>Poll Description (optional)</label>
               <textarea
                 id='descriptionInput'
                 name='description'

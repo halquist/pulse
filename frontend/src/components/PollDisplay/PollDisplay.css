@@ -47,8 +47,6 @@
   color: #003B31;
   font-size: 1.1em;
   overflow-wrap: break-word;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
   width: 100%;
   transition:max-height 1s ease-out;
 }
@@ -62,7 +60,7 @@
   /* use this value to count block height */
   line-height: 1.1em;
   /* max-height = line-height (1.1) * lines max number (3) */
-  max-height: 3.3em;
+  max-height: 4.4em;
   /* fix problem when last visible word doesn't adjoin right side  */
   text-align: justify;
   /* place for '...' */
@@ -92,7 +90,8 @@
   height: 1em;
   margin-top: 0.2em;
   /* bg color = bg color under block */
-  background: white;
+  background-color: #539A94;
+  color: transparent;
 }
 
 

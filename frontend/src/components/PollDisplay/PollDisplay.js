@@ -1,3 +1,4 @@
+import * as React from 'react'
 import './PollDisplay.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -31,6 +32,9 @@ const PollDisplay = ({ pollId }) => {
     }
   }
 
+
+
+
   if (!loaded) {
     return (
     <div className='loadingContainer'>
@@ -48,10 +52,12 @@ const PollDisplay = ({ pollId }) => {
         </div>
         <div className='pollDisplayText'>
           <div className='pollTitle'>{onePoll.title}</div>
-              <div className={`pollDescription ${truncate}`}>{onePoll.description}</div>
-              <div className='moreTextBar'>
+            <div className={`pollDescription ${truncate}`}>{onePoll.description}</div>
+            <div className='moreTextBar'>
+              { onePoll.description.length > 144 &&
                 <div className='moreText' onClick={expandText}>{truncate === 'truncateBlock' ? 'Expand' : 'Collapse'}</div>
-              </div>
+              }
+            </div>
         </div>
         <div className='pollDisplayVoteBar'>
           <div className='pollDisplayOptionOne'>

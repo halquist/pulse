@@ -45,10 +45,14 @@ const validatePoll = [
     .withMessage('Title must be 100 characters or less'),
   check('optionOneTitle')
     .exists({ checkFalsy: true})
-    .withMessage('Choice #1 is required'),
+    .withMessage('Choice #1 is required')
+    .isLength({min:0, max:50})
+    .withMessage('Choice #1 must be 50 characters or less'),
   check('optionTwoTitle')
     .exists({ checkFalsy: true})
-    .withMessage('Choice #2 is required'),
+    .withMessage('Choice #2 is required')
+    .isLength({min:0, max:50})
+    .withMessage('Choice #2 must be 50 characters or less'),
   handleValidationErrors
 ]
 
