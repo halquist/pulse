@@ -55,8 +55,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Poll.updatePoll = async function ({ pollId, title, description, optionOneTitle, optionTwoTitle }) {
-    const poll = await Pong.findByPk( pollId )
-
+    const poll = await Poll.findByPk( pollId )
     poll.title = title;
     poll.description = description;
     poll.optionOneTitle = optionOneTitle;

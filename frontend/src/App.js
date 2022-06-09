@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import PollDisplay from './components/PollDisplay';
 import PollForm from './components/PollForm';
 import PollFocus from './components/PollFocus';
+import SplashPage from './components/SplashPage';
 import Texture from './components/Texture';
 
 function App() {
@@ -27,9 +28,9 @@ function App() {
       <Navigation isLoaded={loaded} />
       {loaded && (
       <Switch>
-        {/* <Route path='/' exact>
-          <PollDisplay />
-        </Route> */}
+        <Route path='/' exact>
+          <SplashPage />
+        </Route>
         <Route path='/signup' exact>
           <SignupFormPage />
         </Route>
@@ -37,7 +38,10 @@ function App() {
           <LoginFormPage />
         </Route>
         <Route path='/polls/new' exact>
-          <PollForm />
+          <PollForm mode='create' />
+        </Route>
+        <Route path='/polls/:pollId/edit' exact>
+          <PollForm mode='edit' />
         </Route>
         <Route path='/polls/:pollId' exact>
           <PollFocus />

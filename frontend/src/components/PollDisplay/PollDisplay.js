@@ -1,5 +1,6 @@
 import * as React from 'react'
 import './PollDisplay.css';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getOnePoll, getPolls } from '../../store/poll';
@@ -82,6 +83,12 @@ const PollDisplay = ({ pollId }) => {
         </div>
         <div className='pollDisplayBottomBar'>
           <div className='pollDisplayCommentNum'>{onePoll.Comments.length} Comments</div>
+          {sessionUser?.id === onePoll.User.id &&
+            <>
+              <Link to={`/polls/${onePoll.id}/edit`} className='editDiv'>Edit Poll</Link>
+              <div className='editDiv'>Delete Poll</div>
+            </>
+          }
           <div className='submitVote'>Submit Vote</div>
         </div>
       </div>

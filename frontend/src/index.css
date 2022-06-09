@@ -14,6 +14,11 @@ html {
   padding: 100px 0 0;
 }
 
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
 #root {
   margin: 0;
   padding: 50px 0 0;
@@ -97,7 +102,7 @@ button:active{
 }
 
 .loadingContainer{
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - 160px);
   display: flex;
   align-items: center;
   justify-content: center;
