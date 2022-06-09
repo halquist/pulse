@@ -43,6 +43,7 @@ const LoginFormPage = () => {
               value={credential}
               onChange={(e) => setCredential(e.target.value)}
               required
+              autoFocus='true'
             />
           <label>
             Password

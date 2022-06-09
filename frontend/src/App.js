@@ -6,6 +6,8 @@ import SignupFormPage from './components/SignupFormPage';
 import * as sessionActions from './store/session';
 import Navigation from "./components/Navigation";
 import PollDisplay from './components/PollDisplay';
+import PollForm from './components/PollForm';
+import PollFocus from './components/PollFocus';
 import Texture from './components/Texture';
 
 function App() {
@@ -25,14 +27,20 @@ function App() {
       <Navigation isLoaded={loaded} />
       {loaded && (
       <Switch>
-        <Route path='/'>
+        {/* <Route path='/' exact>
           <PollDisplay />
-        </Route>
-        <Route path='/signup'>
+        </Route> */}
+        <Route path='/signup' exact>
           <SignupFormPage />
         </Route>
-        <Route path='/login'>
+        <Route path='/login' exact>
           <LoginFormPage />
+        </Route>
+        <Route path='/polls/new' exact>
+          <PollForm />
+        </Route>
+        <Route path='/polls/:pollId' exact>
+          <PollFocus />
         </Route>
       </Switch>
       )}

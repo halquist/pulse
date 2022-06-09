@@ -5,15 +5,15 @@
 
 #middle_line {
   /* transition: .5s; */
-  /* animation: wiggle_line .5s ease-in-out alternate 8; */
+  animation: wiggle_line .5s ease-in-out alternate 8;
 }
 
 #upper_circle {
-  /* animation: wiggle_upper .5s ease-in-out alternate 8; */
+  animation: wiggle_upper .5s ease-in-out alternate 8;
 }
 
 #lower_circle {
-  /* animation: wiggle_lower .5s ease-in-out alternate 8; */
+  animation: wiggle_lower .5s ease-in-out alternate 8;
 }
 
 
@@ -84,7 +84,7 @@
   transition: .5s ease-in-out;
   stroke: white;
   pointer-events: none;
-  /* animation: letter_pulse 4.5s linear; */
+  animation: letter_pulse 4.5s linear;
 }
 
 @keyframes letter_pulse {

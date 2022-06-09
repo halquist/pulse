@@ -1,3 +1,3 @@
-import SignupFormPage from "./SignupFormPage";
+import TitleBar from "./TitleBar";
 
-export default SignupFormPage
+export default TitleBar

@@ -43,12 +43,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
 
-  Poll.createPoll = async function ({ title, description, optionOneTitle, optionTwoTitle }) {
+  Poll.createPoll = async function ({ title, description, optionOneTitle, optionTwoTitle, userId }) {
     const poll = await Poll.create({
       title,
       description,
       optionOneTitle,
-      optionTwoTitle
+      optionTwoTitle,
+      userId
     });
     return await Poll.findByPk(poll.id);
   };
