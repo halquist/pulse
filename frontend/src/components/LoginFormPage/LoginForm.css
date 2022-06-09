@@ -11,7 +11,6 @@ body,html {
 
 .loginFormDiv {
   margin-top: 8px;
-  min-height: 100px;
   max-width: 500px;
   background-color: #495151;
   display: flex;
@@ -35,6 +34,7 @@ textarea:focus, input:focus{
   width: 500px;
   min-width: 300px;
   margin-bottom: 16px;
+  height: fit-content !important;
 }
 
 input {
@@ -64,6 +64,7 @@ input {
 #demoLoginDiv {
   display: flex;
   width: 60%;
+  flex-direction: row-reverse;
   justify-content: space-between;
 }
 
