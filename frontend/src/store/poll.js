@@ -81,18 +81,21 @@ export const createPoll = (poll) => async (dispatch) => {
 
 // updates a poll
 export const editPoll = (poll) => async (dispatch) => {
-  const { title, description, optionOneTitle, optionTwoTitle, userId } = poll;
-  const response = await csrfFetch('/api/polls', {
+  const { pollId, title, description, optionOneTitle, optionTwoTitle, userId, optionOneVotes, optionTwoVotes } = poll;
+  const response = await csrfFetch(`/api/polls/${pollId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      pollId,
       title,
       description,
       optionOneTitle,
       optionTwoTitle,
-      userId
+      userId,
+      optionOneVotes,
+      optionTwoVotes
     })
   });
   const data = await response.json();

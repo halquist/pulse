@@ -74,9 +74,9 @@ router.put(
   '/:id(\\d+)',
   validatePoll, requireAuth, restoreUser,
   asyncHandler( async (req, res) => {
-    const pollId = req.params.id;
-    const { title, description, optionOneTitle, optionTwoTitle } = req.body;
-    const updatePoll = await Poll.findByPk(pollId, {
+    const pollIdFind = req.params.id;
+    const { pollId, title, description, optionOneTitle, optionTwoTitle, optionOneVotes, optionTwoVotes } = req.body;
+    const updatePoll = await Poll.findByPk(pollIdFind, {
       include: [
         { model: User},
         { model: Comment},
@@ -84,7 +84,7 @@ router.put(
     });
 
     if (updatePoll.User.id === req.user.id) {
-      const poll = await Poll.updatePoll({ title, description, optionOneTitle, optionTwoTitle });
+      const poll = await Poll.updatePoll({ pollId, title, description, optionOneTitle, optionTwoTitle, optionOneVotes, optionTwoVotes });
       return res.json({
         poll
       })
@@ -104,6 +104,7 @@ router.delete(
   '/:id(\\d+)',
   requireAuth, restoreUser,
   asyncHandler( async (req, res, next) => {
+    console.log('api poll', req.poll)
     const pollId = req.params.id;
     const findPoll = await Poll.findByPk(pollId, {include: { model: User}});
     if (findPoll.User.id === req.user.id) {

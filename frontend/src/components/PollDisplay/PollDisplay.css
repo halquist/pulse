@@ -243,3 +243,26 @@
   color: #680F3F;
   min-width: 30px;
 }
+
+
+.editDiv {
+  margin-top: 4px;
+  color: #8ED0B9;
+  cursor: pointer;
+}
+
+.editDiv:hover {
+  color: #c2e9db;
+}
+
+.pollDeleteBar {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.deleteConfirmText {
+  margin-bottom: 10px;
+}

@@ -1,22 +1,51 @@
 import * as pollActions from '../../store/poll'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, Redirect } from "react-router-dom";
+import { getOnePoll } from '../../store/poll';
 import TitleBar from '../TitleBar';
+import { LoadingIcon } from '../Logo';
 
 import './PollForm.css';
 
-const PollForm = () => {
+const PollForm = ({ mode }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const sessionUser = useSelector((state) => state.session.user);
+  const editPoll = useSelector((state) => state.poll.singlePoll);
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [optionOneTitle, setOptionOneTitle] = useState('');
-  const [optionTwoTitle, setOptionTwoTitle] = useState('');
+  let { pollId } = useParams();
+
+  if (mode === 'edit') {
+    pollId = parseInt(pollId);
+  }
+
+  const [title, setTitle] = useState(editPoll.title || '');
+  const [description, setDescription] = useState(editPoll.description || '');
+  const [optionOneTitle, setOptionOneTitle] = useState(editPoll.optionOneTitle || '');
+  const [optionTwoTitle, setOptionTwoTitle] = useState(editPoll.optionTwoTitle || '');
+  const [optionOneVotes, setOptionOneVotes] = useState(editPoll.optionOneVotes || 0);
+  const [optionTwoVotes, setOptionTwoVotes] = useState(editPoll.optionTwoVotes || 0);
+  const [barTitle, setBarTitle] = useState(mode === 'edit' ? 'Edit Poll' : 'Create Poll');
   const [errors, setErrors] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const [canChange, setCanChange] = useState(false);
+
+  useEffect(() => {
+    dispatch(getOnePoll(pollId))
+      .then(() => setTitle(editPoll.title))
+      .then(() => setDescription(editPoll.description))
+      .then(() => setOptionOneTitle(editPoll.optionOneTitle))
+      .then(() => setOptionTwoTitle(editPoll.optionTwoTitle))
+      .then(() => setOptionOneVotes(editPoll.optionOneVotes))
+      .then(() => setOptionTwoVotes(editPoll.optionTwoVotes))
+      .then(() => setBarTitle('Edit Poll'))
+      .then(() => setCanChange(!editPoll.optionOneVotes && !editPoll.optionTwoVotes))
+      .then(() => setLoaded(true))
+  },[dispatch, editPoll.title, editPoll.description, editPoll.optionOneTitle, editPoll.optionTwoTitle])
+
+
 
     // submits new poll to database
     const handleSubmit = async (e) => {
@@ -29,7 +58,26 @@ const PollForm = () => {
             if (data && data.errors) setErrors(data.errors);
           });
           if (newPoll) {
-            console.log('pollform newpollid', newPoll)
+            history.push(`/polls/${newPoll.poll.id}`);
+          }
+    };
+
+    // submits edit request for poll to database
+    const handleEdit = async (e) => {
+      e.preventDefault();
+      setErrors([]);
+        let oneVotes = optionOneVotes;
+        let twoVotes = optionTwoVotes;
+        if (title !== editPoll.title || optionOneTitle !== editPoll.optionOneTitle || optionTwoTitle !== editPoll.optionTwoTitle) {
+          oneVotes = 0;
+          twoVotes = 0;
+        }
+        let newPoll = await dispatch(pollActions.editPoll({ pollId, title, description, optionOneTitle, optionTwoTitle, userId: sessionUser.id, optionOneVotes: oneVotes, optionTwoVotes: twoVotes }))
+          .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+          });
+          if (newPoll) {
             history.push(`/polls/${newPoll.poll.id}`);
           }
     };
@@ -42,9 +90,18 @@ const PollForm = () => {
   // if the user is not logged in, redirect to the login page
   if (!sessionUser) return <Redirect to='/login' />;
 
+  // shows loading icon if not loaded
+  if (!loaded) {
+    return (
+    <div className='loadingContainer'>
+        <LoadingIcon />
+    </div>
+    );
+  }
+
   return (
     <div id='createPollContainer'>
-      <TitleBar title='Create A Poll' />
+      <TitleBar title={barTitle} />
       <div id='createPollFormDiv'>
         <div id='pollErrors'>
         {
@@ -68,7 +125,7 @@ const PollForm = () => {
               </input>
             </div>
             <div id='descDiv'>
-              <label htmlFor='description'>Poll Description (optional)</label>
+              <label htmlFor='description'>Poll Description(optional)</label>
               <textarea
                 id='descriptionInput'
                 name='description'
@@ -108,8 +165,11 @@ const PollForm = () => {
               </div>
             </div>
           </div>
+          {!canChange && <div id='editWarningDiv'>Warning: changing the title or either of the choices will remove all current votes on this poll. You can change the description without losing votes.</div>}
           <div id='pollButtonBar'>
-            <button type="submit" className='pinkButton'>Create Poll</button>
+            {mode === 'edit' ?
+            <button onClick={handleEdit} className='pinkButton'>Submit Edit</button> :
+            <button onClick={handleSubmit} className='pinkButton'>Create Poll</button> }
             <button className='greenButton' onClick={handleCancel}>Cancel</button>
           </div>
         </form>

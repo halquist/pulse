@@ -1,0 +1,13 @@
+#splashBackground {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  background-image: url("../../images/splash_background.png");
+  height: 100vh;
+  width: 100vw;
+}

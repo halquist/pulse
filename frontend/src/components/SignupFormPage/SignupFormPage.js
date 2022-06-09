@@ -38,6 +38,7 @@ function SignupFormPage() {
   };
 
   const demoLogin = (e) => {
+    e.preventDefault();
     return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password1'})).catch(
       async (res) => {
         const data = await res.json();
