@@ -37,6 +37,15 @@ function SignupFormPage() {
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
 
+  const demoLogin = (e) => {
+    return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password1'})).catch(
+      async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      }
+    );
+  }
+
   return (
     <div id='loginContainer'>
       <TitleBar title='Sign Up' />
@@ -52,10 +61,8 @@ function SignupFormPage() {
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
               autoFocus='true'
             />
-
           <label>
             Username
           </label>
@@ -63,7 +70,6 @@ function SignupFormPage() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              required
             />
           <label>
             Password
@@ -72,7 +78,6 @@ function SignupFormPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
             />
           <label>
             Confirm Password
@@ -81,11 +86,10 @@ function SignupFormPage() {
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              required
             />
           <div id='demoLoginDiv'>
             <button type="submit" className='pinkButton'>Create Account</button>
-            <button className='greenButton'>Demo Log In</button>
+            <button className='greenButton' onClick={demoLogin}>Demo Log In</button>
           </div>
           <NavLink to='/login'>
             <div className='bottomText'>Already have an account? Log In!</div>

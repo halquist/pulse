@@ -27,6 +27,15 @@ const LoginFormPage = () => {
       });
   }
 
+  const demoLogin = (e) => {
+    return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password1'})).catch(
+      async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      }
+    );
+  }
+
   return (
     <div id='loginContainer'>
       <TitleBar title='Log In'/>
@@ -42,7 +51,6 @@ const LoginFormPage = () => {
               type="text"
               value={credential}
               onChange={(e) => setCredential(e.target.value)}
-              required
               autoFocus='true'
             />
           <label>
@@ -52,11 +60,10 @@ const LoginFormPage = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
             />
           <div id='demoLoginDiv'>
             <button type="submit" className='pinkButton'>Log In</button>
-            <button className='greenButton'> Demo Log In</button>
+            <button className='greenButton' onClick={demoLogin}> Demo Log In</button>
           </div>
           <NavLink to='/signup'>
             <div className='bottomText'>Don't have an account? Sign Up!</div>
