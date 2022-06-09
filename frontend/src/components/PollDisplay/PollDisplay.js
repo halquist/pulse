@@ -3,6 +3,7 @@ import './PollDisplay.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getOnePoll, getPolls } from '../../store/poll';
+import { LoadingIcon } from '../Logo';
 import XMark from '../XMark';
 
 const PollDisplay = ({ pollId }) => {
@@ -33,15 +34,13 @@ const PollDisplay = ({ pollId }) => {
   }
 
 
-
-
   if (!loaded) {
     return (
     <div className='loadingContainer'>
-        <h1>Loading...</h1>
+        <LoadingIcon />
     </div>
     );
-}
+  }
 
   return (
     <div className='tempPollContainer'>

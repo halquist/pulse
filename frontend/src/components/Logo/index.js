@@ -1,3 +1,6 @@
 import Logo from "./Logo";
+import LoadingIcon from "./LoadingIcon";
 
-export default Logo
+export { LoadingIcon };
+
+export default Logo;

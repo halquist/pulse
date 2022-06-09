@@ -4,4 +4,4 @@ const PollFeed = () => {
   )
 }
 
-export default PollFeed
+
