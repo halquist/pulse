@@ -1,7 +1,9 @@
 import { useParams } from 'react-router-dom';
 import PollDisplay from "../PollDisplay"
 import TitleBar from '../TitleBar';
-import CommentDisplay from '../CommentDisplay';
+import CommentFeed from '../CommentFeed';
+
+
 import './PollFocus.css'
 
 
@@ -11,9 +13,9 @@ const PollFocus = () => {
   return (
     <div className='pollFeedDisplayDiv'>
       <TitleBar title='Poll Focus' />
-      <PollDisplay pollId={pollId} />
-      <TitleBar title='Comments' />
-      <CommentDisplay />
+        <PollDisplay pollId={pollId} />
+      <TitleBar title='Comments' button='comment'/>
+      <CommentFeed pollId={pollId} />
     </div>
   )
 }
