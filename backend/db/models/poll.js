@@ -54,19 +54,21 @@ module.exports = (sequelize, DataTypes) => {
     return await Poll.findByPk(poll.id);
   };
 
-  Poll.updatePoll = async function ({ pollId, title, description, optionOneTitle, optionTwoTitle }) {
+  Poll.updatePoll = async function ({ pollId, title, description, optionOneTitle, optionTwoTitle, optionOneVotes, optionTwoVotes }) {
     const poll = await Poll.findByPk( pollId )
     poll.title = title;
     poll.description = description;
     poll.optionOneTitle = optionOneTitle;
-    poll.optionTwoTitle = optionTwoTitle
-
+    poll.optionTwoTitle = optionTwoTitle;
+    poll.optionOneVotes = optionOneVotes;
+    poll.optionTwoVotes = optionTwoVotes;
     await poll.save();
     return poll;
   };
 
-  Poll.deletePoll = async function ({ id }) {
-    const poll = await Poll.findByPk(id.pollId);
+  Poll.deletePoll = async function ({ pollId }) {
+    console.log('poll model id', pollId)
+    const poll = await Poll.findByPk(pollId);
     await poll.destroy();
     return {
       message: 'Success'

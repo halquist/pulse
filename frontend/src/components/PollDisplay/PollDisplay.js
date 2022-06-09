@@ -1,19 +1,22 @@
 import * as React from 'react'
 import './PollDisplay.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getOnePoll, getPolls } from '../../store/poll';
 import { LoadingIcon } from '../Logo';
+import * as pollActions from '../../store/poll'
 import XMark from '../XMark';
 
 const PollDisplay = ({ pollId }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
   const polls = useSelector(state => state.poll.allPolls);
   const onePoll = useSelector(state => state.poll.singlePoll);
   const [loaded, setLoaded] = useState(false);
   const [votePercent, setVotePercent] = useState(0);
+  const [showDelete, setShowDelete] = useState(false);
   const [truncate, setTruncate] = useState('truncateBlock');
 
   useEffect(() => {
@@ -32,6 +35,20 @@ const PollDisplay = ({ pollId }) => {
     } else {
       setTruncate('truncateBlock')
     }
+  }
+
+  // toggles showing the delete confirmation form
+  const deleteForm = () => {
+    setShowDelete(!showDelete)
+  }
+
+  // handles deletion of poll
+  const handleDelete = async () => {
+    console.log(pollId)
+    let deletePoll = await dispatch(pollActions.removePoll(pollId))
+      if (deletePoll.poll.message === 'Success') {
+        history.push('/')
+      }
   }
 
 
@@ -86,11 +103,20 @@ const PollDisplay = ({ pollId }) => {
           {sessionUser?.id === onePoll.User.id &&
             <>
               <Link to={`/polls/${onePoll.id}/edit`} className='editDiv'>Edit Poll</Link>
-              <div className='editDiv'>Delete Poll</div>
+              <div className='editDiv' onClick={deleteForm}>Delete Poll</div>
             </>
           }
           <div className='submitVote'>Submit Vote</div>
         </div>
+            {showDelete &&
+              <>
+                <div className='deleteConfirmText'>Are you sure you want to delete this poll?</div>
+                <div className='pollDeleteBar'>
+                  <button onClick={deleteForm} className='pinkButton'>Cancel</button>
+                  <button onClick={handleDelete} className='greenButton'>Delete</button>
+                </div>
+              </>
+            }
       </div>
     </div>
   )

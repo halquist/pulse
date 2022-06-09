@@ -66,13 +66,18 @@ const PollForm = ({ mode }) => {
     const handleEdit = async (e) => {
       e.preventDefault();
       setErrors([]);
-        let newPoll = await dispatch(pollActions.editPoll({ pollId, title, description, optionOneTitle, optionTwoTitle, userId: sessionUser.id }))
+        let oneVotes = optionOneVotes;
+        let twoVotes = optionTwoVotes;
+        if (title !== editPoll.title || optionOneTitle !== editPoll.optionOneTitle || optionTwoTitle !== editPoll.optionTwoTitle) {
+          oneVotes = 0;
+          twoVotes = 0;
+        }
+        let newPoll = await dispatch(pollActions.editPoll({ pollId, title, description, optionOneTitle, optionTwoTitle, userId: sessionUser.id, optionOneVotes: oneVotes, optionTwoVotes: twoVotes }))
           .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
           });
           if (newPoll) {
-            console.log('pollform newpollid', newPoll)
             history.push(`/polls/${newPoll.poll.id}`);
           }
     };
@@ -120,7 +125,7 @@ const PollForm = ({ mode }) => {
               </input>
             </div>
             <div id='descDiv'>
-              <label htmlFor='description'>Poll Description (optional)</label>
+              <label htmlFor='description'>Poll Description(optional)</label>
               <textarea
                 id='descriptionInput'
                 name='description'
