@@ -26,10 +26,10 @@ const updateComment = (comment) => {
   }
 };
 
-const deleteComment = (comment) => {
+const deleteComment = (id) => {
   return {
     type: DELETE,
-    comment
+    id
   }
 }
 
@@ -66,29 +66,28 @@ export const postComment = (comment) => async (dispatch) => {
   return data;
 }
 
-// updates a poll
+// updates a comment
 export const editComment = (comment) => async (dispatch) => {
-  const { body, userId, pollId, commentId, topLevel } = comment;
-  const response = await csrfFetch(`/api/polls/${pollId}`, {
+  const { id, body, userId } = comment;
+  const response = await csrfFetch(`/api/comments/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      id,
       body,
-      userId,
-      pollId,
-      commentId,
-      topLevel
+      userId
     })
   });
   const data = await response.json();
   await dispatch(updateComment(data.comment));
-  return data;
+  return data.comment;
 }
 
 // deletes a comment
 export const removeComment = (id) => async (dispatch) => {
+  // console.log('store', id)
   const response = await csrfFetch(`/api/comments/${id}`, {
     method: 'DELETE',
     headers: {
@@ -133,8 +132,9 @@ const commentReducer = (state = initialState, action) => {
       newState.pollComments[action.comment.id] = action.comment;
       return newState;
     case DELETE:
+      // console.log('store delete id', action.id)
       newState = Object.assign({}, state);
-      delete newState.pollComments[action.comment.id];
+      delete newState.pollComments[action.id];
       return newState;
     default:
       return state;

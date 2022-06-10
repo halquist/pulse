@@ -27,7 +27,7 @@ const PollFocus = () => {
       <TitleBar title='Comments' button='comment' callback={showAddComment} />
       {addComment &&
       <div id='addCommentContainer'>
-        <CommentForm callback={showAddComment} commentId={null} topLevel={true} />
+        <CommentForm callback={showAddComment} commentId={null} topLevel={true} labelColor='lightLabel'/>
       </div>
       }
       <CommentFeed pollId={pollId} />

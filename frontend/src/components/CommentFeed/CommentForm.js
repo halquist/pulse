@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useState } from 'react';
 
 
-const CommentForm = ({ callback, commentId, topLevel }) => {
+const CommentForm = ({ callback, commentId, topLevel, labelColor }) => {
   const dispatch = useDispatch();
 
   let { pollId } = useParams();
@@ -47,12 +47,13 @@ const CommentForm = ({ callback, commentId, topLevel }) => {
         }
       </div>
       <form onSubmit={handleSubmit} id='createCommentForm'>
-          <label htmlFor='body' id='commentLabel'>Comment:</label>
+          <label htmlFor='body' id={`${labelColor}`}>Comment:</label>
           <textarea
                     id='commentInput'
                     name='body'
                     type='text'
                     value={body}
+                    autoFocus={true}
                     onChange={e => setBody(e.target.value)}
                     >
           </textarea>

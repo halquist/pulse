@@ -28,7 +28,10 @@ router.get(
 const validateComment = [
   check('body')
     .exists({ checkFalsy: true })
-    .withMessage('A comment cannot be empty'),
+    .withMessage('A comment cannot be empty')
+    .bail()
+    .matches(/.*\S.*/)
+    .withMessage('Comment must not be only spaces'),
   handleValidationErrors
 ]
 
@@ -46,12 +49,41 @@ router.post(
   })
 );
 
+// edit a comment
+router.put(
+  '/:id(\\d+)',
+  validateComment, requireAuth, restoreUser,
+  asyncHandler( async (req, res) => {
+    const commentIdFind = req.params.id;
+    const { id, body, userId } = req.body;
+    const updateComment = await Comment.findByPk(commentIdFind, {
+      include: [
+        { model: User}
+      ]
+    });
+
+    if (updateComment.User.id === req.user.id) {
+      const newComment = await Comment.updateComment({ id: commentIdFind, body, userId });
+      const comment = await Comment.findByPk(id, {include: { model: User}});
+      return res.json({
+        comment
+      })
+    } else {
+      res.errors = new Error('Unauthorized');
+      err.errors = errors;
+      err.status = 403;
+      err.title = 'Unauthorized';
+      next(err);
+    }
+  })
+)
+
+// delete a comment
 router.delete(
   '/:id',
   requireAuth, restoreUser,
   asyncHandler( async (req, res, next) => {
     const commentId = req.params.id;
-
     const findComment = await Comment.findByPk(commentId, {include: { model: User}});
 
     if (findComment.User.id === req.user.id) {

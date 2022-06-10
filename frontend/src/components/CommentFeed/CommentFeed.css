@@ -37,9 +37,15 @@
   width: 100%;
 }
 
-#commentLabel {
+#lightLabel {
   margin-left: 10px;
   margin-top: 6px;
+}
+
+#darkLabel {
+  margin-left: 10px;
+  margin-top: 6px;
+  color: rgb(124, 131, 138)
 }
 
 #commentInput {
@@ -71,4 +77,15 @@
 
 .commentReply:hover {
   color: rgb(124, 131, 138);
+}
+
+.commentDeleteConfirmText {
+  color: rgb(124, 131, 138);
+  text-align: center;
+  padding: 6px;
+}
+
+#editCommentLabel {
+  color: rgb(124, 131, 138);
+  margin-left: 10px;
 }

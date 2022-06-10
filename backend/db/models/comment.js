@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
 
-  // deletes comments nested under each comment since cascade doesn't work for this
+  // deletes comments nested under each comment since cascade doesn't work for this and not deleting them first creates a sql error
   Comment.beforeDestroy( async (comment) => {
     const killComment = await Comment.findAll({
       where: {
@@ -50,9 +50,19 @@ module.exports = (sequelize, DataTypes) => {
     return comment;
   };
 
-  Comment.deleteComment = async function ({ id }) {
-    const comment = await Comment.findByPk(id);
 
+  Comment.updateComment = async function ({ id, body }) {
+    const comment = await Comment.findByPk( id )
+    comment.body = body;
+
+    await comment.save();
+    return comment;
+  };
+
+  Comment.deleteComment = async function ({ commentId }) {
+    // console.log(id)
+    const comment = await Comment.findByPk(commentId);
+    // console.log('model comment %%%%%%%%%', comment)
     await comment.destroy();
 
     return {

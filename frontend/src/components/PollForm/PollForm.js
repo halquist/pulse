@@ -51,45 +51,45 @@ const PollForm = ({ mode }) => {
 
 
 
-    // submits new poll to database
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      setErrors([]);
+  // submits new poll to database
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors([]);
 
-        let newPoll = await dispatch(pollActions.createPoll({ title, description, optionOneTitle, optionTwoTitle, userId: sessionUser.id }))
-          .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-          });
-          if (newPoll) {
-            history.push(`/polls/${newPoll.poll.id}`);
-          }
-    };
-
-    // submits edit request for poll to database
-    const handleEdit = async (e) => {
-      e.preventDefault();
-      setErrors([]);
-        let oneVotes = optionOneVotes;
-        let twoVotes = optionTwoVotes;
-        if (title !== editPoll.title || optionOneTitle !== editPoll.optionOneTitle || optionTwoTitle !== editPoll.optionTwoTitle) {
-          oneVotes = 0;
-          twoVotes = 0;
+      let newPoll = await dispatch(pollActions.createPoll({ title, description, optionOneTitle, optionTwoTitle, userId: sessionUser.id }))
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
+        if (newPoll) {
+          history.push(`/polls/${newPoll.poll.id}`);
         }
-        let newPoll = await dispatch(pollActions.editPoll({ pollId, title, description, optionOneTitle, optionTwoTitle, userId: sessionUser.id, optionOneVotes: oneVotes, optionTwoVotes: twoVotes }))
-          .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-          });
-          if (newPoll) {
-            history.push(`/polls/${newPoll.poll.id}`);
-          }
-    };
+  };
 
-    const handleCancel = (e) => {
-      e.preventDefault();
-      history.goBack();
-    };
+  // submits edit request for poll to database
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    setErrors([]);
+      let oneVotes = optionOneVotes;
+      let twoVotes = optionTwoVotes;
+      if (title !== editPoll.title || optionOneTitle !== editPoll.optionOneTitle || optionTwoTitle !== editPoll.optionTwoTitle) {
+        oneVotes = 0;
+        twoVotes = 0;
+      }
+      let newPoll = await dispatch(pollActions.editPoll({ pollId, title, description, optionOneTitle, optionTwoTitle, userId: sessionUser.id, optionOneVotes: oneVotes, optionTwoVotes: twoVotes }))
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
+        if (newPoll) {
+          history.push(`/polls/${newPoll.poll.id}`);
+        }
+  };
+
+  const handleCancel = (e) => {
+    e.preventDefault();
+    history.goBack();
+  };
 
   // if the user is not logged in, redirect to the login page
   if (!sessionUser) return <Redirect to='/login' />;
