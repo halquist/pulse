@@ -28,7 +28,10 @@ router.get(
 const validateComment = [
   check('body')
     .exists({ checkFalsy: true })
-    .withMessage('A comment cannot be empty'),
+    .withMessage('A comment cannot be empty')
+    .bail()
+    .matches(/.*\S.*/)
+    .withMessage('Comment must not be only spaces'),
   handleValidationErrors
 ]
 
