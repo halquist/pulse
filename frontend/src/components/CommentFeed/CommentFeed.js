@@ -24,13 +24,13 @@ const CommentFeed = ({ pollId }) => {
         return (value.pollId === parseInt(pollId) && value.topLevel)
       })))
       .then(() => setLoaded(true))
-  },[dispatch]);
+  },[dispatch, comments, pollId]);
 
   useEffect(() => {
     setTopComments(Object.entries(comments).filter(([key, value]) => {
       return (value.pollId === parseInt(pollId) && value.topLevel)
     }))
-  },[comments2])
+  },[comments2, comments, pollId])
 
   if (!loaded) {
     return (

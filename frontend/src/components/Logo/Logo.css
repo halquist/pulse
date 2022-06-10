@@ -26,6 +26,19 @@
   animation: wiggle_lower .5s ease-in-out alternate infinite;
 }
 
+#middle_line_icon {
+  /* transition: .5s; */
+  animation: wiggle_line .5s ease-in-out alternate 6;
+}
+
+#upper_circle_icon {
+  animation: wiggle_upper .5s ease-in-out alternate 6;
+}
+
+#lower_circle_icon {
+  animation: wiggle_lower .5s ease-in-out alternate 6;
+}
+
 
 @keyframes wiggle_line {
   0% {

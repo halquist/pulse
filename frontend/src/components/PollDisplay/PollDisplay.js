@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getOnePoll, getPolls } from '../../store/poll';
+import { getVotes } from '../../store/uservote';
 import { LoadingIcon } from '../Logo';
 import * as pollActions from '../../store/poll'
 import XMark from '../XMark';
@@ -12,22 +13,27 @@ const PollDisplay = ({ pollId }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
-  const polls = useSelector(state => state.poll.allPolls);
   const onePoll = useSelector(state => state.poll.singlePoll);
+  const votes = useSelector(state => state.vote.pollVotes);
   const [loaded, setLoaded] = useState(false);
   const [votePercent, setVotePercent] = useState(0);
   const [showDelete, setShowDelete] = useState(false);
-  // const [truncate, setTruncate] = useState('truncateBlock');
+  const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1).length);
+  const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2).length);
+
 
   useEffect(() => {
     dispatch(getPolls())
+    dispatch(getVotes(pollId))
+      .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1).length))
+      .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2).length))
     dispatch(getOnePoll(pollId))
-    .then(() => setLoaded(true))
-  },[dispatch]);
+      .then(() => setLoaded(true))
+  },[dispatch, pollId, votes]);
 
   useEffect(() => {
-    setVotePercent(Math.floor((onePoll.optionOneVotes / (onePoll.optionOneVotes + onePoll.optionTwoVotes)) * 100))
-  },[onePoll]);
+    setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100))
+  },[onePoll, optionOneVotes, optionTwoVotes]);
 
   // const expandText = () => {
   //   if (truncate === 'truncateBlock') {
@@ -64,7 +70,7 @@ const PollDisplay = ({ pollId }) => {
       <div className='pollDisplayDiv'>
         <div className='pollDisplayTopBar'>
           <div className='pollDisplayUsername'>{onePoll.User.username}</div>
-          <div className='pollDisplayVotesNum'>{onePoll.optionOneVotes + onePoll.optionTwoVotes} Votes</div>
+          <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>
         </div>
         <div className='pollDisplayText'>
           <div className='pollTitle'>{onePoll.title}</div>
