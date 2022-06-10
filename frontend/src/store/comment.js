@@ -31,7 +31,7 @@ const deleteComment = (id) => {
     type: DELETE,
     id
   }
-}
+};
 
 // load comments from database on load of poll focus page
 export const getComments = (pollId) => async dispatch => {

@@ -37,7 +37,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   })
 
-
   Comment.createComment = async function ({ body, userId, pollId, commentId, topLevel }) {
     const comment = await Comment.create({
       body,

@@ -47,7 +47,7 @@ const PollForm = ({ mode }) => {
     } else {
       setLoaded(true)
     }
-  },[dispatch, editPoll.title, editPoll.description, editPoll.optionOneTitle, editPoll.optionTwoTitle])
+  },[dispatch, editPoll.title, editPoll.description, editPoll.optionOneTitle, editPoll.optionTwoTitle, editPoll.optionOneVotes, editPoll.optionTwoVotes, mode, pollId])
 
 
 

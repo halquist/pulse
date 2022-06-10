@@ -3,12 +3,14 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import pollReducer from "./poll"
 import commentReducer from "./comment";
+import voteReducer from "./uservote";
 
 const rootReducer = combineReducers({
   // add reducer functions here
   session: sessionReducer,
   poll: pollReducer,
-  comment: commentReducer
+  comment: commentReducer,
+  vote: voteReducer
 });
 
 let enhancer;

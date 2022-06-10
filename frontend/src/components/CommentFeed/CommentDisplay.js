@@ -26,7 +26,7 @@ const CommentDisplay = ({ comment, comments }) => {
     setReplyComments(Object.entries(comments).filter(([key, value]) => {
       return (value.commentId === parseInt(thisComment.id) && !value.topLevel)
     }))
-  },[comment])
+  },[comment, comments, thisComment.id])
 
   const showReplyFunc = () => {
     setShowReply(!showReply)
@@ -54,6 +54,7 @@ const CommentDisplay = ({ comment, comments }) => {
   return (
     <div className='singleCommentContainer' >
       <div className='commentUserBar' >
+        <div>[-]</div>
         <div className='commentUser' >{thisComment.User.username}</div>
       </div>
       {!showEdit ?
