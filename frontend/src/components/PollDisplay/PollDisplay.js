@@ -18,22 +18,52 @@ const PollDisplay = ({ pollId }) => {
   const [loaded, setLoaded] = useState(false);
   const [votePercent, setVotePercent] = useState(0);
   const [showDelete, setShowDelete] = useState(false);
-  const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1).length);
-  const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2).length);
+  const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length);
+  const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length);
+  const [voteSelection, setVoteSelection] = useState(0);
+  // const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
+  // const [optionTwoVotesDisplay, setOptionTwoVotesDisplay] = useState(0);
 
 
   useEffect(() => {
     dispatch(getPolls())
-    dispatch(getVotes(pollId))
-      .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1).length))
-      .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2).length))
     dispatch(getOnePoll(pollId))
       .then(() => setLoaded(true))
-  },[dispatch, pollId, votes]);
+    dispatch(getVotes(pollId))
+      .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length))
+      .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
+  },[dispatch, pollId, votes, onePoll.id]);
 
   useEffect(() => {
     setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100))
   },[onePoll, optionOneVotes, optionTwoVotes]);
+
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     if (optionOneVotesDisplay !== optionOneVotes) {
+  //       console.log('here')
+  //       if (optionOneVotesDisplay < optionOneVotes) {
+  //         setOptionOneVotesDisplay((prev) => prev + 1)
+  //       }
+  //       if (optionOneVotesDisplay > optionOneVotes) {
+  //         setOptionOneVotesDisplay((prev) => prev - 1)
+  //       }
+  //     }
+  //     if (optionTwoVotesDisplay !== optionTwoVotes) {
+  //       if (optionTwoVotesDisplay < optionTwoVotes) {
+  //         setOptionTwoVotesDisplay((prev) => prev + 1)
+  //       }
+  //       if (optionTwoVotesDisplay > optionTwoVotes) {
+  //         setOptionTwoVotesDisplay((prev) => prev - 1)
+  //       }
+  //     }
+  //     console.log(optionOneVotes)
+  //     console.log(optionTwoVotes)
+  //     console.log(optionOneVotesDisplay)
+  //     console.log(optionTwoVotesDisplay)
+  //     setVotePercent(Math.floor((optionOneVotesDisplay / (optionOneVotesDisplay + optionTwoVotesDisplay)) * 100))
+  //   }, 1000);
+  // })
 
   // const expandText = () => {
   //   if (truncate === 'truncateBlock') {
@@ -56,6 +86,9 @@ const PollDisplay = ({ pollId }) => {
       }
   }
 
+  const handleSetVote = (vote) => {
+    setVoteSelection(vote);
+  };
 
   if (!loaded) {
     return (
@@ -82,15 +115,15 @@ const PollDisplay = ({ pollId }) => {
             </div>
         </div>
         <div className='pollDisplayVoteBar'>
-          <div className='pollDisplayOptionOne'>
+          <div className='pollDisplayOptionOne' onClick={() => handleSetVote(1)}>
             <div className='voteBoxPink'>
-              <div className='voteCheck'><XMark /></div>
+              <div className={`voteCheck ${voteSelection === 1 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>
             {onePoll.optionOneTitle}
           </div>
-          <div className='pollDisplayOptionTwo'>
+          <div className='pollDisplayOptionTwo' onClick={() => handleSetVote(2)}>
             <div className='voteBoxGreen'>
-              <div className='voteCheck'><XMark /></div>
+              <div className={`voteCheck ${voteSelection === 2 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>
               {onePoll.optionTwoTitle}
           </div>

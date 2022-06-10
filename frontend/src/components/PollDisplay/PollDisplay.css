@@ -170,9 +170,16 @@
   border: 2px solid #680F3F;
 }
 
-.voteCheck {
+.invisible {
   opacity: 0;
-  transition: .5s;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.voteCheck {
+  transition: .2s;
 }
 
 .pollDisplayOptionOne:hover > .voteBoxPink > .voteCheck {
@@ -181,6 +188,14 @@
 
 .pollDisplayOptionTwo:hover > .voteBoxGreen > .voteCheck {
   opacity: 1;
+}
+
+.pollDisplayOptionOne:active > .voteBoxPink > .voteCheck {
+  transform: scale(.8);
+}
+
+.pollDisplayOptionTwo:active > .voteBoxGreen > .voteCheck {
+  transform: scale(.8);
 }
 
 .pollDisplayBottomBar {
