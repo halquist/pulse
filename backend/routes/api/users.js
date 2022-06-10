@@ -13,11 +13,16 @@ const validateSignup = [
   check('email')
     .exists({ checkFalsy: true })
     .withMessage('Email field is required')
+    .bail()
     .isEmail()
     .withMessage('Please provide a valid email'),
     check('username')
       .exists({ checkFalsy: true })
       .withMessage('Username field is required')
+      .bail()
+      .matches(/.*\S.*/)
+      .withMessage('Username must not be only spaces')
+      .bail()
       .isLength({min: 4})
       .withMessage('Please provide a username with at least 4 characters'),
     check('username')
@@ -27,6 +32,7 @@ const validateSignup = [
     check('password')
       .exists({ checkFalsy: true })
       .withMessage('Password field is required')
+      .bail()
       .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
       .withMessage('Password must be 8 characters or more & include at least 1 letter and 1 number'),
     // handleValidationErrors

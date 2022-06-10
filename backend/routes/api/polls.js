@@ -41,21 +41,30 @@ const validatePoll = [
   check('title')
     .exists({ checkFalsy: true })
     .withMessage('Title field is required')
+    .bail()
     .isLength({min:0, max:100})
-    .withMessage('Title must be 100 characters or less'),
+    .withMessage('Title must be 100 characters or less')
+    .matches(/.*\S.*/)
+    .withMessage('Title field must not be only spaces'),
   check('optionOneTitle')
     .exists({ checkFalsy: true})
     .withMessage('Choice #1 is required')
+    .bail()
     .isLength({min:0, max:50})
-    .withMessage('Choice #1 must be 50 characters or less'),
+    .withMessage('Choice #1 must be 50 characters or less')
+    .matches(/.*\S.*/)
+    .withMessage('Choice #1 must not be only spaces'),
   check('optionTwoTitle')
     .exists({ checkFalsy: true})
     .withMessage('Choice #2 is required')
+    .bail()
     .isLength({min:0, max:50})
-    .withMessage('Choice #2 must be 50 characters or less'),
+    .withMessage('Choice #2 must be 50 characters or less')
+    .matches(/.*\S.*/)
+    .withMessage('Choice #2 must not be only spaces'),
   check('description')
     .isLength({min:0, max:280})
-    .withMessage('Desccription must be 280 characters or less'),
+    .withMessage('Description must be 280 characters or less'),
   handleValidationErrors
 ]
 

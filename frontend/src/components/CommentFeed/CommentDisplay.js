@@ -80,7 +80,7 @@ const CommentDisplay = ({ comment, comments }) => {
       }
       {showReply &&
         <div className='replyForm'>
-          <CommentForm callback={showReplyFunc} commentId={thisComment.id} topLevel={false} />
+          <CommentForm callback={showReplyFunc} commentId={thisComment.id} topLevel={false} labelColor='darkLabel'/>
         </div>
       }
       {replyComments.map((comment) => {

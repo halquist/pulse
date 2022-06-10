@@ -40,7 +40,7 @@ const CommentEdit = ({ comment, callback }) => {
         }
       </div>
       <form onSubmit={handleEdit} id='createCommentForm'>
-        <label htmlFor='body' id='commentLabel'>Comment:</label>
+        <label htmlFor='body' id='editCommentLabel'>Comment:</label>
         <textarea
                   id='commentInput'
                   name='body'
