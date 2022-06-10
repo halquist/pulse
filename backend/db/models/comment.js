@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
 
-  // deletes comments nested under each comment since cascade doesn't work for this
+  // deletes comments nested under each comment since cascade doesn't work for this and not deleting them first creates a sql error
   Comment.beforeDestroy( async (comment) => {
     const killComment = await Comment.findAll({
       where: {

@@ -28,23 +28,26 @@ function App() {
       <Navigation isLoaded={loaded} />
       {loaded && (
       <Switch>
-        <Route path='/' exact>
+        <Route path='/' exact={true}>
           <SplashPage />
         </Route>
-        <Route path='/signup' exact>
+        <Route path='/signup' exact={true}>
           <SignupFormPage />
         </Route>
-        <Route path='/login' exact>
+        <Route path='/login' exact={true}>
           <LoginFormPage />
         </Route>
-        <Route path='/polls/new' exact>
+        <Route path='/polls/new' exact={true}>
           <PollForm mode='create' />
         </Route>
-        <Route path='/polls/:pollId/edit' exact>
+        <Route path='/polls/:pollId/edit' exact={true}>
           <PollForm mode='edit' />
         </Route>
-        <Route path='/polls/:pollId' exact>
+        <Route path='/polls/:pollId' exact={true}>
           <PollFocus />
+        </Route>
+        <Route path='*' exact={true}>
+          page not found
         </Route>
       </Switch>
       )}
