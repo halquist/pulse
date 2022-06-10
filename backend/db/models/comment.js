@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Comment.belongsTo(models.User, { foreignKey: 'userId' })
     Comment.belongsTo(models.Poll, { foreignKey: 'pollId' })
-    Comment.belongsTo(models.Comment, { foreignKey: 'id' })
+    Comment.belongsTo(models.Comment, { foreignKey: 'id', onDelete: 'CASCADE' })
   };
   return Comment;
 };

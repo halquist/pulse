@@ -17,7 +17,7 @@ const PollDisplay = ({ pollId }) => {
   const [loaded, setLoaded] = useState(false);
   const [votePercent, setVotePercent] = useState(0);
   const [showDelete, setShowDelete] = useState(false);
-  const [truncate, setTruncate] = useState('truncateBlock');
+  // const [truncate, setTruncate] = useState('truncateBlock');
 
   useEffect(() => {
     dispatch(getPolls())
@@ -29,13 +29,13 @@ const PollDisplay = ({ pollId }) => {
     setVotePercent(Math.floor((onePoll.optionOneVotes / (onePoll.optionOneVotes + onePoll.optionTwoVotes)) * 100))
   },[onePoll]);
 
-  const expandText = () => {
-    if (truncate === 'truncateBlock') {
-      setTruncate('unTruncate')
-    } else {
-      setTruncate('truncateBlock')
-    }
-  }
+  // const expandText = () => {
+  //   if (truncate === 'truncateBlock') {
+  //     setTruncate('unTruncate')
+  //   } else {
+  //     setTruncate('truncateBlock')
+  //   }
+  // }
 
   // toggles showing the delete confirmation form
   const deleteForm = () => {
@@ -68,11 +68,11 @@ const PollDisplay = ({ pollId }) => {
         </div>
         <div className='pollDisplayText'>
           <div className='pollTitle'>{onePoll.title}</div>
-            <div className={`pollDescription ${truncate}`}>{onePoll.description}</div>
+            <div className='pollDescription'>{onePoll.description}</div>
             <div className='moreTextBar'>
-              { onePoll.description.length > 144 &&
+              {/* { onePoll.description.length > 144 &&
                 <div className='moreText' onClick={expandText}>{truncate === 'truncateBlock' ? 'Expand' : 'Collapse'}</div>
-              }
+              } */}
             </div>
         </div>
         <div className='pollDisplayVoteBar'>

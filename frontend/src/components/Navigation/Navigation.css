@@ -73,6 +73,8 @@ color: white;
 }
 
 #profileButton {
-  padding: 0px 40px;
+  padding: 0px 20px;
   margin: 0px 10px;
+  background-color: #495151;
+  color: white;
 }

@@ -1,5 +1,6 @@
 .pollDisplayDiv {
   margin-top: 8px;
+  margin-bottom: 8px;
   min-height: 100px;
   width: 100%;
   max-width: 700px;

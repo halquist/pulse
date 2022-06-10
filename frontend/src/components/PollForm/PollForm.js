@@ -134,10 +134,12 @@ const PollForm = ({ mode }) => {
                 id='descriptionInput'
                 name='description'
                 type='text'
+                maxLength="280"
                 value={description}
                 onChange={e => setDescription(e.target.value)}
               >
               </textarea>
+              <div id="maxLength">{280 - description.length}</div>
             </div>
           </div>
           <div id='formOptionsDiv'>

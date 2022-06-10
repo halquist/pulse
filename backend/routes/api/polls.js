@@ -53,6 +53,9 @@ const validatePoll = [
     .withMessage('Choice #2 is required')
     .isLength({min:0, max:50})
     .withMessage('Choice #2 must be 50 characters or less'),
+  check('description')
+    .isLength({min:0, max:280})
+    .withMessage('Desccription must be 280 characters or less'),
   handleValidationErrors
 ]
 

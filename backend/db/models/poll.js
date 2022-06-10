@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     description: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: true
     },
     imageUrl: {
@@ -77,8 +77,8 @@ module.exports = (sequelize, DataTypes) => {
   Poll.associate = function(models) {
     // associations can be defined here
     Poll.belongsTo(models.User, { foreignKey: 'userId' })
-    Poll.hasMany(models.Comment, { foreignKey: 'pollId' })
-    Poll.hasMany(models.UserVote, { foreignKey: 'pollId' })
+    Poll.hasMany(models.Comment, { foreignKey: 'pollId', onDelete: 'CASCADE', hooks: true })
+    Poll.hasMany(models.UserVote, { foreignKey: 'pollId', onDelete: 'CASCADE', hooks: true })
   };
   return Poll;
 };
