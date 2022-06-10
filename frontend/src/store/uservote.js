@@ -35,6 +35,26 @@ export const getVotes = (pollId) => async dispatch => {
   }
 };
 
+// add a new vote
+export const createVote = (vote) => async (dispatch) => {
+  const { userId, pollId, voteSelection } = vote;
+  const response = await csrfFetch('/api/votes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId,
+      pollId,
+      voteSelection
+    })
+  });
+  const data = await response.json();
+  dispatch(addVote(data));
+
+  return data;
+}
+
 const initialState = {
   pollVotes: {}
 };

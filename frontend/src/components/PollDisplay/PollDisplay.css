@@ -5,7 +5,7 @@
   width: 100%;
   max-width: 700px;
   flex-shrink: .5;
-  /* background-color: #539A94; */
+  background-color: #539A94;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,7 +13,7 @@
   border: 1px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
   color: rgb(218, 224, 230);
-  background-image: url("../../images/splash_background_mk2.svg");
+  /* background-image: url("../../images/splash_background_mk2.svg"); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
@@ -217,6 +217,7 @@
 }
 
 .submitVote {
+  position: relative;
   background-color: #8ED0B9;
   color: #003B31;
   padding: 4px 20px;

@@ -28,3 +28,34 @@ router.get(
     return res.json(uservotes);
   })
 );
+
+// new comment validation
+const validateVote = [
+  check('userId')
+    .exists({ checkFalsy: true })
+    .withMessage('Something went wrong. Please try your vote again.')
+    .bail(),
+  check('pollId')
+    .exists({ checkFalsy: true })
+    .withMessage('Something went wrong. Please try your vote again.')
+    .bail(),
+  check('voteSelection')
+    .exists({ checkFalsy: true })
+    .withMessage('Something went wrong. Please try your vote again.')
+    .bail(),
+  handleValidationErrors
+]
+
+// create new vote
+router.post(
+  '/',
+  validateVote, requireAuth, restoreUser,
+  asyncHandler( async (req, res) => {
+    const { userId, pollId, voteSelection } = req.body;
+    const vote = await UserVote.createVote({ userId, pollId, voteSelection });
+    // const findComment = await Comment.findByPk(comment.id, {include: { model: User}});
+    return res.json(
+      vote
+    );
+  })
+);

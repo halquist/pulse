@@ -1,26 +1,35 @@
 import * as React from 'react'
 import './PollDisplay.css';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getOnePoll, getPolls } from '../../store/poll';
 import { getVotes } from '../../store/uservote';
-import { LoadingIcon } from '../Logo';
+import { LoadingIcon, VotedSticker } from '../Logo';
 import * as pollActions from '../../store/poll'
+import * as voteActions from '../../store/uservote'
 import XMark from '../XMark';
 
 const PollDisplay = ({ pollId }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  // const { pollId } = useParams();
+
   const sessionUser = useSelector(state => state.session.user);
   const onePoll = useSelector(state => state.poll.singlePoll);
   const votes = useSelector(state => state.vote.pollVotes);
+  const votes2 = useSelector(state => state.vote);
+
   const [loaded, setLoaded] = useState(false);
-  const [votePercent, setVotePercent] = useState(0);
+  const [votePercent, setVotePercent] = useState(50);
   const [showDelete, setShowDelete] = useState(false);
   const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length);
   const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length);
   const [voteSelection, setVoteSelection] = useState(0);
+  const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote.userId === sessionUser.id))
+  const [userVoteSticker, setUserVoteSticker] = useState(userVote.length > 0)
+  const [errors, setErrors] = useState([]);
+
   // const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
   // const [optionTwoVotesDisplay, setOptionTwoVotesDisplay] = useState(0);
 
@@ -30,13 +39,24 @@ const PollDisplay = ({ pollId }) => {
     dispatch(getOnePoll(pollId))
       .then(() => setLoaded(true))
     dispatch(getVotes(pollId))
+      .then(() => setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id)))
+      .then(() => setUserVoteSticker(userVote.length > 0))
       .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length))
       .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
-  },[dispatch, pollId, votes, onePoll.id]);
+  },[dispatch, pollId, votes, onePoll.id, sessionUser.id, userVote.length]);
 
   useEffect(() => {
     setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100))
-  },[onePoll, optionOneVotes, optionTwoVotes]);
+    setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id))
+    setUserVoteSticker(userVote.length > 0)
+    console.log(pollId, userVote[0]?.pollId)
+    // console.log(userVote)
+    if (pollId !== userVote[0]?.pollId) {
+      setUserVote([])
+    }
+  },[onePoll, optionOneVotes, optionTwoVotes, votes, votes2, sessionUser.id, userVote.length, pollId, userVote.pollId]);
+
+
 
   // useEffect(() => {
   //   setInterval(() => {
@@ -87,8 +107,23 @@ const PollDisplay = ({ pollId }) => {
   }
 
   const handleSetVote = (vote) => {
+    if (!userVote[0]?.voteSelection)
     setVoteSelection(vote);
   };
+
+  const handleVote = async () => {
+        let newVote = await dispatch(voteActions.createVote({ userId: sessionUser.id, pollId, voteSelection }))
+          .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+          });
+          if (newVote) {
+            setUserVoteSticker(true);
+            dispatch(getVotes(pollId))
+              .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length))
+              .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
+          }
+  }
 
   if (!loaded) {
     return (
@@ -117,13 +152,13 @@ const PollDisplay = ({ pollId }) => {
         <div className='pollDisplayVoteBar'>
           <div className='pollDisplayOptionOne' onClick={() => handleSetVote(1)}>
             <div className='voteBoxPink'>
-              <div className={`voteCheck ${voteSelection === 1 ? 'visible' : 'invisible'}`}><XMark /></div>
+              <div className={`voteCheck ${voteSelection === 1 || userVote[0]?.voteSelection === 1 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>
-            {onePoll.optionOneTitle}
+            {onePoll.optionOneTitle}2
           </div>
           <div className='pollDisplayOptionTwo' onClick={() => handleSetVote(2)}>
             <div className='voteBoxGreen'>
-              <div className={`voteCheck ${voteSelection === 2 ? 'visible' : 'invisible'}`}><XMark /></div>
+              <div className={`voteCheck ${voteSelection === 2 || userVote[0]?.voteSelection === 2 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>
               {onePoll.optionTwoTitle}
           </div>
@@ -144,7 +179,12 @@ const PollDisplay = ({ pollId }) => {
               <div className='editDiv' onClick={deleteForm}>Delete Poll</div>
             </>
           }
-          <div className='submitVote'>Submit Vote</div>
+          {userVoteSticker === true ?
+          <>
+            <div className='submitVote'>Submit Vote <VotedSticker /> </div>
+          </> :
+          <div className='submitVote' onClick={handleVote}>Submit Vote</div>
+        }
         </div>
             {showDelete &&
               <>
@@ -155,6 +195,13 @@ const PollDisplay = ({ pollId }) => {
                 </div>
               </>
             }
+      </div>
+      <div id='pollErrors'>
+        {
+          errors.map((error, i) => {
+            return <div id={i} key={i} >{error}</div>
+          })
+        }
       </div>
     </div>
   )

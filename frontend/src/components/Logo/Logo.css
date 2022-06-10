@@ -122,3 +122,31 @@
     stroke-width: 15px;
   }
 }
+
+.votedSticker {
+  width: 60px;
+  position: absolute;
+  right: 42px;
+  bottom: -30px;
+  transform: rotate(30deg);
+  animation: sticker_stick .8s ease-in;
+}
+
+@keyframes sticker_stick {
+  0% {
+    opacity: 0;
+    transform: scale(2) rotate(30deg);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1) rotate(30deg);
+  }
+  90% {
+    opacity: 1;
+    transform: scale(.85) rotate(30deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(30deg);
+  }
+}

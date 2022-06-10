@@ -14,10 +14,21 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
   }, {});
+
+  UserVote.createVote = async function ({ userId, pollId, voteSelection }) {
+    const vote = await UserVote.create({
+      userId,
+      pollId,
+      voteSelection
+    });
+
+    return vote;
+  };
+
   UserVote.associate = function(models) {
     // associations can be defined here
-    UserVote.belongsTo(models.User, { foreignKey: 'userId' })
-    UserVote.belongsTo(models.Poll, { foreignKey: 'pollId' })
+    UserVote.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' })
+    UserVote.belongsTo(models.Poll, { foreignKey: 'pollId', onDelete: 'CASCADE' })
   };
   return UserVote;
 };
