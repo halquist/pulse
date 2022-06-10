@@ -23,6 +23,21 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
 
+  // deletes comments nested under each comment since cascade doesn't work for this
+  Comment.beforeDestroy( async (comment) => {
+    const killComment = await Comment.findAll({
+      where: {
+        commentId: comment.id
+      }
+    })
+    if (killComment.length){
+      for (const oneComment of killComment) {
+        await oneComment.destroy ()
+      }
+    }
+  })
+
+
   Comment.createComment = async function ({ body, userId, pollId, commentId, topLevel }) {
     const comment = await Comment.create({
       body,
