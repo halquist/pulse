@@ -14,7 +14,7 @@ const PollFocus = () => {
 
   const [addComment, setAddComment] = useState(false);
 
-  
+
 
   const showAddComment = () => {
     setAddComment(!addComment)
@@ -25,7 +25,11 @@ const PollFocus = () => {
       <TitleBar title='Poll Focus' />
         <PollDisplay pollId={pollId} />
       <TitleBar title='Comments' button='comment' callback={showAddComment} />
-      {addComment && <CommentForm callback={showAddComment} />}
+      {addComment &&
+      <div id='addCommentContainer'>
+        <CommentForm callback={showAddComment} commentId={null} topLevel={true} />
+      </div>
+      }
       <CommentFeed pollId={pollId} />
     </div>
   )

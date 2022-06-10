@@ -11,6 +11,7 @@
 }
 
 #pollFormTitleDesc{
+  position: relative;
   margin-top: 10px;
   background-color: #B76A91;
   border: 1px solid rgba(0, 0, 0, .3);
@@ -110,4 +111,13 @@
   max-width: 100%;
   padding-top: 8px;
   text-align: center;
+}
+
+#maxLength {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 12px;
+  margin-bottom: 1px;
+  color:#680F3F;
 }

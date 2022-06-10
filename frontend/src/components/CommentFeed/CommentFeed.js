@@ -30,7 +30,6 @@ const CommentFeed = ({ pollId }) => {
     setTopComments(Object.entries(comments).filter(([key, value]) => {
       return (value.pollId === parseInt(pollId) && value.topLevel)
     }))
-    console.log('comments sir!')
   },[comments2])
 
   if (!loaded) {

@@ -3,7 +3,9 @@ import ActiveBackground from './ActiveBackground';
 
 const SplashPage = () => {
   return (
-    <ActiveBackground />
+    <div id='splashBackground'>
+      <ActiveBackground />
+    </div>
     // <div id='splashBackground'></div>
   )
 };

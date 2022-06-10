@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useState } from 'react';
 
 
-const CommentForm = ({ callback }) => {
+const CommentForm = ({ callback, commentId, topLevel }) => {
   const dispatch = useDispatch();
 
   let { pollId } = useParams();
@@ -13,12 +13,14 @@ const CommentForm = ({ callback }) => {
 
   const [body, setBody] = useState('');
   const [errors, setErrors] = useState([]);
+  const [thisCommentId, setThisCommentId] = useState(commentId)
+  const [thisTopLevel, setThisTopLevel] = useState(topLevel)
 
     // submits new comment to database
     const handleSubmit = async (e) => {
       e.preventDefault();
       setErrors([]);
-        let newComment = await dispatch(commentActions.postComment({ pollId, body, topLevel: true, userId: sessionUser.id }))
+        let newComment = await dispatch(commentActions.postComment({ pollId, body, topLevel: thisTopLevel, userId: sessionUser.id, commentId: thisCommentId }))
           .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
@@ -36,7 +38,7 @@ const CommentForm = ({ callback }) => {
     };
 
   return (
-    <div id='createCommentContainer'>
+    <>
       <div id='pollErrors'>
         {
           errors.map((error, i) => {
@@ -59,7 +61,7 @@ const CommentForm = ({ callback }) => {
             <button className='greenButton' onClick={handleCancel}>Cancel</button>
           </div>
       </form>
-    </div>
+    </>
   )
 };
 

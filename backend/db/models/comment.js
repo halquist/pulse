@@ -23,6 +23,21 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
 
+  // deletes comments nested under each comment since cascade doesn't work for this
+  Comment.beforeDestroy( async (comment) => {
+    const killComment = await Comment.findAll({
+      where: {
+        commentId: comment.id
+      }
+    })
+    if (killComment.length){
+      for (const oneComment of killComment) {
+        await oneComment.destroy ()
+      }
+    }
+  })
+
+
   Comment.createComment = async function ({ body, userId, pollId, commentId, topLevel }) {
     const comment = await Comment.create({
       body,
@@ -49,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Comment.belongsTo(models.User, { foreignKey: 'userId' })
     Comment.belongsTo(models.Poll, { foreignKey: 'pollId' })
-    Comment.belongsTo(models.Comment, { foreignKey: 'id' })
+    Comment.belongsTo(models.Comment, { foreignKey: 'id', onDelete: 'CASCADE' })
   };
   return Comment;
 };
