@@ -52,7 +52,7 @@ const LoginFormPage = () => {
               type="text"
               value={credential}
               onChange={(e) => setCredential(e.target.value)}
-              autoFocus='true'
+              autoFocus={true}
             />
           <label>
             Password

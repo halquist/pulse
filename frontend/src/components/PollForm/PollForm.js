@@ -1,4 +1,4 @@
-import * as pollActions from '../../store/poll'
+import * as pollActions from '../../store/poll';
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, Redirect } from "react-router-dom";
@@ -21,28 +21,32 @@ const PollForm = ({ mode }) => {
     pollId = parseInt(pollId);
   }
 
-  const [title, setTitle] = useState(editPoll.title || '');
-  const [description, setDescription] = useState(editPoll.description || '');
-  const [optionOneTitle, setOptionOneTitle] = useState(editPoll.optionOneTitle || '');
-  const [optionTwoTitle, setOptionTwoTitle] = useState(editPoll.optionTwoTitle || '');
-  const [optionOneVotes, setOptionOneVotes] = useState(editPoll.optionOneVotes || 0);
-  const [optionTwoVotes, setOptionTwoVotes] = useState(editPoll.optionTwoVotes || 0);
+  const [title, setTitle] = useState(mode === 'edit' ? editPoll.title || '' : '');
+  const [description, setDescription] = useState(mode === 'edit' ? editPoll.description || '' : '');
+  const [optionOneTitle, setOptionOneTitle] = useState(mode === 'edit' ? editPoll.optionOneTitle || '' : '');
+  const [optionTwoTitle, setOptionTwoTitle] = useState(mode === 'edit' ? editPoll.optionTwoTitle || '' : '');
+  const [optionOneVotes, setOptionOneVotes] = useState(mode === 'edit' ? editPoll.optionOneVotes || 0 : 0);
+  const [optionTwoVotes, setOptionTwoVotes] = useState(mode === 'edit' ? editPoll.optionTwoVotes || 0 : 0);
   const [barTitle, setBarTitle] = useState(mode === 'edit' ? 'Edit Poll' : 'Create Poll');
   const [errors, setErrors] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [canChange, setCanChange] = useState(false);
 
   useEffect(() => {
-    dispatch(getOnePoll(pollId))
-      .then(() => setTitle(editPoll.title))
-      .then(() => setDescription(editPoll.description))
-      .then(() => setOptionOneTitle(editPoll.optionOneTitle))
-      .then(() => setOptionTwoTitle(editPoll.optionTwoTitle))
-      .then(() => setOptionOneVotes(editPoll.optionOneVotes))
-      .then(() => setOptionTwoVotes(editPoll.optionTwoVotes))
-      .then(() => setBarTitle('Edit Poll'))
-      .then(() => setCanChange(!editPoll.optionOneVotes && !editPoll.optionTwoVotes))
-      .then(() => setLoaded(true))
+    if (pollId && mode === 'edit') {
+      dispatch(getOnePoll(pollId))
+        .then(() => setTitle(editPoll.title || ''))
+        .then(() => setDescription(editPoll.description || ''))
+        .then(() => setOptionOneTitle(editPoll.optionOneTitle || ''))
+        .then(() => setOptionTwoTitle(editPoll.optionTwoTitle || ''))
+        .then(() => setOptionOneVotes(editPoll.optionOneVotes || 0))
+        .then(() => setOptionTwoVotes(editPoll.optionTwoVotes || 0))
+        .then(() => setBarTitle(mode === 'edit' ? 'Edit Poll' : 'Create Poll'))
+        .then(() => setCanChange(!editPoll.optionOneVotes && !editPoll.optionTwoVotes))
+        .then(() => setLoaded(true))
+    } else {
+      setLoaded(true)
+    }
   },[dispatch, editPoll.title, editPoll.description, editPoll.optionOneTitle, editPoll.optionTwoTitle])
 
 
@@ -165,7 +169,7 @@ const PollForm = ({ mode }) => {
               </div>
             </div>
           </div>
-          {!canChange && <div id='editWarningDiv'>Warning: changing the title or either of the choices will remove all current votes on this poll. You can change the description without losing votes.</div>}
+          {!canChange && mode === 'edit' && <div id='editWarningDiv'>Warning: changing the title or either of the choices will remove all current votes on this poll. You can change the description without losing votes.</div>}
           <div id='pollButtonBar'>
             {mode === 'edit' ?
             <button onClick={handleEdit} className='pinkButton'>Submit Edit</button> :
