@@ -72,3 +72,9 @@
 .commentReply:hover {
   color: rgb(124, 131, 138);
 }
+
+.commentDeleteConfirmText {
+  color: rgb(124, 131, 138);
+  text-align: center;
+  padding: 6px;
+}

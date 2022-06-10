@@ -50,9 +50,19 @@ module.exports = (sequelize, DataTypes) => {
     return comment;
   };
 
-  Comment.deleteComment = async function ({ id }) {
-    const comment = await Comment.findByPk(id);
 
+  Comment.updateComment = async function ({ id, body }) {
+    const comment = await Comment.findByPk( id )
+    comment.body = body;
+
+    await comment.save();
+    return comment;
+  };
+
+  Comment.deleteComment = async function ({ commentId }) {
+    // console.log(id)
+    const comment = await Comment.findByPk(commentId);
+    // console.log('model comment %%%%%%%%%', comment)
     await comment.destroy();
 
     return {

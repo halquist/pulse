@@ -1,9 +1,16 @@
 import './CommentFeed.css'
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import * as commentActions from '../../store/comment'
+
 import CommentForm from './CommentForm';
+import CommentEdit from './CommentEdit';
 
 
 const CommentDisplay = ({ comment, comments }) => {
+  const dispatch = useDispatch();
+  const sessionUser = useSelector(state => state.session.user);
+
   const thisComment = comment[1]
 
   const [replyComments, setReplyComments] = useState(Object.entries(comments).filter(([key, value]) => {
@@ -11,6 +18,8 @@ const CommentDisplay = ({ comment, comments }) => {
   }))
 
   const [showReply, setShowReply] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
 
   useEffect(() => {
@@ -23,15 +32,52 @@ const CommentDisplay = ({ comment, comments }) => {
     setShowReply(!showReply)
   }
 
+  const showEditFunc = () => {
+    setShowEdit(!showEdit)
+  }
+
+  const showDeleteFunc = () => {
+    setShowDelete(!showDelete)
+  }
+
+    // handles deletion of comment
+    const handleDelete = async () => {
+      const id = thisComment.id;
+      let deleteComment = await dispatch(commentActions.removeComment(id))
+        if (deleteComment.comment.message === 'Success') {
+          showDeleteFunc()
+        }
+    }
+
+
+
   return (
     <div className='singleCommentContainer' >
       <div className='commentUserBar' >
         <div className='commentUser' >{thisComment.User.username}</div>
       </div>
-      <div className='commentText' >{thisComment.body}</div>
+      {!showEdit ?
+        <div className='commentText' >{thisComment.body}</div> :
+        <CommentEdit comment={thisComment} callback={showEditFunc} />
+      }
       <div className='commentBottomBar'>
+        {sessionUser?.id === thisComment.User.id &&
+          <>
+            <div className='commentReply' onClick={showEditFunc}>Edit</div>
+            <div className='commentReply' onClick={showDeleteFunc}>Delete</div>
+          </>
+        }
         <div className='commentReply' onClick={showReplyFunc}>Reply</div>
       </div>
+      {showDelete &&
+         <>
+         <div className='commentDeleteConfirmText'>Are you sure you want to delete this comment?</div>
+         <div className='pollDeleteBar'>
+           <button onClick={showDeleteFunc} className='pinkButton'>Cancel</button>
+           <button onClick={handleDelete} className='greenButton'>Delete</button>
+         </div>
+       </>
+      }
       {showReply &&
         <div className='replyForm'>
           <CommentForm callback={showReplyFunc} commentId={thisComment.id} topLevel={false} />
