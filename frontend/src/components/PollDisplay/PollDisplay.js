@@ -4,7 +4,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getOnePoll, getPolls } from '../../store/poll';
-import { getVotes } from '../../store/uservote';
+import { getVotes, clearOutVotes } from '../../store/uservote';
 import { LoadingIcon, VotedSticker } from '../Logo';
 import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
@@ -18,13 +18,13 @@ const PollDisplay = ({ pollId }) => {
   const sessionUser = useSelector(state => state.session.user);
   const onePoll = useSelector(state => state.poll.singlePoll);
   const votes = useSelector(state => state.vote.pollVotes);
-  const votes2 = useSelector(state => state.vote);
 
   const [loaded, setLoaded] = useState(false);
+  const [data, setData] = useState(false);
   const [votePercent, setVotePercent] = useState(50);
   const [showDelete, setShowDelete] = useState(false);
-  const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length);
-  const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length);
+  const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === pollId).length);
+  const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === pollId).length);
   const [voteSelection, setVoteSelection] = useState(0);
   const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote.userId === sessionUser.id))
   const [userVoteSticker, setUserVoteSticker] = useState(userVote.length > 0)
@@ -33,8 +33,13 @@ const PollDisplay = ({ pollId }) => {
   // const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
   // const [optionTwoVotesDisplay, setOptionTwoVotesDisplay] = useState(0);
 
+  // console.log(userVote)
+  // console.log('pollId', pollId)
+  // console.log('uservote pollId', userVote[0]?.pollId)
+  // console.log(parseInt(pollId) !== userVote[0]?.pollId)
 
   useEffect(() => {
+    dispatch(clearOutVotes())
     dispatch(getPolls())
     dispatch(getOnePoll(pollId))
       .then(() => setLoaded(true))
@@ -43,18 +48,30 @@ const PollDisplay = ({ pollId }) => {
       .then(() => setUserVoteSticker(userVote.length > 0))
       .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length))
       .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
-  },[dispatch, pollId, votes, onePoll.id, sessionUser.id, userVote.length]);
+      .then(() => setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id)))
+      .then(() => setData(true))
+  },[dispatch])
+
+  // useEffect(() => {
+  //   dispatch(getPolls())
+  //   dispatch(getOnePoll(pollId))
+  //     .then(() => setLoaded(true))
+  //   dispatch(getVotes(pollId))
+  //     .then(() => setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id)))
+  //     .then(() => setUserVoteSticker(userVote.length > 0))
+  //     .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length))
+  //     .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
+  //     .then(() => setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id)))
+  //     .then(() => setData(true))
+  // },[dispatch, pollId, onePoll.id, sessionUser.id, userVote.length, votes]);
 
   useEffect(() => {
+    setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length)
+    setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length)
     setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100))
     setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id))
     setUserVoteSticker(userVote.length > 0)
-    console.log(pollId, userVote[0]?.pollId)
-    // console.log(userVote)
-    if (pollId !== userVote[0]?.pollId) {
-      setUserVote([])
-    }
-  },[onePoll, optionOneVotes, optionTwoVotes, votes, votes2, sessionUser.id, userVote.length, pollId, userVote.pollId]);
+  },[onePoll, optionOneVotes, optionTwoVotes, votes, sessionUser.id, userVote.length, pollId, userVote.pollId]);
 
 
 
@@ -125,7 +142,7 @@ const PollDisplay = ({ pollId }) => {
           }
   }
 
-  if (!loaded) {
+  if (!loaded || !data) {
     return (
     <div className='loadingContainer'>
         <LoadingIcon />

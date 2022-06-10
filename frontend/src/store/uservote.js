@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 const LOAD = 'vote/LOAD';
 const ADD = 'vote/ADD';
 const DELETE = 'vote/DELETE';
+const CLEAR = 'vote/CLEAR';
 
 const loadVotes = (votes) => {
   return {
@@ -24,6 +25,14 @@ const deleteVote = (id) => {
     id
   }
 };
+
+const clearVotes = () => {
+  return {
+    type: CLEAR
+  }
+};
+
+
 
 // load votes from database on load of poll focus page
 export const getVotes = (pollId) => async dispatch => {
@@ -55,6 +64,10 @@ export const createVote = (vote) => async (dispatch) => {
   return data;
 }
 
+export const clearOutVotes = () => async (dispatch) =>{
+  dispatch(clearVotes())
+}
+
 const initialState = {
   pollVotes: {}
 };
@@ -67,6 +80,11 @@ const voteReducer = (state = initialState, action) => {
       action.votes.forEach(vote => {
         newState.pollVotes[vote.id] = vote
       });
+      return newState;
+    case CLEAR:
+      newState = Object.assign({}, state);
+        newState.pollVotes = {}
+        console.log(newState)
       return newState;
     default:
       return state;
