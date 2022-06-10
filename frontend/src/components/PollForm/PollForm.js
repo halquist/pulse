@@ -1,4 +1,4 @@
-import * as pollActions from '../../store/poll'
+import * as pollActions from '../../store/poll';
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, Redirect } from "react-router-dom";

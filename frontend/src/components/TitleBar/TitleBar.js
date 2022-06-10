@@ -1,22 +1,22 @@
 import React from 'react';
+import { useState } from 'react';
 
 import './TitleBar.css'
 
-const TitleBar = ({ title, button = null}) => {
+const TitleBar = ({ title, button, callback }) => {
 
-  let buttonType;
-  if (button = 'comment') {
+  let buttonType = null;
+  if (button === 'comment') {
     buttonType = (
-      <div id='editButton'>Add Comment</div>
+      <div id='editButton' onClick={() => {callback()}}>Add Comment</div>
     );
   } else {
-    buttonType = null
+    buttonType = null;
   }
 
 
   return (
     <div className='titleBar'>
-
       <div className='titleText'>{title}</div>
       {buttonType}
     </div>

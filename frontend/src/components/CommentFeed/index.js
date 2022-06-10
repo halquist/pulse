@@ -1,3 +1,6 @@
-import CommentFeed from './CommentFeed'
+import CommentFeed from './CommentFeed';
+import CommentForm from './CommentForm';
 
-export default CommentFeed
+export { CommentForm };
+
+export default CommentFeed;

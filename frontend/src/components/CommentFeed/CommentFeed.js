@@ -10,6 +10,7 @@ const CommentFeed = ({ pollId }) => {
   const dispatch = useDispatch();
 
   const comments = useSelector(state => state.comment.pollComments)
+  const comments2 = useSelector(state => state.comment)
 
   const [loaded, setLoaded] = useState(false);
   const [topComments, setTopComments] = useState(Object.entries(comments).filter(([key, value]) => {
@@ -25,6 +26,13 @@ const CommentFeed = ({ pollId }) => {
       .then(() => setLoaded(true))
   },[dispatch]);
 
+  useEffect(() => {
+    setTopComments(Object.entries(comments).filter(([key, value]) => {
+      return (value.pollId === parseInt(pollId) && value.topLevel)
+    }))
+    console.log('comments sir!')
+  },[comments2])
+
   if (!loaded) {
     return (
     <div className='loadingContainer'>
@@ -34,7 +42,7 @@ const CommentFeed = ({ pollId }) => {
   }
 
   return (
-    <div>
+    <div id='commentContainer'>
     {topComments.map((comment) => {
       return (
           <CommentDisplay comment={comment} comments={comments} key={comment[1].id} />
