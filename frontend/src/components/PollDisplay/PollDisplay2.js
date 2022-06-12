@@ -10,7 +10,7 @@ import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
 import XMark from '../XMark';
 
-const PollDisplay = ({ pollId }) => {
+const PollDisplay2 = ({ pollId }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   // const { pollId } = useParams();
@@ -30,94 +30,38 @@ const PollDisplay = ({ pollId }) => {
   const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote.userId === sessionUser.id))
   const [userVoteSticker, setUserVoteSticker] = useState(userVote.length > 0)
   const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined)
-  const [voteId, setVoteId] = useState(canVote ? 'submitVote' : 'cannotSubmitVote')
+  const [voteId, setVoteId] = useState('cannotSubmitVote')
   const [voteBarChange, setVoteBarChange] = useState(false)
   const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
   const [optionTwoVotesDisplay, setOptionTwoVotesDisplay] = useState(0);
 
   const [errors, setErrors] = useState([]);
 
-
-  // console.log(userVote)
-  // console.log('pollId', pollId)
-  // console.log('uservote pollId', userVote[0]?.pollId)
-  // console.log(parseInt(pollId) !== userVote[0]?.pollId)
-  //  console.log('wooooooo', canVote, userVote[0]?.voteSelection)
-  //  console.log(voteId)
-  //  console.log('sticker', userVoteSticker)
-
-  // strict dispatch and state setting order to make sure all data is properly presented in the poll display
-   useEffect(() => {
+  useEffect(() => {
     dispatch(clearOutVotes())
       .then(() => dispatch(getPolls()))
       .then(() => dispatch(getOnePoll(pollId)))
       .then(() => dispatch(getVotes(pollId))
-        .then((returnVotes) => {
-          // counts how many votes exist for option one
-          const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
-          setOptionOneVotes(opOneVotes);
-          return { returnVotes, opOneVotes };
-        })
-        .then(({ returnVotes, opOneVotes }) => {
-          // counts how many votes exist for option two
-          const opTwoVotes = returnVotes.filter((vote) => vote.voteSelection === 2).length
-          setOptionTwoVotes(opTwoVotes);
-          return { returnVotes, opOneVotes, opTwoVotes };
-        })
-        .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
-          // creates a percentage value for option one to display, option 2 percent will also be based on this value
-          setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
-          return returnVotes;
-        })
-        .then((returnVotes) => {
-          // finds a vote if current user has already voted on this poll
-          const userVoteSet = returnVotes.filter((vote) => vote.userId === sessionUser.id)
-          setUserVote(userVoteSet);
-          return { returnVotes, userVoteSet };
-        })
-        .then(({ returnVotes, userVoteSet }) => {
-          // if current user has voted on this poll this value is true, and determines if voted sticker is displayed
-          setUserVoteSticker(userVoteSet.length > 0)
-          return { returnVotes, userVoteSet };
-        })
-        .then(({ returnVotes, userVoteSet }) => {
-          // disables vote buttons if user has already voted on this poll
-          const canVoteSet = userVoteSet[0]?.voteSelection === 0 || userVoteSet[0]?.voteSelection === undefined
-          setCanVote(canVoteSet)
-          return { returnVotes, userVoteSet, canVoteSet };
-        })
-        .then(({ returnVotes, userVoteSet, canVoteSet }) => {
-          // sets which option the user has voted on so it can be displayed
-          const voteIdSet = canVoteSet && userVoteSet?.voteSelection === 0 ? 'submitVote' : 'cannotSubmitVote'
-          setVoteId(voteIdSet)
-        })
+        .then(() => setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id)))
+        .then(() => setUserVoteSticker(userVote.length > 0))
+        .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length))
+        .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
+        .then(() => setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id)))
+        .then(() => setCanVote(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined))
+        .then(() => setVoteId('cannotSubmitVote'))
+        .then(() => setVoteBarChange(optionOneVotes !== optionOneVotesDisplay || optionTwoVotes !== optionTwoVotesDisplay))
         .then(() => setData(true))
         .then(() => setLoaded(true))
       )
   },[dispatch])
 
 
-  useEffect(()=> {
-    dispatch(getVotes(pollId))
-      .then((returnVotes) => {
-        // counts how many votes exist for option one
-        const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
-        setOptionOneVotes(opOneVotes);
-        return { returnVotes, opOneVotes };
-      })
-      .then(({ returnVotes, opOneVotes }) => {
-        // counts how many votes exist for option two
-        const opTwoVotes = returnVotes.filter((vote) => vote.voteSelection === 2).length
-        setOptionTwoVotes(opTwoVotes);
-        return { returnVotes, opOneVotes, opTwoVotes };
-      })
-      .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
-        // creates a percentage value for option one to display, option 2 percent will also be based on this value
-        setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
-        return returnVotes;
-      })
-    // setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100));
-  },[optionOneVotes, optionTwoVotes, userVote])
+  // console.log(userVote)
+  // console.log('pollId', pollId)
+  // console.log('uservote pollId', userVote[0]?.pollId)
+  // console.log(parseInt(pollId) !== userVote[0]?.pollId)
+   console.log(canVote, userVote[0]?.voteSelection)
+   console.log(voteId)
 
   // useEffect(() => {
   //   dispatch(clearOutVotes())
@@ -223,7 +167,6 @@ const PollDisplay = ({ pollId }) => {
       }
   }
 
-  // toggles checkmark display on the 2 choices if voting is allowed for user and sets the choice value for submission
   const handleSetVote = (vote) => {
     if (canVote && voteSelection === 1 && vote === 1) {
       setVoteSelection(0);
@@ -243,10 +186,14 @@ const PollDisplay = ({ pollId }) => {
     } else if (canVote && voteSelection === 2 && vote === 1) {
       setVoteSelection(1);
       setVoteId('submitVote');
+    } else {
+      setVoteSelection(0)
+      setVoteId('cannotSubmitVote');
     }
+    setCanVote(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined)
+
   };
 
-  // submits
   const handleVote = async () => {
     if(voteSelection > 0) {
       let newVote = await dispatch(voteActions.createVote({ userId: sessionUser.id, pollId, voteSelection }))
@@ -255,12 +202,10 @@ const PollDisplay = ({ pollId }) => {
           if (data && data.errors) setErrors(data.errors);
         });
         if (newVote) {
-          setUserVote(newVote);
-          setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length);
-          setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length);
-          setCanVote(false);
           setUserVoteSticker(true);
-          setVoteId('cannotSubmitVote');
+          dispatch(getVotes(pollId))
+            .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length))
+            .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
         }
     } else {
       return;
@@ -350,4 +295,4 @@ const PollDisplay = ({ pollId }) => {
   )
 };
 
-export default PollDisplay
+export default PollDisplay2

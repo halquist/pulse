@@ -226,6 +226,28 @@
   border-radius: 3px;
   font-size: 1.2em;
   cursor: pointer;
+  transition: .2s;
+}
+
+.submitVote:hover {
+  background-color: #B76A91;
+  color: #680F3F;
+}
+
+.submitVote:active {
+  transform: scale(.9);
+}
+
+.cannotSubmitVote {
+  position: relative;
+  background-color: #818181 !important;
+  color: #393939;
+  padding: 4px 20px;
+  border: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
+  border-radius: 3px;
+  font-size: 1.2em;
+  pointer-events: none;
 }
 
 .votePercentageBar {
