@@ -14,6 +14,24 @@
   color: rgb(163, 170, 177);
 }
 
+.commentUserBar {
+  display: flex;
+  gap: 10px;
+}
+
+.expander {
+  color: #495151;
+  cursor: pointer;
+}
+
+.expander:hover {
+  color: rgb(163, 170, 177);
+}
+
+.collapsed {
+  color: #495151;
+}
+
 .commentText {
   color: rgb(218, 224, 230);
   overflow-wrap: break-word;
