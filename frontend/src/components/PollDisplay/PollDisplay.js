@@ -1,5 +1,5 @@
-import * as React from 'react'
 import './PollDisplay.css';
+import * as React from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -18,6 +18,7 @@ const PollDisplay = ({ pollId }) => {
   const sessionUser = useSelector(state => state.session.user);
   const onePoll = useSelector(state => state.poll.singlePoll);
   const votes = useSelector(state => state.vote.pollVotes);
+  const votes2 = useSelector(state => state.vote);
 
   const [loaded, setLoaded] = useState(false);
   const [data, setData] = useState(false);
@@ -28,12 +29,19 @@ const PollDisplay = ({ pollId }) => {
   const [voteSelection, setVoteSelection] = useState(0);
   const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote.userId === sessionUser.id))
   const [userVoteSticker, setUserVoteSticker] = useState(userVote.length > 0)
-  const [voteId, setVoteId] = useState()
   const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined)
+  const [voteId, setVoteId] = useState('cannotSubmitVote')
+  const [voteBarChange, setVoteBarChange] = useState(false)
+  const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
+  const [optionTwoVotesDisplay, setOptionTwoVotesDisplay] = useState(0);
+
   const [errors, setErrors] = useState([]);
 
-  // const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
-  // const [optionTwoVotesDisplay, setOptionTwoVotesDisplay] = useState(0);
+  if (voteBarChange) {
+
+  }
+
+
 
   // console.log(userVote)
   // console.log('pollId', pollId)
@@ -52,6 +60,8 @@ const PollDisplay = ({ pollId }) => {
       .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
       .then(() => setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id)))
       .then(() => setCanVote(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined))
+      .then(() => setVoteId('cannotSubmitVote'))
+      .then(() => setVoteBarChange(optionOneVotes !== optionOneVotesDisplay || optionTwoVotes !== optionTwoVotesDisplay))
       .then(() => setData(true))
   },[dispatch])
 
@@ -75,35 +85,50 @@ const PollDisplay = ({ pollId }) => {
     setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100))
     setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id))
     setUserVoteSticker(userVote.length > 0)
+    setCanVote(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined)
+    // setVoteId(canVote ? 'submitVote' : 'cannotSubmitVote')
   },[onePoll, optionOneVotes, optionTwoVotes, votes, sessionUser.id, userVote.length, pollId, userVote.pollId]);
 
+  useEffect(() => {
+    setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length)
+    setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length)
+    setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100))
+    setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id))
+    // setUserVoteSticker(userVote.length > 0)
+    setCanVote(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined)
+    setVoteId(canVote ? 'submitVote' : 'cannotSubmitVote')
+  },[votes2])
 
+  useEffect(() => {
+    setVoteId(canVote ? 'submitVote' : 'cannotSubmitVote')
+    console.log(canVote, voteId)
+  },[canVote])
+
+  console.log(voteId)
 
   // useEffect(() => {
-  //   setInterval(() => {
-  //     if (optionOneVotesDisplay !== optionOneVotes) {
-  //       console.log('here')
-  //       if (optionOneVotesDisplay < optionOneVotes) {
-  //         setOptionOneVotesDisplay((prev) => prev + 1)
+  //   if (voteBarChange) {
+  //     setInterval(() => {
+  //       if (optionOneVotesDisplay !== optionOneVotes) {
+  //         console.log('here')
+  //         if (optionOneVotesDisplay < optionOneVotes) {
+  //           setOptionOneVotesDisplay((prev) => prev + 1)
+  //         }
+  //         if (optionOneVotesDisplay > optionOneVotes) {
+  //           setOptionOneVotesDisplay((prev) => prev - 1)
+  //         }
   //       }
-  //       if (optionOneVotesDisplay > optionOneVotes) {
-  //         setOptionOneVotesDisplay((prev) => prev - 1)
+  //       if (optionTwoVotesDisplay !== optionTwoVotes) {
+  //         if (optionTwoVotesDisplay < optionTwoVotes) {
+  //           setOptionTwoVotesDisplay((prev) => prev + 1)
+  //         }
+  //         if (optionTwoVotesDisplay > optionTwoVotes) {
+  //           setOptionTwoVotesDisplay((prev) => prev - 1)
+  //         }
   //       }
-  //     }
-  //     if (optionTwoVotesDisplay !== optionTwoVotes) {
-  //       if (optionTwoVotesDisplay < optionTwoVotes) {
-  //         setOptionTwoVotesDisplay((prev) => prev + 1)
-  //       }
-  //       if (optionTwoVotesDisplay > optionTwoVotes) {
-  //         setOptionTwoVotesDisplay((prev) => prev - 1)
-  //       }
-  //     }
-  //     console.log(optionOneVotes)
-  //     console.log(optionTwoVotes)
-  //     console.log(optionOneVotesDisplay)
-  //     console.log(optionTwoVotesDisplay)
-  //     setVotePercent(Math.floor((optionOneVotesDisplay / (optionOneVotesDisplay + optionTwoVotesDisplay)) * 100))
-  //   }, 1000);
+  //       setVotePercent(Math.floor((optionOneVotesDisplay / (optionOneVotesDisplay + optionTwoVotesDisplay)) * 100))
+  //     }, 1000);
+  //   }
   // })
 
   // const expandText = () => {
@@ -128,25 +153,46 @@ const PollDisplay = ({ pollId }) => {
   }
 
   const handleSetVote = (vote) => {
-    if (canVote && voteSelection === 0) {
-      setVoteSelection(vote);
+    if (canVote && voteSelection === 1 && vote === 1) {
+      setVoteSelection(0);
+      setVoteId('cannotSubmitVote');
+    } if (canVote && voteSelection === 0 && vote === 1) {
+      setVoteSelection(1);
+      setVoteId('submitVote');
+    } else if (canVote && voteSelection === 1 && vote === 2) {
+      setVoteSelection(2);
+      setVoteId('submitVote');
+    } else if (canVote && voteSelection === 2 && vote === 2) {
+      setVoteSelection(0);
+      setVoteId('cannotSubmitVote');
+    } else if (canVote && voteSelection === 0 && vote === 2) {
+      setVoteSelection(2);
+      setVoteId('submitVote');
+    } else if (canVote && voteSelection === 2 && vote === 1) {
+      setVoteSelection(1);
+      setVoteId('submitVote');
     } else {
       setVoteSelection(0)
+      setVoteId('cannotSubmitVote');
     }
   };
 
   const handleVote = async () => {
-        let newVote = await dispatch(voteActions.createVote({ userId: sessionUser.id, pollId, voteSelection }))
-          .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-          });
-          if (newVote) {
-            setUserVoteSticker(true);
-            dispatch(getVotes(pollId))
-              .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length))
-              .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
-          }
+    if(voteSelection > 0) {
+      let newVote = await dispatch(voteActions.createVote({ userId: sessionUser.id, pollId, voteSelection }))
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
+        if (newVote) {
+          setUserVoteSticker(true);
+          dispatch(getVotes(pollId))
+            .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length))
+            .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
+        }
+    } else {
+      return;
+    }
   }
 
   if (!loaded || !data) {
@@ -155,7 +201,8 @@ const PollDisplay = ({ pollId }) => {
         <LoadingIcon />
     </div>
     );
-  }
+
+    }
 
   return (
     <div className='tempPollContainer'>
@@ -178,7 +225,7 @@ const PollDisplay = ({ pollId }) => {
             <div className='voteBoxPink'>
               <div className={`voteCheck ${voteSelection === 1 || userVote[0]?.voteSelection === 1 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>
-            {onePoll.optionOneTitle}2
+            {onePoll.optionOneTitle}
           </div>
           <div className='pollDisplayOptionTwo' onClick={() => handleSetVote(2)}>
             <div className='voteBoxGreen'>
@@ -205,9 +252,9 @@ const PollDisplay = ({ pollId }) => {
           }
           {userVoteSticker === true ?
           <>
-            <div className='submitVote'>Submit Vote <VotedSticker /> </div>
+            <div className={`${voteId}`}>Submit Vote <VotedSticker /> </div>
           </> :
-          <div className='submitVote' onClick={handleVote}>Submit Vote</div>
+          <div className={`${voteId}`} onClick={handleVote}>Submit Vote</div>
         }
         </div>
             {showDelete &&
