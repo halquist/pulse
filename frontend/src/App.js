@@ -5,7 +5,6 @@ import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
 import * as sessionActions from './store/session';
 import Navigation from "./components/Navigation";
-import PollDisplay from './components/PollDisplay';
 import PollForm from './components/PollForm';
 import PollFocus from './components/PollFocus';
 import SplashPage from './components/SplashPage';

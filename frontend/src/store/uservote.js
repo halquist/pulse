@@ -41,6 +41,7 @@ export const getVotes = (pollId) => async dispatch => {
   if (response.ok) {
     const votes = await response.json();
     dispatch(loadVotes(votes));
+    return votes;
   }
 };
 
