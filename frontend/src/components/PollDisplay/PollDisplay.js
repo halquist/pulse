@@ -18,24 +18,25 @@ const PollDisplay = ({ pollId }) => {
   const sessionUser = useSelector(state => state.session.user);
   const onePoll = useSelector(state => state.poll.singlePoll);
   const votes = useSelector(state => state.vote.pollVotes);
-  const votes2 = useSelector(state => state.vote);
+
 
   const [loaded, setLoaded] = useState(false);
   const [data, setData] = useState(false);
-  const [votePercent, setVotePercent] = useState(50);
+  const [votePercent, setVotePercent] = useState(0);
   const [showDelete, setShowDelete] = useState(false);
   const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === pollId).length);
   const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === pollId).length);
-  const [voteSelection, setVoteSelection] = useState(0);
-  const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote.userId === sessionUser.id))
-  const [userVoteSticker, setUserVoteSticker] = useState(userVote.length > 0)
-  const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined)
-  const [voteId, setVoteId] = useState(canVote ? 'submitVote' : 'cannotSubmitVote')
-  const [voteBarChange, setVoteBarChange] = useState(false)
-  const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
-  const [optionTwoVotesDisplay, setOptionTwoVotesDisplay] = useState(0);
+  const [voteSelection, setVoteSelection] = useState(50);
+  const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote.userId === sessionUser.id));
+  const [userVoteSticker, setUserVoteSticker] = useState(userVote.length > 0);
+  const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined);
+  const [voteId, setVoteId] = useState(canVote ? 'submitVote' : 'cannotSubmitVote');
+  // const [percentDisplay, setPercentDisplay] = useState(50);
+  // const [percentFunc, setPercentFunc] = useState(true);
 
   const [errors, setErrors] = useState([]);
+
+
 
 
   // console.log(userVote)
@@ -119,96 +120,7 @@ const PollDisplay = ({ pollId }) => {
     // setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100));
   },[optionOneVotes, optionTwoVotes, userVote])
 
-  // useEffect(() => {
-  //   dispatch(clearOutVotes())
-  //   dispatch(getPolls())
-  //   dispatch(getOnePoll(pollId))
-  //     .then(() => setLoaded(true))
-  //   dispatch(getVotes(pollId))
-  //     .then(() => setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id)))
-  //     .then(() => setUserVoteSticker(userVote.length > 0))
-  //     .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length))
-  //     .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
-  //     .then(() => setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id)))
-  //     .then(() => setCanVote(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined))
-  //     .then(() => setVoteId('cannotSubmitVote'))
-  //     .then(() => setVoteBarChange(optionOneVotes !== optionOneVotesDisplay || optionTwoVotes !== optionTwoVotesDisplay))
-  //     .then(() => setData(true))
-  // },[dispatch])
 
-
-  // useEffect(() => {
-  //   dispatch(getPolls())
-  //   dispatch(getOnePoll(pollId))
-  //     .then(() => setLoaded(true))
-  //   dispatch(getVotes(pollId))
-  //     .then(() => setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id)))
-  //     .then(() => setUserVoteSticker(userVote.length > 0))
-  //     .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length))
-  //     .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
-  //     .then(() => setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id)))
-  //     .then(() => setData(true))
-  // },[dispatch, pollId, onePoll.id, sessionUser.id, userVote.length, votes]);
-
-  // useEffect(() => {
-  //   setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length)
-  //   setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length)
-  //   setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100))
-  //   setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id))
-  //   setUserVoteSticker(userVote.length > 0)
-  //   setCanVote(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined)
-  //   setVoteId('cannotSubmitVote')
-  // },[onePoll, optionOneVotes, optionTwoVotes, votes, sessionUser.id, userVote.length, pollId, userVote.pollId]);
-
-  // useEffect(() => {
-  //   setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length)
-  //   setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length)
-  //   setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100))
-  //   setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id))
-  //   // setUserVoteSticker(userVote.length > 0)
-  //   setCanVote(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined)
-  //   setVoteId('cannotSubmitVote')
-  // },[votes2, onePoll.id, optionOneVotes, optionTwoVotes, sessionUser.id, votes])
-
-  // useEffect(() => {
-  //   setVoteId(canVote ? 'submitVote' : 'cannotSubmitVote')
-  //   console.log(canVote, voteId)
-  // },[canVote])
-
-  // console.log(voteId)
-
-  // useEffect(() => {
-  //   if (voteBarChange) {
-  //     setInterval(() => {
-  //       if (optionOneVotesDisplay !== optionOneVotes) {
-  //         console.log('here')
-  //         if (optionOneVotesDisplay < optionOneVotes) {
-  //           setOptionOneVotesDisplay((prev) => prev + 1)
-  //         }
-  //         if (optionOneVotesDisplay > optionOneVotes) {
-  //           setOptionOneVotesDisplay((prev) => prev - 1)
-  //         }
-  //       }
-  //       if (optionTwoVotesDisplay !== optionTwoVotes) {
-  //         if (optionTwoVotesDisplay < optionTwoVotes) {
-  //           setOptionTwoVotesDisplay((prev) => prev + 1)
-  //         }
-  //         if (optionTwoVotesDisplay > optionTwoVotes) {
-  //           setOptionTwoVotesDisplay((prev) => prev - 1)
-  //         }
-  //       }
-  //       setVotePercent(Math.floor((optionOneVotesDisplay / (optionOneVotesDisplay + optionTwoVotesDisplay)) * 100))
-  //     }, 1000);
-  //   }
-  // })
-
-  // const expandText = () => {
-  //   if (truncate === 'truncateBlock') {
-  //     setTruncate('unTruncate')
-  //   } else {
-  //     setTruncate('truncateBlock')
-  //   }
-  // }
 
   // toggles showing the delete confirmation form
   const deleteForm = () => {
