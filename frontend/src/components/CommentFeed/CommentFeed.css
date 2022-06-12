@@ -89,3 +89,11 @@
   color: rgb(124, 131, 138);
   margin-left: 10px;
 }
+
+#commentHeader {
+  background-color: #495151;
+  margin-top: 10px;
+  margin-bottom: -8px;
+  padding: 4px 10px;
+  border-radius: 3px 3px 0px 0px ;
+}

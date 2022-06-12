@@ -85,7 +85,6 @@ const voteReducer = (state = initialState, action) => {
     case CLEAR:
       newState = Object.assign({}, state);
         newState.pollVotes = {}
-        console.log(newState)
       return newState;
     default:
       return state;
