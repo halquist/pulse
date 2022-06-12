@@ -28,6 +28,8 @@ const PollDisplay = ({ pollId }) => {
   const [voteSelection, setVoteSelection] = useState(0);
   const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote.userId === sessionUser.id))
   const [userVoteSticker, setUserVoteSticker] = useState(userVote.length > 0)
+  const [voteId, setVoteId] = useState()
+  const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined)
   const [errors, setErrors] = useState([]);
 
   // const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
@@ -49,8 +51,10 @@ const PollDisplay = ({ pollId }) => {
       .then(() => setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length))
       .then(() => setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length))
       .then(() => setUserVote(Object.values(votes).filter((vote) => vote.userId === sessionUser.id)))
+      .then(() => setCanVote(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined))
       .then(() => setData(true))
   },[dispatch])
+
 
   // useEffect(() => {
   //   dispatch(getPolls())
@@ -124,8 +128,11 @@ const PollDisplay = ({ pollId }) => {
   }
 
   const handleSetVote = (vote) => {
-    if (!userVote[0]?.voteSelection)
-    setVoteSelection(vote);
+    if (canVote && voteSelection === 0) {
+      setVoteSelection(vote);
+    } else {
+      setVoteSelection(0)
+    }
   };
 
   const handleVote = async () => {
