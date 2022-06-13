@@ -27,7 +27,6 @@ const SideNavigation = () => {
         <img src={flame_icon} width="20" height="20" className='navIcon'/>
         <div className='navText'>Hot Polls</div>
       </NavLink>
-      <div className='spacerDiv'></div>
     </div>
   )
 };
