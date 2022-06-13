@@ -32,6 +32,7 @@ router.get(
       include: [
         { model: User },
         { model: Comment },
+        { model: UserVote}
       ]
     });
     return res.json(poll);

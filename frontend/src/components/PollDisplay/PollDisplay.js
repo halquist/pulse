@@ -20,11 +20,10 @@ const PollDisplay = ({ pollId }) => {
 
 
   const [loaded, setLoaded] = useState(false);
-  const [data, setData] = useState(false);
   const [votePercent, setVotePercent] = useState(50);
   const [showDelete, setShowDelete] = useState(false);
-  const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === pollId).length);
-  const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === pollId).length);
+  const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1).length);
+  const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2).length);
   const [voteSelection, setVoteSelection] = useState(0);
   const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote.userId === sessionUser.id));
   const [userVoteSticker, setUserVoteSticker] = useState(userVote.length > 0);
@@ -46,13 +45,15 @@ const PollDisplay = ({ pollId }) => {
   //  console.log(voteId)
   //  console.log('sticker', userVoteSticker)
 
+
+
+
   // strict dispatch and state setting order to make sure all data is properly presented in the poll display
    useEffect(() => {
-    dispatch(clearOutVotes())
-      .then(() => dispatch(getPolls()))
-      .then(() => dispatch(getOnePoll(pollId)))
-      .then(() => dispatch(getVotes(pollId))
-        .then((returnVotes) => {
+    dispatch(getPolls())
+      .then(() => dispatch(getOnePoll(pollId))
+        .then((returns) => {
+          const returnVotes = returns.UserVotes;
           // counts how many votes exist for option one
           const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
           setOptionOneVotes(opOneVotes);
@@ -91,15 +92,15 @@ const PollDisplay = ({ pollId }) => {
           const voteIdSet = canVoteSet && userVoteSet?.voteSelection === 0 ? 'submitVote' : 'cannotSubmitVote'
           setVoteId(voteIdSet)
         })
-        .then(() => setData(true))
         .then(() => setLoaded(true))
       )
   },[dispatch])
 
 
   useEffect(()=> {
-    dispatch(getVotes(pollId))
-      .then((returnVotes) => {
+    dispatch(getOnePoll(pollId))
+      .then((returns) => {
+        const returnVotes = returns.UserVotes;
         // counts how many votes exist for option one
         const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
         setOptionOneVotes(opOneVotes);
@@ -119,11 +120,6 @@ const PollDisplay = ({ pollId }) => {
     // setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100));
   },[optionOneVotes, optionTwoVotes, userVote])
 
-  useEffect(() => {
-    // dispatch(getOnePoll(pollId))
-    //   .then((returnPoll) => setNumComments(returnPoll.Comments.length))
-      // setNumComments(onePoll?.Comments.length)
-  },[dispatch, pollId, onePoll])
 
 
   // toggles showing the delete confirmation form
@@ -184,17 +180,18 @@ const PollDisplay = ({ pollId }) => {
   };
 
 
-  if (!loaded || !data) {
+
+
+  if (!loaded) {
     return (
     <div className='loadingContainer'>
         <LoadingIcon />
     </div>
     );
-
   };
 
   return (
-    <div className='tempPollContainer'>
+    <div className='tempPollContainer' >
       <div className='pollDisplayDiv'>
         <div className='pollDisplayTopBar'>
           <div className='pollDisplayUsername'>{onePoll.User.username}</div>

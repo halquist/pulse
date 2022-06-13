@@ -3,9 +3,9 @@ import * as React from 'react'
 import { Link, useHistory, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getOnePoll, getPolls } from '../../store/poll';
+import { getPolls } from '../../store/poll';
 import { getVotes, clearOutVotes } from '../../store/uservote';
-import { LoadingIcon, VotedSticker } from '../Logo';
+import { VotedSticker } from '../Logo';
 import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
 import XMark from '../XMark';
@@ -25,112 +25,40 @@ const PollDisplayFeed = ({ pollSend }) => {
   const comments = pollSend.Comments
 
 
-
-  const [loaded, setLoaded] = useState(false);
-  const [data, setData] = useState(false);
-  const [votePercent, setVotePercent] = useState(50);
   const [showDelete, setShowDelete] = useState(false);
-  const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === pollId).length);
-  const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === pollId).length);
+  const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1).length);
+  const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2).length);
   const [voteSelection, setVoteSelection] = useState(0);
   const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote?.userId === sessionUser?.id));
   const [userVoteSticker, setUserVoteSticker] = useState(userVote.length > 0);
+  const [votePercent, setVotePercent] = useState(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100));
   const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined);
-  const [voteId, setVoteId] = useState(canVote ? 'submitVote' : 'cannotSubmitVote')
-
-  // const [voteBarChange, setVoteBarChange] = useState(false)
-  // const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
-  // const [optionTwoVotesDisplay, setOptionTwoVotesDisplay] = useState(0);
-
+  const [voteId, setVoteId] = useState(canVote && !userVote ? 'submitVote' : 'cannotSubmitVote')
   const [errors, setErrors] = useState([]);
 
+//  console.log(pollSend.title, canVote)
 
-  // console.log(userVote)
-  // console.log('pollId', pollId)
-  // console.log('uservote pollId', userVote[0]?.pollId)
-  // console.log(parseInt(pollId) !== userVote[0]?.pollId)
-  //  console.log('wooooooo', canVote, userVote[0]?.voteSelection)
-  //  console.log(voteId)
-  //  console.log('sticker', userVoteSticker)
-
-  // strict dispatch and state setting order to make sure all data is properly presented in the poll display
-   useEffect(() => {
-    dispatch(clearOutVotes())
-      .then(() => dispatch(getPolls()))
-      .then(() => dispatch(getOnePoll(pollId)))
-      .then(() => dispatch(getVotes(pollId))
-        .then((returnVotes) => {
-          // counts how many votes exist for option one
-          const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
-          setOptionOneVotes(opOneVotes);
-          return { returnVotes, opOneVotes };
-        })
-        .then(({ returnVotes, opOneVotes }) => {
-          // counts how many votes exist for option two
-          const opTwoVotes = returnVotes.filter((vote) => vote.voteSelection === 2).length
-          setOptionTwoVotes(opTwoVotes);
-          return { returnVotes, opOneVotes, opTwoVotes };
-        })
-        .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
-          // creates a percentage value for option one to display, option 2 percent will also be based on this value
-          setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
-          return returnVotes;
-        })
-        .then((returnVotes) => {
-          // finds a vote if current user has already voted on this poll
-          const userVoteSet = returnVotes.filter((vote) => vote.userId === sessionUser.id)
-          setUserVote(userVoteSet);
-          return { returnVotes, userVoteSet };
-        })
-        .then(({ returnVotes, userVoteSet }) => {
-          // if current user has voted on this poll this value is true, and determines if voted sticker is displayed
-          setUserVoteSticker(userVoteSet.length > 0)
-          return { returnVotes, userVoteSet };
-        })
-        .then(({ returnVotes, userVoteSet }) => {
-          // disables vote buttons if user has already voted on this poll
-          const canVoteSet = userVoteSet[0]?.voteSelection === 0 || userVoteSet[0]?.voteSelection === undefined
-          setCanVote(canVoteSet)
-          return { returnVotes, userVoteSet, canVoteSet };
-        })
-        .then(({ returnVotes, userVoteSet, canVoteSet }) => {
-          // sets which option the user has voted on so it can be displayed
-          const voteIdSet = canVoteSet && userVoteSet?.voteSelection === 0 ? 'submitVote' : 'cannotSubmitVote'
-          setVoteId(voteIdSet)
-        })
-        .then(() => setData(true))
-        .then(() => setLoaded(true))
-      )
-  },[dispatch])
-
-
-  useEffect(()=> {
-    dispatch(getVotes(pollId))
-      .then((returnVotes) => {
-        // counts how many votes exist for option one
-        const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
-        setOptionOneVotes(opOneVotes);
-        return { returnVotes, opOneVotes };
-      })
-      .then(({ returnVotes, opOneVotes }) => {
-        // counts how many votes exist for option two
-        const opTwoVotes = returnVotes.filter((vote) => vote.voteSelection === 2).length
-        setOptionTwoVotes(opTwoVotes);
-        return { returnVotes, opOneVotes, opTwoVotes };
-      })
-      .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
-        // creates a percentage value for option one to display, option 2 percent will also be based on this value
-        setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
-        return returnVotes;
-      })
-    // setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100));
-  },[optionOneVotes, optionTwoVotes, userVote])
-
-  useEffect(() => {
-    // dispatch(getOnePoll(pollId))
-    //   .then((returnPoll) => setNumComments(returnPoll.Comments.length))
-      // setNumComments(onePoll?.Comments.length)
-  },[dispatch, pollId, onePoll])
+useEffect(()=> {
+  dispatch(getVotes(pollId))
+    .then((returnVotes) => {
+      // counts how many votes exist for option one
+      const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
+      setOptionOneVotes(opOneVotes);
+      return { returnVotes, opOneVotes };
+    })
+    .then(({ returnVotes, opOneVotes }) => {
+      // counts how many votes exist for option two
+      const opTwoVotes = returnVotes.filter((vote) => vote.voteSelection === 2).length
+      setOptionTwoVotes(opTwoVotes);
+      return { returnVotes, opOneVotes, opTwoVotes };
+    })
+    .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
+      // creates a percentage value for option one to display, option 2 percent will also be based on this value
+      setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
+      return returnVotes;
+    })
+  // setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100));
+},[optionOneVotes, optionTwoVotes, userVote])
 
 
   // toggles showing the delete confirmation form
@@ -191,13 +119,13 @@ const PollDisplayFeed = ({ pollSend }) => {
   };
 
 
-  if (!loaded || !data) {
-    return (
-    <div className='loadingContainer'>
-        <LoadingIcon />
-    </div>
-    )
-  };
+  // if (!loaded || !data) {
+  //   return (
+  //   <div className='loadingContainer'>
+  //       <LoadingIcon />
+  //   </div>
+  //   )
+  // };
 
   return (
     <div className='tempPollContainer'>

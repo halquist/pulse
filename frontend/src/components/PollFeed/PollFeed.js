@@ -7,8 +7,6 @@ import { getOnePoll, getPolls } from '../../store/poll';
 import { useEffect, useState } from 'react';
 
 
-
-
 const PollFeed = () => {
   const dispatch = useDispatch();
 
