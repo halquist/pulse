@@ -30,28 +30,32 @@ function App() {
       <Navigation isLoaded={loaded} />
       {loaded && (
       <div id='mainContainerDiv'>
-        <SideNavigation />
         <Switch>
-          <ProtectedRoute path='/' exact={true}>
-            <PollFeed />
-            {/* <SplashPage /> */}
-          </ProtectedRoute>
           <Route path='/signup' exact={true}>
             <SignupFormPage />
           </Route>
           <Route path='/login' exact={true}>
             <LoginFormPage />
           </Route>
+          <ProtectedRoute path='/' exact={true}>
+          <SideNavigation />
+            <PollFeed />
+            {/* <SplashPage /> */}
+          </ProtectedRoute>
           <ProtectedRoute path='/polls/new' exact={true}>
+            <SideNavigation />
             <PollForm mode='create' />
           </ProtectedRoute>
           <ProtectedRoute path='/polls/:pollId/edit' exact={true}>
+            <SideNavigation />
             <PollForm mode='edit' />
           </ProtectedRoute>
           <ProtectedRoute path='/polls/:pollId' exact={true}>
+            <SideNavigation />
             <PollFocus />
           </ProtectedRoute>
           <Route path='*' exact={true}>
+            <SideNavigation />
             page not found
           </Route>
         </Switch>
