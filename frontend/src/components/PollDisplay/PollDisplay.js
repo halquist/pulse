@@ -23,8 +23,8 @@ const PollDisplay = ({ pollId }) => {
   const [data, setData] = useState(false);
   const [votePercent, setVotePercent] = useState(50);
   const [showDelete, setShowDelete] = useState(false);
-  const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === pollId).length);
-  const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === pollId).length);
+  const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1).length);
+  const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2).length);
   const [voteSelection, setVoteSelection] = useState(0);
   const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote.userId === sessionUser.id));
   const [userVoteSticker, setUserVoteSticker] = useState(userVote.length > 0);
