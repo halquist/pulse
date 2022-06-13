@@ -12,17 +12,17 @@ import XMark from '../XMark';
 
 const PollDisplayFeed = ({ pollSend }) => {
 
-  console.log('here')
-
   const dispatch = useDispatch();
   const history = useHistory();
 
   const sessionUser = useSelector(state => state.session.user);
-  const onePoll = useSelector(state => state.poll.singlePoll);
-  const votes = useSelector(state => state.vote.pollVotes);
+  // const onePoll = useSelector(state => state.poll.singlePoll);
+  // const votes = useSelector(state => state.vote.pollVotes);
 
   const pollId = pollSend.id
-  
+  const onePoll = pollSend
+  const votes = pollSend.UserVotes
+
 
 
   const [loaded, setLoaded] = useState(false);

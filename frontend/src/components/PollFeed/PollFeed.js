@@ -13,12 +13,13 @@ const PollFeed = () => {
   const dispatch = useDispatch();
 
   const polls = useSelector(state => state.poll.allPolls);
+  const polls2 = useSelector(state => state.poll);
 
   const [loaded, setLoaded] = useState(false);
   const [allPolls, setAllPolls] = useState([])
 
 
-  useEffect(() =>{
+  useEffect(() => {
     dispatch(getPolls())
       .then((returnPolls) => {
         setAllPolls(returnPolls)
@@ -26,6 +27,11 @@ const PollFeed = () => {
       })
       .then(() => setLoaded(true))
   },[dispatch])
+
+  useEffect(() => {
+    setAllPolls(Object.values(polls).reverse())
+  },[polls, polls2])
+
 
   if (!loaded) {
     return (
@@ -37,9 +43,10 @@ const PollFeed = () => {
 
   return (
     <div className='pollFeedDisplayDiv'>
+      <TitleBar title='Latest Polls' />
       {allPolls.map((poll) => {
         return (
-          <PollDisplayFeed pollSend={poll} />
+          <PollDisplayFeed pollSend={poll} key={poll.id} />
         )
       })}
     </div>

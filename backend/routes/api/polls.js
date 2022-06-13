@@ -17,8 +17,8 @@ router.get(
         { model: User },
         { model: Comment },
         { model: UserVote}
-      ]
-    });
+      ],
+      order: [['createdAt', 'DESC']]});
     return res.json(polls);
   })
 );
