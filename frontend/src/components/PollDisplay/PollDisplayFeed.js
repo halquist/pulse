@@ -33,7 +33,7 @@ const PollDisplayFeed = ({ pollSend }) => {
   const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === pollId).length);
   const [optionTwoVotes, setOptionTwoVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === pollId).length);
   const [voteSelection, setVoteSelection] = useState(0);
-  const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote.userId === sessionUser.id));
+  const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote?.userId === sessionUser?.id));
   const [userVoteSticker, setUserVoteSticker] = useState(userVote.length > 0);
   const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined);
   const [voteId, setVoteId] = useState(canVote ? 'submitVote' : 'cannotSubmitVote')
@@ -241,7 +241,7 @@ const PollDisplayFeed = ({ pollSend }) => {
           <NavLink to={`/polls/${pollSend.id}`}>
             <div className='pollDisplayCommentNum'>{comments.length} Comments</div>
           </NavLink>
-          {sessionUser?.id === onePoll.User.id &&
+          {sessionUser?.id === onePoll?.User.id &&
             <>
               <Link to={`/polls/${onePoll.id}/edit`} className='editDiv'>Edit Poll</Link>
               <div className='editDiv' onClick={deleteForm}>Delete Poll</div>

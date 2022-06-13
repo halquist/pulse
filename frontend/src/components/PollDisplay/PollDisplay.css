@@ -135,9 +135,11 @@
   padding: 12px 20px;
   border: 1px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
-  border-radius: 3px;
+  /* border-radius: 3px; */
+  border-radius: 40px;
   font-size: 1.2em;
   cursor: pointer;
+  user-select: none;
 }
 
 .pollDisplayOptionTwo {
@@ -149,9 +151,11 @@
   padding: 12px 20px;
   border: 1px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
-  border-radius: 3px;
+  /* border-radius: 3px; */
+  border-radius: 40px;
   font-size: 1.2em;
   cursor: pointer;
+  user-select: none;
 }
 
 .voteBoxPink {
@@ -214,6 +218,7 @@
   border-radius: 3px;
   font-size: 1.2em;
   cursor: pointer;
+  user-select: none;
 }
 
 .pollDisplayCommentBlank {
@@ -234,6 +239,7 @@
   font-size: 1.2em;
   cursor: pointer;
   transition: .2s;
+  user-select: none;
 }
 
 .submitVote:hover {
