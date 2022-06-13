@@ -232,7 +232,7 @@ const PollDisplay = ({ pollId }) => {
             </div>
         </div>
         <div className='pollDisplayBottomBar'>
-          <div className='pollDisplayCommentNum'></div>
+          <div className='pollDisplayCommentBlank'></div>
           {sessionUser?.id === onePoll.User.id &&
             <>
               <Link to={`/polls/${onePoll.id}/edit`} className='editDiv'>Edit Poll</Link>
