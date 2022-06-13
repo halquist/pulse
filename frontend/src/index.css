@@ -29,12 +29,14 @@ body {
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
+
 }
 
 #mainContainerDiv {
   width: 100%;
   max-width: 1200px;
   display: flex;
+  height: 100%;
   justify-content: center;
 }
 

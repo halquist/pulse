@@ -4,8 +4,10 @@ import home_icon from '../../images/home_icon.svg'
 import plus_icon from '../../images/plus_icon.svg'
 import circles_icon from '../../images/circles_icon.svg'
 import flame_icon from '../../images/flame_icon.svg'
+import { useEffect } from 'react';
 
 const SideNavigation = () => {
+
   return (
     <div id='sideNavScrollContainer'>
       <div id='sideNavDiv'>
