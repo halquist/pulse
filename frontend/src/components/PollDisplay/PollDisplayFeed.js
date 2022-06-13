@@ -1,6 +1,6 @@
 import './PollDisplay.css';
 import * as React from 'react'
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getOnePoll, getPolls } from '../../store/poll';
@@ -22,6 +22,7 @@ const PollDisplayFeed = ({ pollSend }) => {
   const pollId = pollSend.id
   const onePoll = pollSend
   const votes = pollSend.UserVotes
+  const comments = pollSend.Comments
 
 
 
@@ -237,7 +238,9 @@ const PollDisplayFeed = ({ pollSend }) => {
             </div>
         </div>
         <div className='pollDisplayBottomBar'>
-          <div className='pollDisplayCommentNum'></div>
+          <NavLink to={`/polls/${pollSend.id}`}>
+            <div className='pollDisplayCommentNum'>{comments.length} Comments</div>
+          </NavLink>
           {sessionUser?.id === onePoll.User.id &&
             <>
               <Link to={`/polls/${onePoll.id}/edit`} className='editDiv'>Edit Poll</Link>
