@@ -48,11 +48,10 @@ const PollDisplay = ({ pollId }) => {
 
   // strict dispatch and state setting order to make sure all data is properly presented in the poll display
    useEffect(() => {
-    dispatch(clearOutVotes())
-      .then(() => dispatch(getPolls()))
-      .then(() => dispatch(getOnePoll(pollId)))
-      .then(() => dispatch(getVotes(pollId))
-        .then((returnVotes) => {
+    dispatch(getPolls())
+      .then(() => dispatch(getOnePoll(pollId))
+        .then((returns) => {
+          const returnVotes = returns.UserVotes;
           // counts how many votes exist for option one
           const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
           setOptionOneVotes(opOneVotes);
@@ -97,33 +96,27 @@ const PollDisplay = ({ pollId }) => {
   },[dispatch])
 
 
-  useEffect(()=> {
-    dispatch(getVotes(pollId))
-      .then((returnVotes) => {
-        // counts how many votes exist for option one
-        const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
-        setOptionOneVotes(opOneVotes);
-        return { returnVotes, opOneVotes };
-      })
-      .then(({ returnVotes, opOneVotes }) => {
-        // counts how many votes exist for option two
-        const opTwoVotes = returnVotes.filter((vote) => vote.voteSelection === 2).length
-        setOptionTwoVotes(opTwoVotes);
-        return { returnVotes, opOneVotes, opTwoVotes };
-      })
-      .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
-        // creates a percentage value for option one to display, option 2 percent will also be based on this value
-        setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
-        return returnVotes;
-      })
-    // setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100));
-  },[optionOneVotes, optionTwoVotes, userVote])
-
-  useEffect(() => {
-    // dispatch(getOnePoll(pollId))
-    //   .then((returnPoll) => setNumComments(returnPoll.Comments.length))
-      // setNumComments(onePoll?.Comments.length)
-  },[dispatch, pollId, onePoll])
+  // useEffect(()=> {
+  //   dispatch(getVotes(pollId))
+  //     .then((returnVotes) => {
+  //       // counts how many votes exist for option one
+  //       const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
+  //       setOptionOneVotes(opOneVotes);
+  //       return { returnVotes, opOneVotes };
+  //     })
+  //     .then(({ returnVotes, opOneVotes }) => {
+  //       // counts how many votes exist for option two
+  //       const opTwoVotes = returnVotes.filter((vote) => vote.voteSelection === 2).length
+  //       setOptionTwoVotes(opTwoVotes);
+  //       return { returnVotes, opOneVotes, opTwoVotes };
+  //     })
+  //     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
+  //       // creates a percentage value for option one to display, option 2 percent will also be based on this value
+  //       setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
+  //       return returnVotes;
+  //     })
+  //   // setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100));
+  // },[optionOneVotes, optionTwoVotes, userVote])
 
 
   // toggles showing the delete confirmation form
