@@ -81,3 +81,7 @@ input {
 .bottomText:active {
   transform: scale(.95);
 }
+
+#loginText {
+  margin-top: 10px;
+}

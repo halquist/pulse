@@ -3,6 +3,9 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  height: 100px;
+  width: 700px;
+  overflow: hidden;
 }
 
 #logo_svg {
@@ -12,6 +15,7 @@
 
 #logo_svg_loading {
   height: 100px;
+  overflow: hidden;
 }
 
 #middle_line {
