@@ -43,10 +43,11 @@ const deletePoll = (pollId) => {
 
 // load polls from database
 export const getPolls = () => async dispatch => {
-  const response = await fetch(`/api/polls`);
+  const response = await fetch(`/api/polls/`);
   if (response.ok) {
     const polls = await response.json();
     dispatch(loadPolls(polls));
+    return polls;
   }
 };
 
@@ -56,6 +57,7 @@ export const getOnePoll = (id) => async dispatch => {
   const response = await fetch(`/api/polls/${sendId}`)
   const poll = await response.json();
   dispatch(loadOnePoll(poll));
+  return poll;
 }
 
 // creates a new poll

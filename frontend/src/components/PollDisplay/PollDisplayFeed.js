@@ -10,13 +10,19 @@ import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
 import XMark from '../XMark';
 
-const PollDisplay = ({ pollId }) => {
+const PollDisplayFeed = ({ pollSend }) => {
+
+  console.log('here')
+
   const dispatch = useDispatch();
   const history = useHistory();
 
   const sessionUser = useSelector(state => state.session.user);
   const onePoll = useSelector(state => state.poll.singlePoll);
   const votes = useSelector(state => state.vote.pollVotes);
+
+  const pollId = pollSend.id
+  
 
 
   const [loaded, setLoaded] = useState(false);
@@ -189,8 +195,7 @@ const PollDisplay = ({ pollId }) => {
     <div className='loadingContainer'>
         <LoadingIcon />
     </div>
-    );
-
+    )
   };
 
   return (
@@ -267,4 +272,4 @@ const PollDisplay = ({ pollId }) => {
   )
 };
 
-export default PollDisplay
+export default PollDisplayFeed

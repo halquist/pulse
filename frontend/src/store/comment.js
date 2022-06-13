@@ -2,8 +2,10 @@ import { csrfFetch } from './csrf';
 
 const LOAD = 'comment/LOAD';
 const ADD = 'comment/ADD';
-const UPDATE = 'comment/UPDATE'
+const UPDATE = 'comment/UPDATE';
 const DELETE = 'comment/DELETE';
+const CLEAR = 'comment/CLEAR';
+
 
 const loadComments = (comments) => {
   return {
@@ -33,6 +35,12 @@ const deleteComment = (id) => {
   }
 };
 
+const clearComment = () => {
+  return {
+    type: CLEAR
+  }
+};
+
 // load comments from database on load of poll focus page
 export const getComments = (pollId) => async dispatch => {
   const id = parseInt(pollId, 10);
@@ -40,6 +48,7 @@ export const getComments = (pollId) => async dispatch => {
   if (response.ok) {
     const comments = await response.json();
     dispatch(loadComments(comments));
+    return comments;
   }
 };
 
@@ -103,6 +112,10 @@ export const removeComment = (id) => async (dispatch) => {
   return data;
 }
 
+export const clearOutComments = () => async (dispatch) =>{
+  dispatch(clearComment())
+}
+
 // returns an array of comments ordered by created date, Ascending
 // const sortList = (list) => {
 //   return list.sort((commentA, commentB) => {
@@ -135,6 +148,10 @@ const commentReducer = (state = initialState, action) => {
       // console.log('store delete id', action.id)
       newState = Object.assign({}, state);
       delete newState.pollComments[action.id];
+      return newState;
+    case CLEAR:
+      newState = Object.assign({}, state);
+        newState.pollComments = {}
       return newState;
     default:
       return state;
