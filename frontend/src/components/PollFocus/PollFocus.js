@@ -3,7 +3,7 @@ import PollDisplay from "../PollDisplay"
 import TitleBar from '../TitleBar';
 import CommentFeed from '../CommentFeed';
 import { CommentForm } from '../CommentFeed';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 import './PollFocus.css'
@@ -17,6 +17,16 @@ const PollFocus = () => {
   const showAddComment = () => {
     setAddComment(!addComment)
   }
+
+  //scrolls window to top on page load
+  const scrollToTop = () => {
+  console.log('scrolling')
+  document.getElementById("root").scrollTo(0, 0);
+  };
+
+useEffect(() => {
+  scrollToTop()
+},[])
 
   return (
     <div className='pollFeedDisplayDiv'>

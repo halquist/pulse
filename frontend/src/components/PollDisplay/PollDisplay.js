@@ -20,7 +20,6 @@ const PollDisplay = ({ pollId }) => {
 
 
   const [loaded, setLoaded] = useState(false);
-  const [data, setData] = useState(false);
   const [votePercent, setVotePercent] = useState(50);
   const [showDelete, setShowDelete] = useState(false);
   const [optionOneVotes, setOptionOneVotes] = useState(Object.values(votes).filter((vote) => vote.voteSelection === 1).length);
@@ -45,6 +44,9 @@ const PollDisplay = ({ pollId }) => {
   //  console.log('wooooooo', canVote, userVote[0]?.voteSelection)
   //  console.log(voteId)
   //  console.log('sticker', userVoteSticker)
+
+
+
 
   // strict dispatch and state setting order to make sure all data is properly presented in the poll display
    useEffect(() => {
@@ -90,33 +92,34 @@ const PollDisplay = ({ pollId }) => {
           const voteIdSet = canVoteSet && userVoteSet?.voteSelection === 0 ? 'submitVote' : 'cannotSubmitVote'
           setVoteId(voteIdSet)
         })
-        .then(() => setData(true))
         .then(() => setLoaded(true))
       )
   },[dispatch])
 
 
-  // useEffect(()=> {
-  //   dispatch(getVotes(pollId))
-  //     .then((returnVotes) => {
-  //       // counts how many votes exist for option one
-  //       const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
-  //       setOptionOneVotes(opOneVotes);
-  //       return { returnVotes, opOneVotes };
-  //     })
-  //     .then(({ returnVotes, opOneVotes }) => {
-  //       // counts how many votes exist for option two
-  //       const opTwoVotes = returnVotes.filter((vote) => vote.voteSelection === 2).length
-  //       setOptionTwoVotes(opTwoVotes);
-  //       return { returnVotes, opOneVotes, opTwoVotes };
-  //     })
-  //     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
-  //       // creates a percentage value for option one to display, option 2 percent will also be based on this value
-  //       setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
-  //       return returnVotes;
-  //     })
-  //   // setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100));
-  // },[optionOneVotes, optionTwoVotes, userVote])
+  useEffect(()=> {
+    dispatch(getOnePoll(pollId))
+      .then((returns) => {
+        const returnVotes = returns.UserVotes;
+        // counts how many votes exist for option one
+        const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
+        setOptionOneVotes(opOneVotes);
+        return { returnVotes, opOneVotes };
+      })
+      .then(({ returnVotes, opOneVotes }) => {
+        // counts how many votes exist for option two
+        const opTwoVotes = returnVotes.filter((vote) => vote.voteSelection === 2).length
+        setOptionTwoVotes(opTwoVotes);
+        return { returnVotes, opOneVotes, opTwoVotes };
+      })
+      .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
+        // creates a percentage value for option one to display, option 2 percent will also be based on this value
+        setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
+        return returnVotes;
+      })
+    // setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100));
+  },[optionOneVotes, optionTwoVotes, userVote])
+
 
 
   // toggles showing the delete confirmation form
@@ -177,17 +180,18 @@ const PollDisplay = ({ pollId }) => {
   };
 
 
-  if (!loaded || !data) {
+
+
+  if (!loaded) {
     return (
     <div className='loadingContainer'>
         <LoadingIcon />
     </div>
     );
-
   };
 
   return (
-    <div className='tempPollContainer'>
+    <div className='tempPollContainer' >
       <div className='pollDisplayDiv'>
         <div className='pollDisplayTopBar'>
           <div className='pollDisplayUsername'>{onePoll.User.username}</div>
