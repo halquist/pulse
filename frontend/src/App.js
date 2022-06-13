@@ -9,6 +9,7 @@ import PollForm from './components/PollForm';
 import PollFocus from './components/PollFocus';
 import SplashPage from './components/SplashPage';
 import Texture from './components/Texture';
+import PollFeed from './components/PollFeed/PollFeed';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,7 +29,8 @@ function App() {
       {loaded && (
       <Switch>
         <Route path='/' exact={true}>
-          <SplashPage />
+          <PollFeed />
+          {/* <SplashPage /> */}
         </Route>
         <Route path='/signup' exact={true}>
           <SignupFormPage />

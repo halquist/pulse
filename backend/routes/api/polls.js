@@ -4,6 +4,7 @@ const { restoreUser, requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Poll, User, Comment, UserVote } = require('../../db/models');
+const poll = require('../../db/models/poll');
 
 const router = express.Router();
 
@@ -11,10 +12,11 @@ const router = express.Router();
 router.get(
   '/',
   asyncHandler( async (req, res) => {
-    const polls = await Poll.findAll( {
+    const polls = await Poll.findAll({
       include: [
         { model: User },
         { model: Comment },
+        { model: UserVote}
       ]
     });
     return res.json(polls);

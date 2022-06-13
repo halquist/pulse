@@ -1,4 +1,4 @@
-import './CommentFeed.css'
+import './CommentFeed.css';
 import CommentDisplay from './CommentDisplay';
 import { getComments } from '../../store/comment';
 import { useEffect, useState } from 'react';

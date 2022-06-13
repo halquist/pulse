@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import PollDisplay from "../PollDisplay"
-import PollDisplay2 from "../PollDisplay"
 import TitleBar from '../TitleBar';
 import CommentFeed from '../CommentFeed';
 import { CommentForm } from '../CommentFeed';
@@ -14,8 +13,6 @@ const PollFocus = () => {
   const { pollId } = useParams();
 
   const [addComment, setAddComment] = useState(false);
-
-
 
   const showAddComment = () => {
     setAddComment(!addComment)
