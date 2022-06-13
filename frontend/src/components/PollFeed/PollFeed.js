@@ -35,9 +35,7 @@ const PollFeed = () => {
 
   if (!loaded) {
     return (
-    <div className='loadingContainer'>
         <LoadingIcon />
-    </div>
     )
   };
 

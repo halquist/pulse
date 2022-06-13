@@ -18,8 +18,8 @@ function Navigation({ isLoaded }){
     sessionLinks = (
       <>
         {/* <LoginFormModal /> */}
-        <NavLink to="/login">Log In</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
+        {/* <NavLink to="/login">Log In</NavLink>
+        <NavLink to="/signup">Sign Up</NavLink> */}
       </>
     );
   }
@@ -29,8 +29,8 @@ function Navigation({ isLoaded }){
       <ul className='navContainer'>
         <li className='navContent'>
           <Logo />
-          <NavLink exact to="/" className='homeText'>Home</NavLink>
-          <NavLink exact to="/polls/new" className='homeText'>New Poll</NavLink>
+          {/* <NavLink exact to="/" className='homeText'>Home</NavLink> */}
+          {/* <NavLink exact to="/polls/new" className='homeText'>New Poll</NavLink> */}
           {isLoaded && sessionLinks}
         </li>
       </ul>

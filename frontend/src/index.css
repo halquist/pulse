@@ -31,6 +31,13 @@ body {
   overflow-x: hidden;
 }
 
+#mainContainerDiv {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+}
+
 a {
   text-decoration: none;
 }
@@ -133,4 +140,8 @@ textarea {
   border: 1px solid rgba(0, 0, 0, .12);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
   resize: vertical;
+}
+
+.active {
+  border-right: 4px solid white;
 }

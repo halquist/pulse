@@ -42,7 +42,8 @@ const LoginFormPage = () => {
       <TitleBar title='Log In'/>
       <div className='loginFormDiv'>
         <form onSubmit={handleSubmit} id='loginForm'>
-          <ul>
+          <div id='loginText'>Please log in to continue</div>
+          <ul className='errorList'>
             {errors.map((error, idx) => <li key={idx} className='errorText'>{error}</li>)}
           </ul>
           <label>

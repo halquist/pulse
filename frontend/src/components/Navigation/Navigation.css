@@ -18,6 +18,7 @@
   display: flex;
   max-width: 100%;
   justify-content: space-between;
+  align-items: center;
   margin: 0px 20px;
 }
 
@@ -41,11 +42,15 @@ color: white;
 }
 
 .profile-dropdown {
-  background-color: rgb(255, 255, 255);
+  background-color: #495151;
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
   position: fixed;
   right: 0px;
-  top: 60px;
+  top: 40px;
   padding: 10px 20px;
+  border-radius: 0px 0px 3px 3px;
+  color: white;
 }
 
 .profile-dropdown > li {
@@ -55,11 +60,17 @@ color: white;
 #logoutButton {
   padding: 5px 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
-  background-color: rgb(0, 0, 0);
-  color: white;
+  background-color: #B76A91;
+  border: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, .2);
+  color: rgb(218, 224, 230);
   transition: .2s;
+}
+
+#logoutButton:hover {
+  background-color: #b44c80 !important;
 }
 
 
@@ -73,8 +84,18 @@ color: white;
 }
 
 #profileButton {
-  padding: 0px 20px;
-  margin: 0px 10px;
-  background-color: #495151;
-  color: white;
+  /* padding: 0px 20px; */
+  /* margin: 0px 10px; */
+  background-color: transparent;
+  color: rgb(208, 208, 208);
+  font-size: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: fit-content;
+  gap: 6px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  user-select: none;
 }

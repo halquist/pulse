@@ -2,15 +2,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  height: 100px;
+  width: 700px;
+  overflow: hidden;
 }
 
 #logo_svg {
   height: 44px;
   margin-top: 4px;
+  width: fit-content;
 }
 
 #logo_svg_loading {
   height: 100px;
+  overflow: hidden;
 }
 
 #middle_line {
