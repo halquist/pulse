@@ -133,6 +133,8 @@ const commentReducer = (state = initialState, action) => {
     case LOAD:
       // newState = Object.assign({}, state);
       newState = {...state};
+      console.log('store comments', action.comments)
+      // newState.pollComments = {}
       action.comments.forEach(comment => {
         newState.pollComments[comment.id] = comment
       });
