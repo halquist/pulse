@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const ADD = 'user/ADD';
 const REMOVE = 'user/REMOVE';
+const ADDBPM = 'user/ADDBPM';
 
 
 const setSessionUser = (user) => {
@@ -14,6 +15,13 @@ const setSessionUser = (user) => {
 const removeSessionUser = () => {
   return {
     type: REMOVE
+  }
+};
+
+const addBpm = (user) => {
+  return {
+    type: ADDBPM,
+    user
   }
 };
 
@@ -63,6 +71,23 @@ export const logout = () => async (dispatch) => {
   return response;
 };
 
+export const bpmChange = (id, bpm, addOrSubtract) => async (dispatch) => {
+  const response = await csrfFetch(`/api/users/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id,
+      bpm,
+      addOrSubtract
+    })
+  });
+
+  const data = await response.json();
+  dispatch(addBpm(data))
+}
+
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
@@ -78,6 +103,11 @@ const sessionReducer = (state = initialState, action) => {
       // newState = Object.assign({}, state);
       newState = {...state};
       newState.user = null;
+      return newState;
+    case ADDBPM:
+      // newState = Object.assign({}, state);
+      newState = {...state};
+      newState.user = action.user;
       return newState;
     default:
       return state;

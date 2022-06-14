@@ -8,6 +8,7 @@ import { getVotes, clearOutVotes } from '../../store/uservote';
 import { VotedSticker } from '../Logo';
 import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
+import { bpmChange } from '../../store/session';
 import XMark from '../XMark';
 
 const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
@@ -35,6 +36,8 @@ const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
   const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined);
   const [voteId, setVoteId] = useState(canVote && !userVote ? 'submitVote' : 'cannotSubmitVote')
   const [errors, setErrors] = useState([]);
+  const [bpmValue, setBpmValue] = useState(0);
+
 
 //  console.log(pollSend.title, canVote)
 
@@ -55,6 +58,26 @@ useEffect(()=> {
     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
       // creates a percentage value for option one to display, option 2 percent will also be based on this value
       setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
+      return { returnVotes, opOneVotes, opTwoVotes };
+    })
+    .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
+      // sets how much bpm voting on a poll is worth based on how many votes already exist
+      const numVotes = opOneVotes + opTwoVotes;
+      let bpmValue = 1;
+      if (numVotes <= 10) {
+        bpmValue = 10
+      } else if (numVotes <= 20) {
+        bpmValue = 8
+      } else if (numVotes <= 30) {
+        bpmValue = 6
+      } else if (numVotes <= 40) {
+        bpmValue = 4
+      } else if (numVotes <= 50) {
+        bpmValue = 2
+      } else if (numVotes <= 100) {
+        bpmValue = 1
+      }
+      setBpmValue(bpmValue)
       return { returnVotes, opOneVotes, opTwoVotes };
     })
     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
@@ -121,6 +144,7 @@ useEffect(()=> {
           setCanVote(false);
           setUserVoteSticker(true);
           setVoteId('cannotSubmitVote');
+          dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
         }
     } else {
       return;

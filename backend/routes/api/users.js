@@ -1,7 +1,8 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
+
 const { User } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -53,5 +54,18 @@ router.post(
     });
   })
 );
+
+// add bpm to current user
+router.put(
+  '/:id(\\d+)',
+  requireAuth, restoreUser,
+  asyncHandler( async (req, res) => {
+    const userId = req.params.id;
+    const { bpm, addOrSubtract } = req.body;
+    const id = userId;
+    const updateUserBpm = await User.addBpm({ id, bpm, addOrSubtract })
+    return res.json(updateUserBpm)
+  })
+)
 
 module.exports = router;
