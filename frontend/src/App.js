@@ -39,7 +39,17 @@ function App() {
           </Route>
           <ProtectedRoute path='/' exact={true}>
           <SideNavigation />
-            <PollFeed />
+            <PollFeed type='latest' />
+            {/* <SplashPage /> */}
+          </ProtectedRoute>
+          <ProtectedRoute path='/pollfeed/user' exact={true}>
+          <SideNavigation />
+            <PollFeed type='user' />
+            {/* <SplashPage /> */}
+          </ProtectedRoute>
+          <ProtectedRoute path='/pollfeed/hot' exact={true}>
+          <SideNavigation />
+            <PollFeed type='hot' />
             {/* <SplashPage /> */}
           </ProtectedRoute>
           <ProtectedRoute path='/polls/new' exact={true}>

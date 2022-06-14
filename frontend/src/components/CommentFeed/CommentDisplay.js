@@ -54,7 +54,6 @@ const CommentDisplay = ({ comment, comments }) => {
   const expanderFunc = () => {
     setExpandedCheck((prev) => !prev)
     setExpander((prev) => prev === '[-]' ? '[+]' : '[-]')
-    console.log(expandedCheck)
   }
 
 

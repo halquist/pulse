@@ -51,6 +51,36 @@ export const getPolls = () => async dispatch => {
   }
 };
 
+// load 10 most recent polls from database
+export const getPollsRecent = () => async dispatch => {
+  const response = await fetch(`/api/polls/recent`);
+  if (response.ok) {
+    const polls = await response.json();
+    dispatch(loadPolls(polls));
+    return polls;
+  }
+};
+
+// load 10 most voted on polls from database
+export const getPollsHot = () => async dispatch => {
+  const response = await fetch(`/api/polls/hot`);
+  if (response.ok) {
+    const polls = await response.json();
+    dispatch(loadPolls(polls));
+    return polls;
+  }
+};
+
+// load all polls from current session user
+export const getPollsUser = (userId) => async dispatch => {
+  const response = await fetch(`/api/polls/user/${userId}`);
+  if (response.ok) {
+    const polls = await response.json();
+    dispatch(loadPolls(polls));
+    return polls;
+  }
+};
+
 // loads a particular poll into the store
 export const getOnePoll = (id) => async dispatch => {
   const sendId = parseInt(id, 10);
@@ -73,7 +103,9 @@ export const createPoll = (poll) => async (dispatch) => {
       description,
       userId,
       optionOneTitle,
-      optionTwoTitle
+      optionTwoTitle,
+      optionOneVotes: 0,
+      optionTwoVotes: 0
     })
   });
   const data = await response.json();
@@ -104,6 +136,35 @@ export const editPoll = (poll) => async (dispatch) => {
   await dispatch(updatePoll(data.poll));
   return data;
 }
+
+// updates poll votes numbers
+
+export const editPollVotes = (pollId, optionOneVotes, optionTwoVotes ) => async (dispatch) => {
+  // const sendId = parseInt(id, 10);
+  const oldPoll = await fetch(`/api/polls/${pollId}`)
+  const poll = await oldPoll.json();
+  const { id, title, description, optionOneTitle, optionTwoTitle, userId } = poll;
+  const response = await csrfFetch(`/api/polls/${pollId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      pollId,
+      title,
+      description,
+      optionOneTitle,
+      optionTwoTitle,
+      userId,
+      optionOneVotes,
+      optionTwoVotes
+    })
+  });
+  const data = await response.json();
+  await dispatch(updatePoll(data));
+  return data;
+}
+
 
 export const removePoll = (id) => async (dispatch) => {
   const response = await csrfFetch(`/api/polls/${id}`, {

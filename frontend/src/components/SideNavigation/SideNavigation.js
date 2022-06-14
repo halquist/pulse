@@ -21,12 +21,12 @@ const SideNavigation = () => {
           <div className='navText'>Create Poll</div>
         </NavLink>
         <div className='spacerDiv'></div>
-        <NavLink exact to="/" className='iconTextNav'>
+        <NavLink exact to="/pollfeed/user" className='iconTextNav'>
           <img src={circles_icon} width="20" height="20" className='navIcon'/>
           <div className='navText'>My Polls</div>
         </NavLink>
         <div className='spacerDiv'></div>
-        <NavLink exact to="/" className='iconTextNav'>
+        <NavLink exact to="/pollfeed/hot" className='iconTextNav'>
           <img src={flame_icon} width="20" height="20" className='navIcon'/>
           <div className='navText'>Hot Polls</div>
         </NavLink>
