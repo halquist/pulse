@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, Redirect } from "react-router-dom";
 import { getOnePoll } from '../../store/poll';
+import { bpmChange } from '../../store/session';
 import TitleBar from '../TitleBar';
 import { LoadingIcon } from '../Logo';
 
@@ -61,6 +62,7 @@ const PollForm = ({ mode }) => {
           if (data && data.errors) setErrors(data.errors);
         });
         if (newPoll) {
+          dispatch(bpmChange(sessionUser.id, -10, 'subtract'))
           history.push(`/polls/${newPoll.poll.id}`);
         }
   };
