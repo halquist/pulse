@@ -58,6 +58,7 @@ useEffect(()=> {
       return { returnVotes, opOneVotes, opTwoVotes };
     })
     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
+      console.log(opOneVotes, opTwoVotes)
       dispatch(pollActions.editPollVotes(pollId, opOneVotes, opTwoVotes))
     })
 },[optionOneVotes, optionTwoVotes, userVote])

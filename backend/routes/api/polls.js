@@ -145,7 +145,7 @@ router.put(
   validatePoll, requireAuth, restoreUser,
   asyncHandler( async (req, res) => {
     const pollIdFind = req.params.id;
-    const { pollId, title, description, optionOneTitle, optionTwoTitle, optionOneVotes, optionTwoVotes } = req.body;
+    const { pollId, title, description, optionOneTitle, optionTwoTitle, optionOneVotes, optionTwoVotes, justVotes } = req.body;
     const updatePoll = await Poll.findByPk(pollIdFind, {
       include: [
         { model: User},
@@ -154,7 +154,7 @@ router.put(
       ]
     });
 
-    if (updatePoll.User.id === req.user.id) {
+    if (updatePoll.User.id === req.user.id || justVotes === true) {
       const updatePoll = await Poll.updatePoll({ pollId, title, description, optionOneTitle, optionTwoTitle, optionOneVotes, optionTwoVotes });
       const poll = await Poll.findByPk(updatePoll.id, {
         include: [
