@@ -12,24 +12,28 @@ html {
   /* background-image: linear-gradient(#363D44 ,#242b32); */
   background-color: #363D44;
   padding: 100px 0 0;
+  /* padding-left: calc(100vw - 100%); */
+
 }
 
 body {
   margin: 0px;
   padding: 0px;
+  /* padding-left: calc(100vw - 100%); */
 }
 
 #root {
+  position: relative;
   margin: 0;
   padding: 50px 0 0;
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
+  align-items: center;
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
-
+   scroll-margin-top: 40px;
 }
 
 #mainContainerDiv {
@@ -38,6 +42,7 @@ body {
   display: flex;
   height: 100%;
   justify-content: center;
+  padding-left: calc(100vw - 100%);
 }
 
 a {
@@ -146,4 +151,22 @@ textarea {
 
 .active {
   border-right: 4px solid white;
+}
+
+::-webkit-scrollbar {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  /* height: 10px !important; */
+  width: 12px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a3a3a3;
+  border-radius: 20px;
+  /* -webkit-box-shadow: inset 0 0 5px rgb(93, 166, 255); */
+}
+
+::-webkit-scrollbar-track {
+  /* background-color: rgba(62, 62, 62, 0.5); */
+  margin-top: 40px;
 }

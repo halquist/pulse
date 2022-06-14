@@ -49,13 +49,12 @@ const PollForm = ({ mode }) => {
     }
   },[dispatch, editPoll.title, editPoll.description, editPoll.optionOneTitle, editPoll.optionTwoTitle, editPoll.optionOneVotes, editPoll.optionTwoVotes, mode, pollId])
 
-
+  console.log(pollId)
 
   // submits new poll to database
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-
       let newPoll = await dispatch(pollActions.createPoll({ title, description, optionOneTitle, optionTwoTitle, userId: sessionUser.id }))
         .catch(async (res) => {
           const data = await res.json();
@@ -82,7 +81,7 @@ const PollForm = ({ mode }) => {
           if (data && data.errors) setErrors(data.errors);
         });
         if (newPoll) {
-          history.push(`/polls/${newPoll.poll.id}`);
+          history.goBack();
         }
   };
 

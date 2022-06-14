@@ -1,6 +1,6 @@
 import './CommentFeed.css';
 import CommentDisplay from './CommentDisplay';
-import { getComments } from '../../store/comment';
+import { getComments, clearOutComments } from '../../store/comment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoadingIcon } from '../Logo';
@@ -18,6 +18,9 @@ const CommentFeed = ({ pollId }) => {
   }))
   const [numComments, setNumComments] = useState(comments.length)
 
+  useEffect(() => {
+    dispatch(clearOutComments())
+  },[])
 
   useEffect(() => {
     dispatch(getComments(pollId))

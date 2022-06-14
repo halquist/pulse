@@ -131,27 +131,32 @@ const commentReducer = (state = initialState, action) => {
   let newState;
   switch(action.type) {
     case LOAD:
-      newState = Object.assign({}, state);
+      // newState = Object.assign({}, state);
+      newState = {...state};
       action.comments.forEach(comment => {
         newState.pollComments[comment.id] = comment
       });
       return newState;
     case ADD:
-      newState = Object.assign({}, state);
+      // newState = Object.assign({}, state);
+      newState = {...state};
       newState.pollComments[action.comment.id] = action.comment;
       return newState;
     case UPDATE:
-      newState = Object.assign({}, state);
+      // newState = Object.assign({}, state);
+      newState = {...state};
       newState.pollComments[action.comment.id] = action.comment;
       return newState;
     case DELETE:
       // console.log('store delete id', action.id)
-      newState = Object.assign({}, state);
+      // newState = Object.assign({}, state);
+      newState = {...state};
       delete newState.pollComments[action.id];
       return newState;
     case CLEAR:
-      newState = Object.assign({}, state);
-        newState.pollComments = {}
+      // newState = Object.assign({}, state);
+      newState = {...state};
+      newState.pollComments = {}
       return newState;
     default:
       return state;
