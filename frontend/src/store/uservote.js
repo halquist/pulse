@@ -72,7 +72,6 @@ export const removeAllVotes = (pollId) => async (dispatch) => {
   const response = await fetch(`/api/votes/${id}`);
   if (response.ok) {
     const votes = await response.json();
-    console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%',votes)
     for (let i = 0; i < votes.length; i++) {
       const vote = votes[i];
       const deleteIt = await csrfFetch(`/api/votes/${vote.id}`, {

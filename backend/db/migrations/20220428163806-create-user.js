@@ -22,6 +22,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING.BINARY
       },
+      bpm: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
       profileImageUrl: {
         allowNull: true,
         type: Sequelize.STRING(2048)

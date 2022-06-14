@@ -50,6 +50,7 @@ const PollDisplay = ({ pollId }) => {
 
   // strict dispatch and state setting order to make sure all data is properly presented in the poll display
    useEffect(() => {
+    dispatch(getVotes(pollId))
     dispatch(getPolls())
       .then(() => dispatch(getOnePoll(pollId))
         .then((returns) => {
@@ -210,21 +211,21 @@ const PollDisplay = ({ pollId }) => {
             <div className='voteBoxPink'>
               <div className={`voteCheck ${voteSelection === 1 || userVote[0]?.voteSelection === 1 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>
-            {onePoll.optionOneTitle}
+            <div className='optionOneText'>{onePoll.optionOneTitle}</div>
           </div>
           <div className='pollDisplayOptionTwo' onClick={() => handleSetVote(2)}>
             <div className='voteBoxGreen'>
               <div className={`voteCheck ${voteSelection === 2 || userVote[0]?.voteSelection === 2 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>
-              {onePoll.optionTwoTitle}
+            <div className='optionTwoText'>{onePoll.optionTwoTitle}</div>
           </div>
         </div>
         <div className='votePercentageBar'>
           <div className='optionOnePercent' style={{ width: `${votePercent}%` }}>
-            {votePercent ? `${votePercent}%` : `0%`}
+            <div className='percentText'>{votePercent ? `${votePercent}%` : `0%`}</div>
             </div>
           <div className='optionTwoPercent' style={{ width: `${100 - votePercent}%` }}>
-            {100 - votePercent ? `${100 - votePercent}%` : `0%`}
+            <div className='percentText'>{100 - votePercent ? `${100 - votePercent}%` : `0%`}</div>
             </div>
         </div>
         <div className='pollDisplayBottomBar'>

@@ -74,9 +74,7 @@ const PollForm = ({ mode }) => {
       if (title !== editPoll.title || optionOneTitle !== editPoll.optionOneTitle || optionTwoTitle !== editPoll.optionTwoTitle) {
         oneVotes = 0;
         twoVotes = 0;
-        console.log('$$$$$$$$$$$$$$$$$$$$$', pollId)
         dispatch(removeAllVotes(pollId))
-          .then((votes) => console.log('pollform votes', votes))
       }
       let newPoll = await dispatch(pollActions.editPoll({ pollId, title, description, optionOneTitle, optionTwoTitle, userId: sessionUser.id, optionOneVotes: oneVotes, optionTwoVotes: twoVotes }))
         .catch(async (res) => {
