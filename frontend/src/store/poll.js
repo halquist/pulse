@@ -157,7 +157,8 @@ export const editPollVotes = (pollId, optionOneVotes, optionTwoVotes ) => async 
       optionTwoTitle,
       userId,
       optionOneVotes,
-      optionTwoVotes
+      optionTwoVotes,
+      justVotes: true
     })
   });
   const data = await response.json();
