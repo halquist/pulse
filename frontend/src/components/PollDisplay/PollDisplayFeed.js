@@ -34,14 +34,29 @@ const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
   const [voteSelection, setVoteSelection] = useState(0);
   const [userVote, setUserVote] = useState(Object.values(votes).filter((vote) => vote?.userId === sessionUser?.id));
   const [userVoteSticker, setUserVoteSticker] = useState(userVote.length > 0);
-  const [votePercent, setVotePercent] = useState(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100));
+  const [votePercent, setVotePercent] = useState(50);
   const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined);
   const [voteId, setVoteId] = useState(canVote && !userVote ? 'submitVote' : 'cannotSubmitVote')
   const [errors, setErrors] = useState([]);
   const [bpmValue, setBpmValue] = useState(0);
+  const [votePercentScroll, setVotePercentScroll] = useState(50);
+
 
 
 //  console.log(pollSend.title, canVote)
+
+// allows for a gradual change on the percent bar
+useEffect(() => {
+  let percentScrollTimeout;
+  if (votePercent > votePercentScroll) {
+    percentScrollTimeout = setTimeout(()=> setVotePercentScroll((prev)=> prev + 1), 1);
+  } else if (votePercent < votePercentScroll) {
+    percentScrollTimeout = setTimeout(()=> setVotePercentScroll((prev)=> prev - 1), 1);
+  } else {
+    clearTimeout(percentScrollTimeout);
+  }
+},[votePercent, votePercentScroll])
+
 
 useEffect(()=> {
   dispatch(getVotes(pollId))
@@ -59,7 +74,9 @@ useEffect(()=> {
     })
     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
       // creates a percentage value for option one to display, option 2 percent will also be based on this value
-      setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
+      const percent = Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100)
+      setVotePercent(percent);
+      // setVotePercentScroll(percent);
       return { returnVotes, opOneVotes, opTwoVotes };
     })
     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
@@ -201,11 +218,11 @@ useEffect(()=> {
           </div>
         </div>
         <div className='votePercentageBar'>
-          <div className='optionOnePercent' style={{ width: `${votePercent}%` }}>
-          <div className='percentText'>{votePercent ? `${votePercent}%` : `0%`}</div>
+          <div className='optionOnePercent' style={{ width: `${votePercentScroll}%` }}>
+          <div className='percentText'>{votePercentScroll ? `${votePercentScroll}%` : `0%`}</div>
             </div>
-          <div className='optionTwoPercent' style={{ width: `${100 - votePercent}%` }}>
-          <div className='percentText'>{100 - votePercent ? `${100 - votePercent}%` : `0%`}</div>
+          <div className='optionTwoPercent' style={{ width: `${100 - votePercentScroll}%` }}>
+          <div className='percentText'>{100 - votePercentScroll ? `${100 - votePercentScroll}%` : `0%`}</div>
             </div>
         </div>
         <div className='pollDisplayBottomBar'>

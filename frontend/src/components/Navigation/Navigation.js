@@ -10,17 +10,32 @@ import './Navigation.css';
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
   const [idPass, setIdPass] = useState(null);
+  const [bpmScrollUp, setBpmScrollUp] = useState(sessionUser?.bpm);
 
   useEffect(() => {
     setIdPass('bpm_svg_animate')
     const idPassTimeout = setTimeout(()=> setIdPass(null), 5000);
   },[sessionUser?.bpm])
 
+  // increments or decrements the bpm total by 1 bpm at a time for visual purposes
+  useEffect(() => {
+    let bpmScrollTimeout;
+    if (sessionUser) {
+      if (sessionUser.bpm > bpmScrollUp) {
+      bpmScrollTimeout = setTimeout(()=> setBpmScrollUp((prev)=> prev + 1), 80);
+      } else if (sessionUser.bpm < bpmScrollUp) {
+      bpmScrollTimeout = setTimeout(()=> setBpmScrollUp((prev)=> prev - 1), 80);
+      } else {
+        clearTimeout(bpmScrollTimeout);
+      }
+    }
+  },[sessionUser?.bpm, bpmScrollUp])
+
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
       <>
-        <BpmDisplay bpmCount={sessionUser.bpm} idPass={idPass}/>
+        <BpmDisplay bpmCount={bpmScrollUp} idPass={idPass}/>
         <div id='profileButton'>
           <ProfileButton user={sessionUser} />
         </div>
