@@ -181,7 +181,6 @@ const PollDisplay = ({ pollId }) => {
 
 
 
-
   if (!loaded) {
     return (
     <div className='loadingContainer'>

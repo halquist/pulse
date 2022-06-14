@@ -11,8 +11,8 @@ module.exports = {
      imageUrl: null,
      optionOneTitle: 'Bacon',
      optionTwoTitle: 'Ham',
-     optionOneVotes: 432,
-     optionTwoVotes: 267,
+     optionOneVotes: 0,
+     optionTwoVotes: 0,
      startTime: null,
      endTime: null,
    }

@@ -20,7 +20,6 @@ const PollFocus = () => {
 
   //scrolls window to top on page load
   const scrollToTop = () => {
-  console.log('scrolling')
   document.getElementById("root").scrollTo(0, 0);
   };
 

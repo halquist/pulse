@@ -1,10 +1,11 @@
 const express = require('express');
+const sequelize = require('sequelize');
 const asyncHandler = require('express-async-handler');
 const { restoreUser, requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Poll, User, Comment, UserVote } = require('../../db/models');
-const poll = require('../../db/models/poll');
+// const poll = require('../../db/models/poll');
 
 const router = express.Router();
 
@@ -19,6 +20,60 @@ router.get(
         { model: UserVote}
       ],
       order: [['createdAt', 'DESC']]});
+    return res.json(polls);
+  })
+);
+
+// get 10 most recent polls
+router.get(
+  '/recent',
+  asyncHandler( async (req, res) => {
+    const polls = await Poll.findAll({
+      include: [
+        { model: User },
+        { model: Comment },
+        { model: UserVote}
+      ],
+      order: [['createdAt', 'DESC']],
+      limit: 10
+    });
+    return res.json(polls);
+  })
+);
+
+// get 10 most voted on polls
+router.get(
+  '/hot',
+  asyncHandler( async (req, res) => {
+    const polls = await Poll.findAll({
+      include: [
+        { model: User },
+        { model: Comment },
+        { model: UserVote}
+      ],
+      order: [[ sequelize.literal('"Poll"."optionOneVotes" + "Poll"."optionTwoVotes"'), 'DESC' ]],
+      limit: 10
+    });
+    return res.json(polls);
+  })
+);
+
+// get all polls by current session user
+router.get(
+  '/user/:id(\\d+)',
+  asyncHandler( async (req, res) => {
+    const userId = req.params.id;
+    const polls = await Poll.findAll({
+      where: {
+        userId: userId
+      },
+      include: [
+        { model: User },
+        { model: Comment },
+        { model: UserVote}
+      ],
+      order: [['createdAt', 'DESC']]
+    });
     return res.json(polls);
   })
 );
@@ -76,8 +131,8 @@ router.post(
   '/',
   validatePoll, requireAuth, restoreUser,
   asyncHandler( async (req, res) => {
-    const { title, description, userId, optionOneTitle, optionTwoTitle } = req.body;
-    const poll = await Poll.createPoll({ title, description, userId, optionOneTitle, optionTwoTitle });
+    const { title, description, userId, optionOneTitle, optionTwoTitle, optionOneVotes, optionTwoVotes } = req.body;
+    const poll = await Poll.createPoll({ title, description, userId, optionOneTitle, optionTwoTitle, optionOneVotes, optionTwoVotes });
     return res.json({
       poll
     });
@@ -95,14 +150,20 @@ router.put(
       include: [
         { model: User},
         { model: Comment},
+        { model: UserVote}
       ]
     });
 
     if (updatePoll.User.id === req.user.id) {
-      const poll = await Poll.updatePoll({ pollId, title, description, optionOneTitle, optionTwoTitle, optionOneVotes, optionTwoVotes });
-      return res.json({
-        poll
-      })
+      const updatePoll = await Poll.updatePoll({ pollId, title, description, optionOneTitle, optionTwoTitle, optionOneVotes, optionTwoVotes });
+      const poll = await Poll.findByPk(updatePoll.id, {
+        include: [
+          { model: User},
+          { model: Comment},
+          { model: UserVote}
+        ]
+      });
+      return res.json(poll)
     } else {
       res.errors = new Error('Unauthorized');
       err.errors = errors;

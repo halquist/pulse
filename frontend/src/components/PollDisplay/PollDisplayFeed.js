@@ -55,10 +55,14 @@ useEffect(()=> {
     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
       // creates a percentage value for option one to display, option 2 percent will also be based on this value
       setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
-      return returnVotes;
+      return { returnVotes, opOneVotes, opTwoVotes };
     })
-  // setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + optionTwoVotes)) * 100));
+    .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
+      dispatch(pollActions.editPollVotes(pollId, opOneVotes, opTwoVotes))
+    })
 },[optionOneVotes, optionTwoVotes, userVote])
+
+
 
 
   // toggles showing the delete confirmation form
