@@ -10,6 +10,8 @@ import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
 import { bpmChange } from '../../store/session';
 import XMark from '../XMark';
+import bpm_symbol from '../../images/bpm_symbol.svg'
+
 
 const PollDisplay = ({ pollId }) => {
   const dispatch = useDispatch();
@@ -77,17 +79,17 @@ const PollDisplay = ({ pollId }) => {
           // sets how much bpm voting on a poll is worth based on how many votes already exist
           const numVotes = opOneVotes + opTwoVotes;
           let bpmValue = 1;
-          if (numVotes <= 10) {
+          if (numVotes <= 1) {
             bpmValue = 10
-          } else if (numVotes <= 20) {
+          } else if (numVotes <= 2) {
             bpmValue = 8
-          } else if (numVotes <= 30) {
+          } else if (numVotes <= 3) {
             bpmValue = 6
-          } else if (numVotes <= 40) {
+          } else if (numVotes <= 4) {
             bpmValue = 4
-          } else if (numVotes <= 50) {
+          } else if (numVotes <= 5) {
             bpmValue = 2
-          } else if (numVotes <= 100) {
+          } else if (numVotes <= 10) {
             bpmValue = 1
           }
           setBpmValue(bpmValue)
@@ -189,6 +191,7 @@ const PollDisplay = ({ pollId }) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         });
+        console.log(newVote)
         if (newVote) {
           setUserVote(newVote);
           setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length);
@@ -196,7 +199,10 @@ const PollDisplay = ({ pollId }) => {
           setCanVote(false);
           setUserVoteSticker(true);
           setVoteId('cannotSubmitVote');
-          dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
+          // adds bpm to account if you didn't make the poll
+          if (newVote.userId !== sessionUser.id) {
+            dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
+          }
         }
     } else {
       return;
@@ -218,6 +224,11 @@ const PollDisplay = ({ pollId }) => {
       <div className='pollDisplayDiv'>
         <div className='pollDisplayTopBar'>
           <div className='pollDisplayUsername'>{onePoll.User.username}</div>
+          <div className='bpmValueDisplay'>
+            <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
+            <div className='bpmDisplayText'>{bpmValue}</div>
+            <div className='bpmDisplayTextDark'>bpm</div>
+          </div>
           <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>
         </div>
         <div className='pollDisplayText'>
