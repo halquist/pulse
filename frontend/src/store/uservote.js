@@ -65,6 +65,28 @@ export const createVote = (vote) => async (dispatch) => {
   return data;
 }
 
+
+// deletes all votes on a poll
+export const removeAllVotes = (pollId) => async (dispatch) => {
+  const id = parseInt(pollId, 10);
+  const response = await fetch(`/api/votes/${id}`);
+  if (response.ok) {
+    const votes = await response.json();
+    console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%',votes)
+    for (let i = 0; i < votes.length; i++) {
+      const vote = votes[i];
+      const deleteIt = await csrfFetch(`/api/votes/${vote.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    }
+    dispatch(clearVotes())
+    return votes;
+  }
+}
+
 export const clearOutVotes = () => async (dispatch) =>{
   dispatch(clearVotes())
 }

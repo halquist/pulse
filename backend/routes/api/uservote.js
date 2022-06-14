@@ -59,3 +59,17 @@ router.post(
     );
   })
 );
+
+// delete vote
+router.delete(
+  '/:id(\\d+)',
+  requireAuth, restoreUser,
+  asyncHandler( async (req, res, next) => {
+    const voteId = req.params.id;
+    const findVote = await UserVote.findByPk(voteId);
+      const vote = await UserVote.deleteVote({ voteId });
+      return res.json({
+        vote
+      });
+  })
+)
