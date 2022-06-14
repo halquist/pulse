@@ -146,7 +146,9 @@ useEffect(()=> {
           setCanVote(false);
           setUserVoteSticker(true);
           setVoteId('cannotSubmitVote');
-          dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
+          if (pollSend.User.id !== sessionUser.id) {
+            dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
+          }
         }
     } else {
       return;
@@ -168,9 +170,10 @@ useEffect(()=> {
         <div className='pollDisplayTopBar'>
           <div className='pollDisplayUsername'>{onePoll.User.username}</div>
           <div className='bpmValueDisplay'>
+          <div className='bpmDisplayTextPlus'>+</div>
             <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
             <div className='bpmDisplayText'>{bpmValue}</div>
-            <div className='bpmDisplayTextDark'>bpm</div>
+            {/* <div className='bpmDisplayTextDark'>bpm</div> */}
           </div>
           <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>
         </div>

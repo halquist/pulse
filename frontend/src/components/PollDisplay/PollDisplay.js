@@ -191,7 +191,6 @@ const PollDisplay = ({ pollId }) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         });
-        console.log(newVote)
         if (newVote) {
           setUserVote(newVote);
           setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length);
@@ -200,7 +199,9 @@ const PollDisplay = ({ pollId }) => {
           setUserVoteSticker(true);
           setVoteId('cannotSubmitVote');
           // adds bpm to account if you didn't make the poll
-          if (newVote.userId !== sessionUser.id) {
+          console.log(newVote.userId !== sessionUser.id)
+          if (onePoll.User.id !== sessionUser.id) {
+            // console.log(newVote.userId, sessionUser.id)
             dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
           }
         }
@@ -225,9 +226,10 @@ const PollDisplay = ({ pollId }) => {
         <div className='pollDisplayTopBar'>
           <div className='pollDisplayUsername'>{onePoll.User.username}</div>
           <div className='bpmValueDisplay'>
+            <div className='bpmDisplayTextPlus'>+</div>
             <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
             <div className='bpmDisplayText'>{bpmValue}</div>
-            <div className='bpmDisplayTextDark'>bpm</div>
+            {/* <div className='bpmDisplayTextDark'>bpm</div> */}
           </div>
           <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>
         </div>

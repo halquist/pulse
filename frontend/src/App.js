@@ -26,7 +26,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <Texture /> */}
+      <Texture />
       <Navigation isLoaded={loaded} />
       <SplashPage />
       {loaded && (

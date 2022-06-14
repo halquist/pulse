@@ -156,3 +156,31 @@
     transform: scale(1) rotate(30deg);
   }
 }
+
+/* bpm symbol  */
+
+#bpm_svg_animate > path {
+  /* animation: wiggle_bpm .5s ease-in-out alternate infinite; */
+  animation: wiggle_bpm .5s ease-in-out alternate infinite;
+}
+
+@keyframes wiggle_bpm {
+  0% {
+  }
+  100% {
+    d: path(
+	"M51.345,153.596c3.341,3.339,7.956,5.405,13.052,5.405c10.192,0,18.46-8.265,18.46-18.456c0-10.19-8.268-18.46-18.46-18.46h-34.6,c-10.195,0-18.458-8.263-18.458-18.454c0-10.197,8.263-18.461,18.458-18.461h34.603c10.195,0,18.457-8.264,18.457-18.461,c0-10.192-8.262-18.455-18.457-18.455H29.799c-10.192,0-18.458-8.269-18.458-18.46s8.266-18.456,18.458-18.456h-0.001,c5.097,0,9.711,2.066,13.052,5.406"
+    );
+  }
+}
+
+/* @keyframes pulse_bpm {
+  0% {
+    stroke-dashoffset: 100;
+    stroke-dasharray: 1000 200;
+  }
+  100% {
+    stroke-dashoffset: -700;
+    stroke-dasharray: 1000 200;
+  }
+} */
