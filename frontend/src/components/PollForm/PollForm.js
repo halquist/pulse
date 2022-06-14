@@ -4,8 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, Redirect } from "react-router-dom";
 import { getOnePoll } from '../../store/poll';
+import { bpmChange } from '../../store/session';
 import TitleBar from '../TitleBar';
 import { LoadingIcon } from '../Logo';
+import bpm_symbol from '../../images/bpm_symbol.svg'
+
 
 import './PollForm.css';
 
@@ -58,10 +61,16 @@ const PollForm = ({ mode }) => {
       let newPoll = await dispatch(pollActions.createPoll({ title, description, optionOneTitle, optionTwoTitle, userId: sessionUser.id }))
         .catch(async (res) => {
           const data = await res.json();
+          console.log(data.errors)
           if (data && data.errors) setErrors(data.errors);
         });
         if (newPoll) {
-          history.push(`/polls/${newPoll.poll.id}`);
+          if (sessionUser.bpm >= 10) {
+            dispatch(bpmChange(sessionUser.id, -10, 'subtract'))
+            history.push(`/polls/${newPoll.poll.id}`);
+          } else {
+            setErrors(['You don\t have enough bpm to create this poll. Better go vote!'])
+          }
         }
   };
 
@@ -116,6 +125,11 @@ const PollForm = ({ mode }) => {
         </div>
         <form onSubmit={handleSubmit}>
           <div id='pollFormTitleDesc'>
+          <div className='bpmValueDisplayBlue'>
+            <div className='bpmDisplayText'>-</div>
+            <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
+            <div className='bpmDisplayText'>10</div>
+          </div>
             <div id='titleDiv'>
               <label htmlFor='title'>Poll Title</label>
               <input

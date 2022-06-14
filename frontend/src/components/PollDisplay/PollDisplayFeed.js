@@ -8,7 +8,10 @@ import { getVotes, clearOutVotes } from '../../store/uservote';
 import { VotedSticker } from '../Logo';
 import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
+import { bpmChange } from '../../store/session';
 import XMark from '../XMark';
+import bpm_symbol from '../../images/bpm_symbol.svg'
+
 
 const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
 
@@ -35,6 +38,8 @@ const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
   const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined);
   const [voteId, setVoteId] = useState(canVote && !userVote ? 'submitVote' : 'cannotSubmitVote')
   const [errors, setErrors] = useState([]);
+  const [bpmValue, setBpmValue] = useState(0);
+
 
 //  console.log(pollSend.title, canVote)
 
@@ -55,6 +60,26 @@ useEffect(()=> {
     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
       // creates a percentage value for option one to display, option 2 percent will also be based on this value
       setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
+      return { returnVotes, opOneVotes, opTwoVotes };
+    })
+    .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
+      // sets how much bpm voting on a poll is worth based on how many votes already exist
+      const numVotes = opOneVotes + opTwoVotes;
+      let bpmValue = 1;
+      if (numVotes <= 1) {
+        bpmValue = 10
+      } else if (numVotes <= 2) {
+        bpmValue = 8
+      } else if (numVotes <= 3) {
+        bpmValue = 6
+      } else if (numVotes <= 4) {
+        bpmValue = 4
+      } else if (numVotes <= 5) {
+        bpmValue = 2
+      } else if (numVotes <= 10) {
+        bpmValue = 1
+      }
+      setBpmValue(bpmValue)
       return { returnVotes, opOneVotes, opTwoVotes };
     })
     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
@@ -121,6 +146,9 @@ useEffect(()=> {
           setCanVote(false);
           setUserVoteSticker(true);
           setVoteId('cannotSubmitVote');
+          if (pollSend.User.id !== sessionUser.id) {
+            dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
+          }
         }
     } else {
       return;
@@ -141,6 +169,12 @@ useEffect(()=> {
       <div className='pollDisplayDivFeed'>
         <div className='pollDisplayTopBar'>
           <div className='pollDisplayUsername'>{onePoll.User.username}</div>
+          <div className='bpmValueDisplay'>
+          <div className='bpmDisplayTextPlus'>+</div>
+            <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
+            <div className='bpmDisplayText'>{bpmValue}</div>
+            {/* <div className='bpmDisplayTextDark'>bpm</div> */}
+          </div>
           <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>
         </div>
         <div className='pollDisplayText'>

@@ -98,6 +98,17 @@ module.exports = (sequelize, DataTypes) => {
     return await User.scope('currentUser').findByPk(user.id);
   };
 
+  User.addBpm = async function ({id, bpm, addOrSubtract}) {
+    const user = await User.scope('currentUser').findByPk(id);
+    if(addOrSubtract = 'add') {
+      user.bpm = user.bpm + bpm;
+    } else if (addOrSubtract = 'subtract') {
+      user.bpm = user.bpm - bpm;
+    }
+    await user.save();
+    return user;
+  }
+
   User.associate = function(models) {
     // associations can be defined here
     User.hasMany(models.Poll, { foreignKey: 'userId' })

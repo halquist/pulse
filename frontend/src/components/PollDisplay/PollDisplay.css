@@ -152,6 +152,15 @@
   margin: 20px 10px;
 }
 
+.pollMiddleBar {
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
+  background-color: rgba(206, 95, 204, 0.5);
+  border-radius: 80px;
+  height: 160px;
+}
+
 .pollDisplayOptionOne {
   display: flex;
   align-items: center;
@@ -159,7 +168,7 @@
   background-color: #8ED0B9;
   color: #003B31;
   padding: 12px 20px;
-  border: 1px solid rgba(0, 0, 0, .45);
+  border: 2px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
   /* border-radius: 3px; */
   border-radius: 40px;
@@ -180,7 +189,7 @@
   background-color: #DDB3D3;
   color: #680F3F;
   padding: 12px 20px;
-  border: 1px solid rgba(0, 0, 0, .45);
+  border: 2px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
   /* border-radius: 3px; */
   border-radius: 40px;
@@ -309,38 +318,42 @@
   justify-content: space-around;
   align-items: center;
   margin-bottom: 12px;
-
 }
 
 .optionOnePercent {
-  background-color: #8ED0B9;
+  background-color: #5ec3b1;
   width: 100%;
   height: 20px;
-  border-right: 1px solid #003B31;
-  border-left: 1px solid #003B31;
-  border-top: 1px solid #003B31;
-  border-bottom: 1px solid #003B31;
+  border-top: 2px solid rgba(0, 59, 49, .4);
+  border-left: 2px solid rgba(0, 59, 49, .4);
+  /* border: 2px solid rgba(0, 59, 49, .4); */
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .4);
   border-radius: 10px 0px 0px 10px;
   display: flex;
   justify-content: center;
   color: #003B31;
   min-width: 30px;
-  background-image: linear-gradient(#8ED0B9 ,#539A94);
+  /* background-image: linear-gradient(#8ED0B9 ,#539A94); */
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+
 }
 .optionTwoPercent {
-  background-color: #DDB3D3;
+  background-color: #c97ca2;
   width: 100%;
   height: 20px;
-  border-right: 1px solid #680F3F;
-  border-left: 1px solid #680F3F;
-  border-top: 1px solid #680F3F;
-  border-bottom: 1px solid #680F3F;
+  border-top: 2px solid rgba(104, 15, 63, .4);
+  border-right: 2px solid rgba(104, 15, 63, .4);
+  /* border: 2px solid rgba(104, 15, 63, .4); */
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .4);
   border-radius: 0px 10px 10px 0px;
   display: flex;
   justify-content: center;
   color: #680F3F;
   min-width: 30px;
-  background-image: linear-gradient(#DDB3D3 ,#B76A91);
+  /* background-image: linear-gradient(#DDB3D3 ,#B76A91); */
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
 }
 
 
@@ -380,4 +393,41 @@
 
 .percentText {
   filter: drop-shadow(1px  1px rgba(255, 255, 255, .3));
+}
+
+.bpmValueDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #c97ca2;
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .4);
+  border-radius: 6px;
+  padding: 4px 20px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+}
+
+.bpmIcon {
+  fill:rgba(0, 0, 0, .1);
+  filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
+}
+
+.bpmDisplayText {
+  color: white;
+  font-size: 1em;
+  filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
+}
+
+.bpmDisplayTextPlus {
+  color: white;
+  /* font-size: 2em; */
+  filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
+ /* margin-top: 4px; */
+}
+
+.bpmDisplayTextDark {
+  margin-left: 4px;
+  color: #ffffff;
+  font-size: .7em;
+  filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
 }
