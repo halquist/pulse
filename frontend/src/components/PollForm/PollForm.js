@@ -3,7 +3,7 @@ import { removeAllVotes } from '../../store/uservote';
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, Redirect } from "react-router-dom";
-import { getOnePoll } from '../../store/poll';
+import { getOnePoll, clearOnePoll } from '../../store/poll';
 import { bpmChange } from '../../store/session';
 import TitleBar from '../TitleBar';
 import { LoadingIcon } from '../Logo';
@@ -38,6 +38,7 @@ const PollForm = ({ mode }) => {
 
   useEffect(() => {
     if (pollId && mode === 'edit') {
+
       dispatch(getOnePoll(pollId))
         .then(() => setTitle(editPoll.title || ''))
         .then(() => setDescription(editPoll.description || ''))
@@ -46,12 +47,23 @@ const PollForm = ({ mode }) => {
         .then(() => setOptionOneVotes(editPoll.optionOneVotes || 0))
         .then(() => setOptionTwoVotes(editPoll.optionTwoVotes || 0))
         .then(() => setBarTitle(mode === 'edit' ? 'Edit Poll' : 'Create Poll'))
-        .then(() => setCanChange(!editPoll.optionOneVotes && !editPoll.optionTwoVotes))
+        .then(() => setCanChange(!editPoll.UserVotes.length))
         .then(() => setLoaded(true))
     } else {
-      setLoaded(true)
+      dispatch(clearOnePoll())
+        .then(() => setTitle(''))
+        .then(() => setDescription(''))
+        .then(() => setOptionOneTitle(''))
+        .then(() => setOptionTwoTitle(''))
+        .then(() => setOptionOneVotes(0))
+        .then(() => setOptionTwoVotes(0))
+        .then(() => setBarTitle(mode === 'edit' ? 'Edit Poll' : 'Create Poll'))
+        .then(() => setCanChange(!editPoll.UserVotes.length))
+        .then(() => setLoaded(true))
     }
   },[dispatch, editPoll.title, editPoll.description, editPoll.optionOneTitle, editPoll.optionTwoTitle, editPoll.optionOneVotes, editPoll.optionTwoVotes, mode, pollId])
+
+  console.log(editPoll)
 
 
   // submits new poll to database
@@ -125,11 +137,13 @@ const PollForm = ({ mode }) => {
         </div>
         <form onSubmit={handleSubmit}>
           <div id='pollFormTitleDesc'>
-          <div className='bpmValueDisplayBlue'>
-            <div className='bpmDisplayText'>-</div>
-            <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
-            <div className='bpmDisplayText'>10</div>
-          </div>
+          {mode !== 'edit' &&
+            <div className='bpmValueDisplayBlue'>
+              <div className='bpmDisplayText'>-</div>
+              <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
+              <div className='bpmDisplayText'>10</div>
+            </div>
+          }
             <div id='titleDiv'>
               <label htmlFor='title'>Poll Title</label>
               <input

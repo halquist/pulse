@@ -5,6 +5,7 @@ const LOAD_ONE = 'poll/LOAD_ONE'
 const ADD = 'poll/ADD';
 const UPDATE = 'poll/UPDATE'
 const DELETE = 'poll/DELETE'
+const CLEAR_ONE = 'poll/CLEAR_ONE'
 
 const loadPolls = (polls) => {
   return {
@@ -38,6 +39,12 @@ const deletePoll = (pollId) => {
   return {
     type: DELETE,
     pollId
+  }
+};
+
+const clearPoll = () => {
+  return {
+    type: CLEAR_ONE
   }
 };
 
@@ -180,6 +187,10 @@ export const removePoll = (id) => async (dispatch) => {
   return data;
 }
 
+export const clearOnePoll = () => async (dispatch) => {
+  dispatch(clearPoll());
+}
+
 
 const initialState = {
   allPolls: {},
@@ -215,6 +226,11 @@ const pollReducer = (state = initialState, action) => {
       // newState = Object.assign({}, state);
       newState = {...state};
       delete newState.allPolls[action.pollId];
+      return newState;
+    case CLEAR_ONE:
+      // newState = Object.assign({}, state);
+      newState = {...state};
+      newState.singlePoll = {};
       return newState;
     default:
       return state;
