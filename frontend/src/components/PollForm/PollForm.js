@@ -47,7 +47,7 @@ const PollForm = ({ mode }) => {
         .then(() => setOptionOneVotes(editPoll.optionOneVotes || 0))
         .then(() => setOptionTwoVotes(editPoll.optionTwoVotes || 0))
         .then(() => setBarTitle(mode === 'edit' ? 'Edit Poll' : 'Create Poll'))
-        .then(() => setCanChange(!editPoll.UserVotes.length))
+        .then(() => setCanChange(!editPoll?.UserVotes.length))
         .then(() => setLoaded(true))
     } else {
       dispatch(clearOnePoll())
@@ -58,12 +58,10 @@ const PollForm = ({ mode }) => {
         .then(() => setOptionOneVotes(0))
         .then(() => setOptionTwoVotes(0))
         .then(() => setBarTitle(mode === 'edit' ? 'Edit Poll' : 'Create Poll'))
-        .then(() => setCanChange(!editPoll.UserVotes.length))
         .then(() => setLoaded(true))
     }
   },[dispatch, editPoll.title, editPoll.description, editPoll.optionOneTitle, editPoll.optionTwoTitle, editPoll.optionOneVotes, editPoll.optionTwoVotes, mode, pollId])
 
-  console.log(editPoll)
 
 
   // submits new poll to database
@@ -73,7 +71,6 @@ const PollForm = ({ mode }) => {
       let newPoll = await dispatch(pollActions.createPoll({ title, description, optionOneTitle, optionTwoTitle, userId: sessionUser.id }))
         .catch(async (res) => {
           const data = await res.json();
-          console.log(data.errors)
           if (data && data.errors) setErrors(data.errors);
         });
         if (newPoll) {
@@ -81,7 +78,7 @@ const PollForm = ({ mode }) => {
             dispatch(bpmChange(sessionUser.id, -10, 'subtract'))
             history.push(`/polls/${newPoll.poll.id}`);
           } else {
-            setErrors(['You don\t have enough bpm to create this poll. Better go vote!'])
+            setErrors(['You don\t have enough bpm to create this poll. Better go vote on some other user\'s polls!'])
           }
         }
   };

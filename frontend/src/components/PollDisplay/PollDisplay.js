@@ -33,6 +33,7 @@ const PollDisplay = ({ pollId }) => {
   const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined);
   const [voteId, setVoteId] = useState(canVote ? 'submitVote' : 'cannotSubmitVote')
   const [bpmValue, setBpmValue] = useState(0);
+  const [votePercentScroll, setVotePercentScroll] = useState(50);
 
   // const [voteBarChange, setVoteBarChange] = useState(false)
   // const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
@@ -49,7 +50,17 @@ const PollDisplay = ({ pollId }) => {
   //  console.log(voteId)
   //  console.log('sticker', userVoteSticker)
 
-
+// allows for a gradual change on the percent bar
+useEffect(() => {
+  let percentScrollTimeout;
+  if (votePercent > votePercentScroll) {
+    percentScrollTimeout = setTimeout(()=> setVotePercentScroll((prev)=> prev + 1), 30);
+  } else if (votePercent < votePercentScroll) {
+    percentScrollTimeout = setTimeout(()=> setVotePercentScroll((prev)=> prev - 1), 30);
+  } else {
+    clearTimeout(percentScrollTimeout);
+  }
+},[votePercent, votePercentScroll])
 
 
   // strict dispatch and state setting order to make sure all data is properly presented in the poll display
@@ -257,11 +268,11 @@ const PollDisplay = ({ pollId }) => {
           </div>
         </div>
         <div className='votePercentageBar'>
-          <div className='optionOnePercent' style={{ width: `${votePercent}%` }}>
-            <div className='percentText'>{votePercent ? `${votePercent}%` : `0%`}</div>
+          <div className='optionOnePercent' style={{ width: `${votePercentScroll}%` }}>
+            <div className='percentText'>{votePercentScroll ? `${votePercentScroll}%` : `0%`}</div>
             </div>
-          <div className='optionTwoPercent' style={{ width: `${100 - votePercent}%` }}>
-            <div className='percentText'>{100 - votePercent ? `${100 - votePercent}%` : `0%`}</div>
+          <div className='optionTwoPercent' style={{ width: `${100 - votePercentScroll}%` }}>
+            <div className='percentText'>{100 - votePercentScroll ? `${100 - votePercentScroll}%` : `0%`}</div>
             </div>
         </div>
         <div className='pollDisplayBottomBar'>
