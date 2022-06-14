@@ -31,12 +31,13 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <>
+    <div className='dropDownDiv'>
       <div onClick={openMenu} id='profileButton'>
         {user.username}
         <img src={user_icon} width="37" height="37" className='navIcon'/>
       </div>
       {showMenu && (
+        <>
         <ul className="profile-dropdown">
           {/* <img src={user_icon} width="50" height="50" className='navIcon'/> */}
           <li>{user.username}</li>
@@ -45,8 +46,9 @@ function ProfileButton({ user }) {
             <button onClick={logout} id='logoutButton'>Log Out</button>
           </li>
         </ul>
+        </>
       )}
-    </>
+    </div>
   );
 }
 

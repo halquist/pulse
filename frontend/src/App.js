@@ -28,6 +28,7 @@ function App() {
     <BrowserRouter>
       {/* <Texture /> */}
       <Navigation isLoaded={loaded} />
+      <SplashPage />
       {loaded && (
       <div id='mainContainerDiv'>
         <Switch>
@@ -40,17 +41,14 @@ function App() {
           <ProtectedRoute path='/' exact={true}>
           <SideNavigation />
             <PollFeed type='latest' title='Latest Polls' />
-            {/* <SplashPage /> */}
           </ProtectedRoute>
           <ProtectedRoute path='/pollfeed/user' exact={true}>
           <SideNavigation />
             <PollFeed type='user' title='My Polls' />
-            {/* <SplashPage /> */}
           </ProtectedRoute>
           <ProtectedRoute path='/pollfeed/hot' exact={true}>
           <SideNavigation />
             <PollFeed type='hot' title='Hottest Polls' />
-            {/* <SplashPage /> */}
           </ProtectedRoute>
           <ProtectedRoute path='/polls/new' exact={true}>
             <SideNavigation />

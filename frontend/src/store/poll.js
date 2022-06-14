@@ -132,8 +132,9 @@ export const editPoll = (poll) => async (dispatch) => {
       optionTwoVotes
     })
   });
+
   const data = await response.json();
-  await dispatch(updatePoll(data.poll));
+  await dispatch(updatePoll(data));
   return data;
 }
 
@@ -143,7 +144,7 @@ export const editPollVotes = (pollId, optionOneVotes, optionTwoVotes ) => async 
   // const sendId = parseInt(id, 10);
   const oldPoll = await fetch(`/api/polls/${pollId}`)
   const poll = await oldPoll.json();
-  const { id, title, description, optionOneTitle, optionTwoTitle, userId } = poll;
+  const { title, description, optionOneTitle, optionTwoTitle, userId } = poll;
   const response = await csrfFetch(`/api/polls/${pollId}`, {
     method: 'PUT',
     headers: {
@@ -189,25 +190,30 @@ const pollReducer = (state = initialState, action) => {
   let newState;
   switch(action.type) {
     case LOAD:
-      newState = Object.assign({}, state);
+      // newState = Object.assign({}, state);
+      newState = {...state};
       action.polls.forEach(poll => {
         newState.allPolls[poll.id] = poll
       });
       return newState;
     case LOAD_ONE:
-      newState = Object.assign({}, state);
+      // newState = Object.assign({}, state);
+      newState = {...state};
       newState.singlePoll = action.poll;
       return newState;
     case ADD:
-      newState = Object.assign({}, state);
+      // newState = Object.assign({}, state);
+      newState = {...state};
       newState.allPolls[action.poll.id] = action.poll;
       return newState;
     case UPDATE:
-      newState = Object.assign({}, state);
+      // newState = Object.assign({}, state);
+      newState = {...state};
       newState.allPolls[action.poll.id] = action.poll;
       return newState;
     case DELETE:
-      newState = Object.assign({}, state);
+      // newState = Object.assign({}, state);
+      newState = {...state};
       delete newState.allPolls[action.pollId];
       return newState;
     default:

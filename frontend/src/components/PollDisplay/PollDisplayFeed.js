@@ -10,7 +10,7 @@ import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
 import XMark from '../XMark';
 
-const PollDisplayFeed = ({ pollSend }) => {
+const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -58,7 +58,6 @@ useEffect(()=> {
       return { returnVotes, opOneVotes, opTwoVotes };
     })
     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
-      console.log(opOneVotes, opTwoVotes)
       dispatch(pollActions.editPollVotes(pollId, opOneVotes, opTwoVotes))
     })
 },[optionOneVotes, optionTwoVotes, userVote])
@@ -75,7 +74,12 @@ useEffect(()=> {
   const handleDelete = async () => {
     let deletePoll = await dispatch(pollActions.removePoll(pollId))
       if (deletePoll.poll.message === 'Success') {
-        history.push('/')
+        // if (type !== 'latest') {
+        //   history.push(`/pollfeed/${type}`)
+        // } else {
+        //   history.push(`/`)
+        // }
+        deletedPoll(deletePoll)
       }
   }
 
@@ -134,7 +138,7 @@ useEffect(()=> {
 
   return (
     <div className='tempPollContainer'>
-      <div className='pollDisplayDiv'>
+      <div className='pollDisplayDivFeed'>
         <div className='pollDisplayTopBar'>
           <div className='pollDisplayUsername'>{onePoll.User.username}</div>
           <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>

@@ -17,6 +17,7 @@ const PollFeed = ({ type, title }) => {
 
   const [loaded, setLoaded] = useState(false);
   const [allPolls, setAllPolls] = useState([])
+  const [deletePoll, setDeletePoll] = useState([])
 
   useEffect(() => {
     if (type === 'latest') {
@@ -41,26 +42,18 @@ const PollFeed = ({ type, title }) => {
       })
       .then(() => setLoaded(true))
     }
-  },[dispatch, type])
+  },[dispatch, type, polls, userId, deletePoll])
 
   // useEffect(() => {
-  //   // setAllPolls(Object.values(polls))
-  //   dispatch(getPollsHot())
-  //   .then((returnPolls) => {
-  //     console.log(returnPolls)
-  //     setAllPolls(returnPolls)
-  //     return returnPolls
-  //   })
-  // },[polls, polls2])
+  //     setAllPolls(polls)
+  // },[polls])
 
     //scrolls window to top on page load
     const scrollToTop = () => {
-      console.log('scrolling func')
       document.getElementById("root").scrollTo(0, 0);
       };
 
     useEffect(() => {
-      console.log('scrolling')
       scrollToTop()
     },[type])
 
@@ -76,9 +69,10 @@ const PollFeed = ({ type, title }) => {
       <TitleBar title={title} />
       {allPolls.map((poll) => {
         return (
-          <PollDisplayFeed pollSend={poll} key={poll.id} />
+          <PollDisplayFeed pollSend={poll} type={type} deletedPoll={setDeletePoll} key={poll.id} />
         )
       })}
+      <div id='feedSpacerDiv'></div>
     </div>
   )
 }

@@ -77,14 +77,16 @@ const voteReducer = (state = initialState, action) => {
   let newState;
   switch(action.type) {
     case LOAD:
-      newState = Object.assign({}, state);
+      // newState = Object.assign({}, state);
+      newState = {...state};
       action.votes.forEach(vote => {
         newState.pollVotes[vote.id] = vote
       });
       return newState;
     case CLEAR:
-      newState = Object.assign({}, state);
-        newState.pollVotes = {}
+      // newState = Object.assign({}, state);
+      newState = {...state};
+      newState.pollVotes = {}
       return newState;
     default:
       return state;
