@@ -7,7 +7,7 @@ import { getOnePoll, getPolls, getPollsRecent, getPollsHot, getPollsUser } from 
 import { useEffect, useState } from 'react';
 
 
-const PollFeed = ({ type }) => {
+const PollFeed = ({ type, title }) => {
   const dispatch = useDispatch();
 
 
@@ -73,7 +73,7 @@ const PollFeed = ({ type }) => {
 
   return (
     <div className='pollFeedDisplayDiv'>
-      <TitleBar title='Latest Polls' />
+      <TitleBar title={title} />
       {allPolls.map((poll) => {
         return (
           <PollDisplayFeed pollSend={poll} key={poll.id} />
