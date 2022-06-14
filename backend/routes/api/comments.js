@@ -31,7 +31,10 @@ const validateComment = [
     .withMessage('A comment cannot be empty')
     .bail()
     .matches(/.*\S.*/)
-    .withMessage('Comment must not be only spaces'),
+    .withMessage('Comment must not be only spaces')
+    .bail()
+    .isLength({min:0, max:800})
+    .withMessage('Comments must be 800 characters or less'),
   handleValidationErrors
 ]
 

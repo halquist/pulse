@@ -52,11 +52,13 @@ const CommentForm = ({ callback, commentId, topLevel, labelColor }) => {
                     id='commentInput'
                     name='body'
                     type='text'
+                    maxLength="800"
                     value={body}
                     autoFocus={true}
                     onChange={e => setBody(e.target.value)}
                     >
           </textarea>
+          <div id="maxLengthComment">{800 - body.length}</div>
           <div id='commentButtonBar'>
             <button onClick={handleSubmit} className='pinkButton'>Post Comment</button>
             <button className='greenButton' onClick={handleCancel}>Cancel</button>

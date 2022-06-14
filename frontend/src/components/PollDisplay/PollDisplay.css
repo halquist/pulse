@@ -17,6 +17,8 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
+  background-image: linear-gradient(-20deg, #539A94, #539A94, rgba(255, 255, 255, .2), #539A94, #539A94);
+
 }
 
 .pollDisplayDivFeed {
@@ -38,6 +40,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
+  background-image: linear-gradient(-20deg, #539A94, #539A94, rgba(255, 255, 255, .2), #539A94, #539A94);
 }
 
 .pollDisplayTopBar {
@@ -66,6 +69,7 @@
   color: rgb(218, 224, 230);
   font-size: 1.6em;
   overflow-wrap: break-word;
+
 }
 
 .pollDescription {
@@ -141,9 +145,10 @@
 .pollDisplayVoteBar {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  gap: 160px;
+  min-width: 500px;
+  /* gap: 160px; */
   margin: 20px 10px;
 }
 
@@ -154,13 +159,18 @@
   background-color: #8ED0B9;
   color: #003B31;
   padding: 12px 20px;
-  border: 1px solid rgba(0, 0, 0, .3);
+  border: 1px solid rgba(0, 0, 0, .45);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
   /* border-radius: 3px; */
   border-radius: 40px;
   font-size: 1.2em;
   cursor: pointer;
   user-select: none;
+  background-image: linear-gradient(#8ED0B9 ,#539A94);
+}
+
+.pollDisplayOptionOne:active {
+  background-image: linear-gradient(#539A94, #8ED0B9);
 }
 
 .pollDisplayOptionTwo {
@@ -170,13 +180,18 @@
   background-color: #DDB3D3;
   color: #680F3F;
   padding: 12px 20px;
-  border: 1px solid rgba(0, 0, 0, .3);
+  border: 1px solid rgba(0, 0, 0, .45);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
   /* border-radius: 3px; */
   border-radius: 40px;
   font-size: 1.2em;
   cursor: pointer;
   user-select: none;
+  background-image: linear-gradient(#DDB3D3 ,#B76A91);
+}
+
+.pollDisplayOptionTwo:active {
+  background-image: linear-gradient(#B76A91, #DDB3D3);
 }
 
 .voteBoxPink {
@@ -185,6 +200,7 @@
   background-color: #B76A91;
   border-radius: 50%;
   border: 2px solid #003B31;
+  filter: drop-shadow(1px  1px rgba(255, 255, 255, .3));
 }
 
 .voteBoxGreen {
@@ -193,6 +209,7 @@
   background-color: #539A94;
   border-radius: 50%;
   border: 2px solid #680F3F;
+  filter: drop-shadow(1px  1px rgba(255, 255, 255, .3));
 }
 
 .invisible {
@@ -309,7 +326,6 @@
   color: #003B31;
   min-width: 30px;
   background-image: linear-gradient(#8ED0B9 ,#539A94);
-
 }
 .optionTwoPercent {
   background-color: #DDB3D3;
@@ -348,4 +364,20 @@
 
 .deleteConfirmText {
   margin-bottom: 10px;
+}
+
+.optionOneText {
+  font-size: 1.2em;
+  font-weight: bold;
+  filter: drop-shadow(2px  1px rgba(255, 255, 255, .5))
+}
+
+.optionTwoText {
+  font-size: 1.2em;
+  font-weight: bold;
+  filter: drop-shadow(2px  1px rgba(255, 255, 255, .5));
+}
+
+.percentText {
+  filter: drop-shadow(1px  1px rgba(255, 255, 255, .3));
 }

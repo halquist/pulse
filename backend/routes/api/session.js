@@ -52,7 +52,7 @@ router.delete(
     return res.json({ message: 'success'});
 });
 
-// restor session user
+// restore session user
 router.get('/', restoreUser, (req, res) => {
   const { user } = req;
   if (user) {

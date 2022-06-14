@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import BpmDisplay from './BpmDisplay';
 import Logo from '../Logo';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
@@ -12,9 +13,12 @@ function Navigation({ isLoaded }){
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <div id='profileButton'>
-        <ProfileButton user={sessionUser} />
-      </div>
+      <>
+        <BpmDisplay bpmCount={sessionUser.bpm} />
+        <div id='profileButton'>
+          <ProfileButton user={sessionUser} />
+        </div>
+      </>
     );
   } else {
     sessionLinks = (
