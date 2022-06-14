@@ -25,6 +25,14 @@ module.exports = (sequelize, DataTypes) => {
     return vote;
   };
 
+  UserVote.deleteVote = async function ({ voteId }) {
+    const vote = await UserVote.findByPk(voteId);
+    await vote.destroy();
+    return {
+      message: 'Success'
+    }
+  }
+
   UserVote.associate = function(models) {
     // associations can be defined here
     UserVote.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' })

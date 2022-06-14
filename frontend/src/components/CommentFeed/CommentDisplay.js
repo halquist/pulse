@@ -7,7 +7,7 @@ import CommentForm from './CommentForm';
 import CommentEdit from './CommentEdit';
 
 
-const CommentDisplay = ({ comment, comments }) => {
+const CommentDisplay = ({ comment, comments, resetComments }) => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
 
@@ -48,6 +48,7 @@ const CommentDisplay = ({ comment, comments }) => {
     let deleteComment = await dispatch(commentActions.removeComment(id))
       if (deleteComment.comment.message === 'Success') {
         showDeleteFunc()
+        resetComments((prev) => !prev)
       }
   }
 

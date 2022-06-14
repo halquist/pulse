@@ -9,18 +9,23 @@ import { LoadingIcon } from '../Logo';
 const CommentFeed = ({ pollId }) => {
   const dispatch = useDispatch();
 
-  const comments = useSelector(state => state.comment.pollComments)
-  const comments2 = useSelector(state => state.comment)
+  const comments = useSelector(state => state.comment.pollComments);
+  const comments2 = useSelector(state => state.comment);
 
   const [loaded, setLoaded] = useState(false);
   const [topComments, setTopComments] = useState(Object.entries(comments).filter(([key, value]) => {
-    return (value.pollId === parseInt(pollId) && value.topLevel)
+    return (value.pollId === parseInt(pollId) && value.topLevel);
   }))
-  const [numComments, setNumComments] = useState(comments.length)
+  const [numComments, setNumComments] = useState(comments.length);
+  const [resetComments, setResetComments] = useState(false);
 
   useEffect(() => {
     dispatch(clearOutComments())
   },[])
+
+  useEffect(() => {
+    dispatch(clearOutComments())
+  },[resetComments])
 
   useEffect(() => {
     dispatch(getComments(pollId))
@@ -59,7 +64,7 @@ const CommentFeed = ({ pollId }) => {
       <div id='commentHeader'>{numComments} Comments</div>
     {topComments.map((comment) => {
       return (
-          <CommentDisplay comment={comment} comments={comments} key={comment[1].id} />
+          <CommentDisplay comment={comment} comments={comments} resetComments={setResetComments} key={comment[1].id} />
       )
     })}
     </div>
