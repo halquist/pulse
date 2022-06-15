@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getPolls } from '../../store/poll';
 import { getVotes, clearOutVotes } from '../../store/uservote';
-import { VotedSticker } from '../Logo';
+import { VotedSticker, BpmCoin } from '../Logo';
 import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
 import { bpmChange } from '../../store/session';
@@ -237,7 +237,7 @@ useEffect(()=> {
           }
           {userVoteSticker === true ?
           <>
-            <div className={`${voteId}`}>Submit Vote <VotedSticker /> </div>
+            <div className={`${voteId}`}>Submit Vote <VotedSticker /> <BpmCoin /></div>
           </> :
           <div className={`${voteId}`} onClick={handleVote}>Submit Vote</div>
         }
