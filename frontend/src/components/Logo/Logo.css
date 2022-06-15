@@ -288,3 +288,42 @@
     offset-distance: 100%;
   }
 }
+
+.spinnerText {
+  padding-bottom: 2px;
+  filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
+  animation: spinner_start .5s ease-in, spinner .5s .5s ease-in-out 10, spinner_end .5s 5s ease-out;
+}
+
+@keyframes spinner_start {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(0px, -4px);
+  }
+  100% {
+    transform: translate(0px, 30px);
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: translate(0px, -30px);
+  }
+  100% {
+    transform: translate(0px, 30px);
+  }
+}
+
+@keyframes spinner_end {
+  0% {
+    transform: translate(0px, -30px);
+  }
+  50% {
+    transform: translate(0px, 4px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}

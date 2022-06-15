@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getOnePoll, getPolls } from '../../store/poll';
 import { getVotes, clearOutVotes } from '../../store/uservote';
-import { LoadingIcon, VotedSticker, BpmCoin } from '../Logo';
+import { LoadingIcon, VotedSticker, BpmCoin, SlotSpinner } from '../Logo';
 import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
 import { bpmChange } from '../../store/session';
 import XMark from '../XMark';
 import bpm_symbol from '../../images/bpm_symbol.svg'
+
 
 
 
@@ -36,6 +37,7 @@ const PollDisplay = ({ pollId }) => {
   const [bpmValue, setBpmValue] = useState(0);
   const [votePercentScroll, setVotePercentScroll] = useState(votePercent);
   const [classPass, setClassPass] = useState('');
+  const [spinnerValue, setSpinnerValue] = useState(10);
 
 
   // const [voteBarChange, setVoteBarChange] = useState(false)
@@ -245,6 +247,11 @@ useEffect(() => {
             <div className='bpmDisplayTextPlus'>+</div>
             <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
             <div className='bpmDisplayText'>{bpmValue}</div>
+            {/* <div className='bpmDisplayTextDark'>bpm</div> */}
+          </div>
+          <div className='bpmValueDisplaySpinner'>
+          <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
+            <SlotSpinner number={spinnerValue} />
             {/* <div className='bpmDisplayTextDark'>bpm</div> */}
           </div>
           <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>
