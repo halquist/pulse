@@ -38,7 +38,6 @@ const PollDisplay = ({ pollId }) => {
   const [bpmValue, setBpmValue] = useState(0);
   const [votePercentScroll, setVotePercentScroll] = useState(votePercent);
   const [classPass, setClassPass] = useState('');
-  const [spinnerValue, setSpinnerValue] = useState(10);
   const [spinnerTrigger, setSpinnerTrigger] = useState(false);
   const [prizeTrigger, setPrizeTrigger] = useState(false);
 
@@ -59,6 +58,7 @@ const PollDisplay = ({ pollId }) => {
   //  console.log(voteId)
   //  console.log('sticker', userVoteSticker)
 
+// adds bpm when spinner is done
 useEffect(() => {
   dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
   const coinTimeout = setTimeout(setClassPass('coin'), 5000);
@@ -235,7 +235,6 @@ useEffect(() => {
             if (onePoll.User.id !== sessionUser.id) {
               // console.log(newVote.userId, sessionUser.id)
               setBpmValue(PrizeArr[Math.floor(Math.random() * 100)]);
-              console.log(bpmValue)
               setSpinnerTrigger(true);
             }
           }
@@ -316,7 +315,6 @@ useEffect(() => {
           }
           {userVoteSticker === true ?
           <>
-
           <div className={`${voteId}`} >
             <div className='voteText'>Vote -</div>
             <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
