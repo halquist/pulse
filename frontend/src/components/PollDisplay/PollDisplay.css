@@ -263,8 +263,8 @@
 
 .submitVote {
   position: relative;
-  background-color: #8ED0B9;
-  color: #003B31;
+  background-color: #6faf99;
+  color: white;
   padding: 4px 20px;
   border: 1px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
@@ -273,11 +273,14 @@
   cursor: pointer;
   transition: .2s;
   user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .submitVote:hover {
   background-color: #B76A91;
-  color: #680F3F;
+  color: white;
 }
 
 .submitVote:active {
@@ -287,13 +290,20 @@
 .cannotSubmitVote {
   position: relative;
   background-color: #818181 !important;
-  color: #393939;
+  color: white;
   padding: 4px 20px;
   border: 1px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
   border-radius: 3px;
   font-size: 1.2em;
   pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.voteText {
+  filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
 }
 
 .votePercentageBar {

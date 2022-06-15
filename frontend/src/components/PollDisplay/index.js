@@ -1,5 +1,5 @@
-import PollDisplay from './PollDisplay'
-import PollDisplayFeed from './PollDisplayFeed'
+import PollDisplay from './PollDisplay';
+import PollDisplayFeed from './PollDisplayFeed';
 
 export { PollDisplayFeed };
 
