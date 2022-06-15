@@ -192,7 +192,7 @@
   width: 60px;
   position: absolute;
   right: 224px;
-  bottom: 250px;
+  bottom: 236px;
   opacity: 0;
   z-index: 20;
 }
@@ -225,66 +225,66 @@
 @keyframes coin_1 {
   0% {
     opacity: 1;
-    transform: scale(.2);
+    transform: scale(.2) rotate(0deg);
     offset-distance: 0%;
   } 100% {
     opacity: 0;
-    transform: scale(1);
+    transform: scale(1) rotate(180deg);
     offset-distance: 100%;
   }
 }
 @keyframes coin_2 {
   0% {
     opacity: 1;
-    transform: scale(.2);
+    transform: scale(.2) rotate(0deg);
     offset-distance: 0%;
   } 100% {
     opacity: 0;
-    transform: scale(1);
+    transform: scale(1) rotate(80deg);
     offset-distance: 100%;
   }
 }
 @keyframes coin_3 {
   0% {
     opacity: 1;
-    transform: scale(.2);
+    transform: scale(.2) rotate(0deg);
     offset-distance: 0%;
   } 100% {
     opacity: 0;
-    transform: scale(1);
+    transform: scale(1) rotate(-180deg);
     offset-distance: 100%;
   }
 }
 @keyframes coin_4 {
   0% {
     opacity: 1;
-    transform: scale(.2);
+    transform: scale(.2) rotate(0deg);
     offset-distance: 0%;
   } 100% {
     opacity: 0;
-    transform: scale(1);
+    transform: scale(1) rotate(270deg);
     offset-distance: 100%;
   }
 }
 @keyframes coin_5 {
   0% {
     opacity: 1;
-    transform: scale(.2);
+    transform: scale(.2) rotate(0deg);
     offset-distance: 0%;
   } 100% {
     opacity: 0;
-    transform: scale(1);
+    transform: scale(1) rotate(-80deg);
     offset-distance: 100%;
   }
 }
 @keyframes coin_6 {
   0% {
     opacity: 1;
-    transform: scale(.2);
+    transform: scale(.2) rotate(0deg);
     offset-distance: 0%;
   } 100% {
     opacity: 0;
-    transform: scale(1);
+    transform: scale(1) rotate(-300deg);
     offset-distance: 100%;
   }
 }
