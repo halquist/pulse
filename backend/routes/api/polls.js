@@ -58,7 +58,7 @@ router.get(
   })
 );
 
-// get all polls by current session user
+// get 20 most recent polls by current session user
 router.get(
   '/user/:id(\\d+)',
   asyncHandler( async (req, res) => {
@@ -72,7 +72,8 @@ router.get(
         { model: Comment },
         { model: UserVote}
       ],
-      order: [['createdAt', 'DESC']]
+      order: [['createdAt', 'DESC']],
+      limit: 20
     });
     return res.json(polls);
   })

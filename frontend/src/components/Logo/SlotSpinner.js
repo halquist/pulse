@@ -8,11 +8,11 @@ const SlotSpinner = ({ number, trigger }) => {
   // const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    const winArr = [1, 5, 10, 15, 20, 25, 50, 75, 100, 1000]
+    const winArr = [0, 1, 5, 10, 15, 20, 25, 50, 75, 100, 1000]
     let spinnerTimeout
     let counter = 0;
     spinnerTimeout = setInterval(()=> {
-      setDisplayNum(winArr[Math.floor(Math.random() * 10)])
+      setDisplayNum(winArr[Math.floor(Math.random() * 11)])
       counter++;
       if (counter === 10) {
         clearInterval(spinnerTimeout);

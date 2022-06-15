@@ -5,19 +5,24 @@ import TitleBar from '../TitleBar';
 import { LoadingIcon } from '../Logo';
 import { getOnePoll, getPolls, getPollsRecent, getPollsHot, getPollsUser } from '../../store/poll';
 import { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 
 
 const PollFeed = ({ type, title }) => {
   const dispatch = useDispatch();
 
+  let { otherUserId } = useParams();
 
-  const userId = useSelector(state => state.session.user.id)
+  // console.log(otherUserId);
+
+  console.log('pollfeed hot', type, title )
+
+  const userId = useSelector(state => state.session.user.id);
   const polls = useSelector(state => state.poll.allPolls);
-  const polls2 = useSelector(state => state.poll);
 
   const [loaded, setLoaded] = useState(false);
-  const [allPolls, setAllPolls] = useState([])
-  const [deletePoll, setDeletePoll] = useState([])
+  const [allPolls, setAllPolls] = useState([]);
+  const [deletePoll, setDeletePoll] = useState([]);
 
   useEffect(() => {
     if (type === 'latest') {
@@ -41,10 +46,17 @@ const PollFeed = ({ type, title }) => {
         return returnPolls
       })
       .then(() => setLoaded(true))
+    }  else if (type === 'otherUser') {
+    dispatch(getPollsUser(otherUserId))
+      .then((returnPolls) => {
+        setAllPolls(returnPolls)
+        return returnPolls
+      })
+      .then(() => setLoaded(true))
     } else {
       return
     }
-  },[dispatch, type, polls, userId, deletePoll])
+  },[dispatch, type, polls, userId, deletePoll, otherUserId])
 
   // useEffect(() => {
   //     setAllPolls(polls)

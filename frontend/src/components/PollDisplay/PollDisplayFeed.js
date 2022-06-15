@@ -52,8 +52,15 @@ const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
 // adds bpm when spinner is done
 useEffect(() => {
   dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
-  const coinTimeout = setTimeout(setClassPass('coin'), 5000);
-  if (classPass === 'coin') {
+  let coinTimeout;
+  if (bpmValue > 0 && bpmValue < 10) {
+    coinTimeout = setTimeout(setClassPass('coin'), 5000);
+  } else if (bpmValue >= 10 && bpmValue < 50) {
+    coinTimeout = setTimeout(setClassPass('bigCoin'), 5000);
+  } else if (bpmValue >= 50 ) {
+    coinTimeout = setTimeout(setClassPass('megaCoin'), 5000);
+  }
+  if (classPass === 'coin' || classPass === 'bigCoin' || classPass === 'megaCoin') {
     clearTimeout(coinTimeout);
   };
 },[prizeTrigger]);
@@ -203,12 +210,17 @@ useEffect(()=> {
     <div className='tempPollContainer'>
       <div className='pollDisplayDivFeed'>
         <div className='pollDisplayTopBar'>
-          <div className='pollDisplayUsername'>{onePoll.User.username}</div>
+            <Link to={`/pollfeed/${onePoll.User.id}/user`} className='pollDisplayUsernameLink'>
+              <div className='pollDisplayUsername'>{onePoll.User.username}</div>
+            </Link>
           {spinnerTrigger &&
-            <div className='bpmValueDisplaySpinner'>
-              <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
-              <SlotSpinner number={bpmValue} trigger={setPrizeTrigger} />
-              {/* <div className='bpmDisplayTextDark'>bpm</div> */}
+            <div className='spinnerContainer'>
+              <BpmCoin classPass={classPass}/>
+              <div className='bpmValueDisplaySpinner'>
+                <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
+                <SlotSpinner number={bpmValue} trigger={setPrizeTrigger} />
+                {/* <div className='bpmDisplayTextDark'>bpm</div> */}
+              </div>
             </div>
           }
           <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>
@@ -263,7 +275,6 @@ useEffect(()=> {
               <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
               <div className='voteText'>1</div>
               <VotedSticker />
-              <BpmCoin classPass={classPass}/>
             </div> :
             <div className={`${voteId}`} onClick={handleVote}>
               <div className='voteText'>Vote -</div>

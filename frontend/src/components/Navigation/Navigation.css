@@ -102,7 +102,6 @@ color: white;
   height: 40px;
   width: fit-content;
   gap: 6px;
-  margin-bottom: 2px;
   cursor: pointer;
   user-select: none;
 }

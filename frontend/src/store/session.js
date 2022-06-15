@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 const ADD = 'user/ADD';
 const REMOVE = 'user/REMOVE';
 const ADDBPM = 'user/ADDBPM';
+const CHANGEIMAGE = 'user/CHANGEIMAGE';
 
 
 const setSessionUser = (user) => {
@@ -19,6 +20,13 @@ const removeSessionUser = () => {
 };
 
 const addBpm = (user) => {
+  return {
+    type: ADDBPM,
+    user
+  }
+};
+
+const changeImage = (user) => {
   return {
     type: ADDBPM,
     user
@@ -88,6 +96,22 @@ export const bpmChange = (id, bpm, addOrSubtract) => async (dispatch) => {
   dispatch(addBpm(data))
 }
 
+export const changeProfileImage = (id, profileImageUrl) => async (dispatch) => {
+  console.log('in store')
+  const response = await csrfFetch(`/api/users/${id}/image`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id,
+      profileImageUrl
+    })
+  });
+  const data = await response.json();
+  dispatch(changeImage(data))
+}
+
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
@@ -105,6 +129,11 @@ const sessionReducer = (state = initialState, action) => {
       newState.user = null;
       return newState;
     case ADDBPM:
+      // newState = Object.assign({}, state);
+      newState = {...state};
+      newState.user = action.user;
+      return newState;
+    case CHANGEIMAGE:
       // newState = Object.assign({}, state);
       newState = {...state};
       newState.user = action.user;

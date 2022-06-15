@@ -25,7 +25,6 @@ const PollFocus = ({ type, title }) => {
   const [sendPoll, setSendPoll] = useState(onePoll || null)
 
   useEffect(() => {
-    console.log(pollId)
     dispatch(getOnePoll(pollId))
       .then((poll) => {
         setSendPoll(poll)
