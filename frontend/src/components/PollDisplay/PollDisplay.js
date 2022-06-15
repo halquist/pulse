@@ -35,6 +35,8 @@ const PollDisplay = ({ pollId }) => {
   const [voteId, setVoteId] = useState(canVote ? 'submitVote' : 'cannotSubmitVote')
   const [bpmValue, setBpmValue] = useState(0);
   const [votePercentScroll, setVotePercentScroll] = useState(votePercent);
+  const [classPass, setClassPass] = useState('');
+
 
   // const [voteBarChange, setVoteBarChange] = useState(false)
   // const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
@@ -217,6 +219,7 @@ useEffect(() => {
           if (onePoll.User.id !== sessionUser.id) {
             // console.log(newVote.userId, sessionUser.id)
             dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
+            setClassPass('coin');
           }
         }
     } else {
@@ -287,7 +290,7 @@ useEffect(() => {
           }
           {userVoteSticker === true ?
           <>
-            <div className={`${voteId}`}>Submit Vote <VotedSticker /> <BpmCoin /></div>
+            <div className={`${voteId}`}>Submit Vote <VotedSticker /> <BpmCoin classPass={classPass}/></div>
           </> :
           <div className={`${voteId}`} onClick={handleVote}>Submit Vote</div>
         }

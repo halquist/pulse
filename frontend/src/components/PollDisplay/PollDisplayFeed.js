@@ -166,7 +166,7 @@ useEffect(()=> {
           setVoteId('cannotSubmitVote');
           if (pollSend.User.id !== sessionUser.id) {
             dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
-            setClassPass('coin')
+            setClassPass('coin');
           }
         }
     } else {

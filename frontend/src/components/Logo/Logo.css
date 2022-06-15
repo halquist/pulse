@@ -194,6 +194,7 @@
   right: 262px;
   bottom: 229px;
   opacity: 0;
+  z-index: 20;
 }
 
 #coin1 {
