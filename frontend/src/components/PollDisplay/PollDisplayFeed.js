@@ -5,15 +5,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getPolls } from '../../store/poll';
 import { getVotes, clearOutVotes } from '../../store/uservote';
-import { VotedSticker, BpmCoin } from '../Logo';
+import { VotedSticker, BpmCoin, SlotSpinner } from '../Logo';
 import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
 import { bpmChange } from '../../store/session';
 import XMark from '../XMark';
 import bpm_symbol from '../../images/bpm_symbol.svg'
+import PrizeArr from './PrizeArr';
+
 
 
 const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
+
+  // console.log('pollsend', pollSend)
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -41,10 +45,18 @@ const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
   const [bpmValue, setBpmValue] = useState(0);
   const [votePercentScroll, setVotePercentScroll] = useState(50);
   const [classPass, setClassPass] = useState('');
+  const [spinnerTrigger, setSpinnerTrigger] = useState(false);
+  const [prizeTrigger, setPrizeTrigger] = useState(false);
 
 
-
-//  console.log(pollSend.title, canVote)
+// adds bpm when spinner is done
+useEffect(() => {
+  dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
+  const coinTimeout = setTimeout(setClassPass('coin'), 5000);
+  if (classPass === 'coin') {
+    clearTimeout(coinTimeout);
+  };
+},[prizeTrigger]);
 
 // allows for a gradual change on the percent bar
 useEffect(() => {
@@ -60,6 +72,7 @@ useEffect(() => {
 
 
 useEffect(()=> {
+  setClassPass('')
   dispatch(getVotes(pollId))
     .then((returnVotes) => {
       // counts how many votes exist for option one
@@ -82,22 +95,22 @@ useEffect(()=> {
     })
     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
       // sets how much bpm voting on a poll is worth based on how many votes already exist
-      const numVotes = opOneVotes + opTwoVotes;
-      let bpmValue = 1;
-      if (numVotes <= 1) {
-        bpmValue = 10
-      } else if (numVotes <= 2) {
-        bpmValue = 8
-      } else if (numVotes <= 3) {
-        bpmValue = 6
-      } else if (numVotes <= 4) {
-        bpmValue = 4
-      } else if (numVotes <= 5) {
-        bpmValue = 2
-      } else if (numVotes <= 10) {
-        bpmValue = 1
-      }
-      setBpmValue(bpmValue)
+      // const numVotes = opOneVotes + opTwoVotes;
+      // let bpmValue = 1;
+      // if (numVotes <= 1) {
+      //   bpmValue = 10
+      // } else if (numVotes <= 2) {
+      //   bpmValue = 8
+      // } else if (numVotes <= 3) {
+      //   bpmValue = 6
+      // } else if (numVotes <= 4) {
+      //   bpmValue = 4
+      // } else if (numVotes <= 5) {
+      //   bpmValue = 2
+      // } else if (numVotes <= 10) {
+      //   bpmValue = 1
+      // }
+      // setBpmValue(bpmValue)
       return { returnVotes, opOneVotes, opTwoVotes };
     })
     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
@@ -117,11 +130,9 @@ useEffect(()=> {
   const handleDelete = async () => {
     let deletePoll = await dispatch(pollActions.removePoll(pollId))
       if (deletePoll.poll.message === 'Success') {
-        // if (type !== 'latest') {
-        //   history.push(`/pollfeed/${type}`)
-        // } else {
-        //   history.push(`/`)
-        // }
+        if (type === 'focus') {
+          history.push(`/`)
+        }
         deletedPoll(deletePoll)
       }
   }
@@ -151,27 +162,32 @@ useEffect(()=> {
 
   // submits user poll vote
   const handleVote = async () => {
-    if(voteSelection > 0) {
-      let newVote = await dispatch(voteActions.createVote({ userId: sessionUser.id, pollId, voteSelection }))
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        });
-        if (newVote) {
-          setUserVote(newVote);
-          setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length);
-          setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length);
-          setCanVote(false);
-          setUserVoteSticker(true);
-          setVoteId('cannotSubmitVote');
-          if (pollSend.User.id !== sessionUser.id) {
-            dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
-            setClassPass('coin');
+    if (sessionUser.bpm >= 1) {
+      if(voteSelection > 0) {
+        let newVote = await dispatch(voteActions.createVote({ userId: sessionUser.id, pollId, voteSelection }))
+          .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+          });
+          if (newVote) {
+            dispatch(bpmChange(sessionUser.id, -1, 'subtract'))
+            setUserVote(newVote);
+            setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length);
+            setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length);
+            setCanVote(false);
+            setUserVoteSticker(true);
+            setVoteId('cannotSubmitVote');
+            if (pollSend.User.id !== sessionUser.id) {
+              setBpmValue(PrizeArr[Math.floor(Math.random() * 100)]);
+              setSpinnerTrigger(true);
+            }
           }
-        }
+      } else {
+        return;
+      }
     } else {
-      return;
-    }
+      setErrors(['You don\'t have enough bpm to create this poll. Better go vote on some other user\'s polls!'])
+   }
   };
 
 
@@ -188,12 +204,13 @@ useEffect(()=> {
       <div className='pollDisplayDivFeed'>
         <div className='pollDisplayTopBar'>
           <div className='pollDisplayUsername'>{onePoll.User.username}</div>
-          <div className='bpmValueDisplay'>
-          <div className='bpmDisplayTextPlus'>+</div>
-            <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
-            <div className='bpmDisplayText'>{bpmValue}</div>
-            {/* <div className='bpmDisplayTextDark'>bpm</div> */}
-          </div>
+          {spinnerTrigger &&
+            <div className='bpmValueDisplaySpinner'>
+              <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
+              <SlotSpinner number={bpmValue} trigger={setPrizeTrigger} />
+              {/* <div className='bpmDisplayTextDark'>bpm</div> */}
+            </div>
+          }
           <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>
         </div>
         <div className='pollDisplayText'>
@@ -228,9 +245,12 @@ useEffect(()=> {
             </div>
         </div>
         <div className='pollDisplayBottomBar'>
+          {type !== 'focus' ?
           <NavLink to={`/polls/${pollSend.id}`}>
             <div className='pollDisplayCommentNum'>{comments.length} Comments</div>
-          </NavLink>
+          </NavLink> :
+          <div className='pollDisplayCommentBlank'></div>
+          }
           {sessionUser?.id === onePoll?.User.id &&
             <>
               <Link to={`/polls/${onePoll.id}/edit`} className='editDiv'>Edit Poll</Link>
@@ -238,11 +258,19 @@ useEffect(()=> {
             </>
           }
           {userVoteSticker === true ?
-          <>
-            <div className={`${voteId}`}>Submit Vote <VotedSticker /> <BpmCoin classPass={classPass}/></div>
-          </> :
-          <div className={`${voteId}`} onClick={handleVote}>Submit Vote</div>
-        }
+            <div className={`${voteId}`} >
+              <div className='voteText'>Vote -</div>
+              <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
+              <div className='voteText'>1</div>
+              <VotedSticker />
+              <BpmCoin classPass={classPass}/>
+            </div> :
+            <div className={`${voteId}`} onClick={handleVote}>
+              <div className='voteText'>Vote -</div>
+              <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
+              <div className='voteText'>1</div>
+            </div>
+          }
         </div>
             {showDelete &&
               <>

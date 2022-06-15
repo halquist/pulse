@@ -1,5 +1,5 @@
 import './PollFeed.css';
-import {PollDisplayFeed} from '../PollDisplay';
+import { PollDisplayFeed } from '../PollDisplay';
 import { useDispatch, useSelector } from 'react-redux';
 import TitleBar from '../TitleBar';
 import { LoadingIcon } from '../Logo';
@@ -41,6 +41,8 @@ const PollFeed = ({ type, title }) => {
         return returnPolls
       })
       .then(() => setLoaded(true))
+    } else {
+      return
     }
   },[dispatch, type, polls, userId, deletePoll])
 

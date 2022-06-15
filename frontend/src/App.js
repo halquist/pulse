@@ -60,7 +60,7 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path='/polls/:pollId' exact={true}>
             <SideNavigation />
-            <PollFocus />
+            <PollFocus type='focus' title='Poll Focus'/>
           </ProtectedRoute>
           <Route path='*' exact={true}>
             <SideNavigation />

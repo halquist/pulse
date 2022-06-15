@@ -263,12 +263,9 @@
 
 .submitVote {
   position: relative;
-  background-color: #6faf99;
   color: white;
-  padding: 4px 20px;
   border: 1px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
-  border-radius: 3px;
   font-size: 1.2em;
   cursor: pointer;
   transition: .2s;
@@ -276,10 +273,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #B76A91;
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .4);
+  border-radius: 6px;
+  padding: 4px 20px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
 }
 
 .submitVote:hover {
-  background-color: #B76A91;
+  background-color: #b4497e;
   color: white;
 }
 
