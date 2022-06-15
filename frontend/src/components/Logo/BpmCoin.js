@@ -2,15 +2,15 @@ import './Logo.css';
 import bpm_coin from '../../images/bpm_coin.svg'
 
 
-const BpmCoin = () => {
+const BpmCoin = ({ classPass }) => {
   return (
     <>
-      <img src={bpm_coin} width="40" height="40" className='bpmCoin' id='coin1'/>
-      <img src={bpm_coin} width="40" height="40" className='bpmCoin' id='coin2'/>
-      <img src={bpm_coin} width="40" height="40" className='bpmCoin' id='coin3'/>
-      <img src={bpm_coin} width="40" height="40" className='bpmCoin' id='coin4'/>
-      <img src={bpm_coin} width="40" height="40" className='bpmCoin' id='coin5'/>
-      <img src={bpm_coin} width="40" height="40" className='bpmCoin' id='coin6'/>
+      <img src={bpm_coin} width="40" height="40" className='bpmCoin' id={`${classPass}1`}/>
+      <img src={bpm_coin} width="40" height="40" className='bpmCoin' id={`${classPass}2`}/>
+      <img src={bpm_coin} width="40" height="40" className='bpmCoin' id={`${classPass}3`}/>
+      <img src={bpm_coin} width="40" height="40" className='bpmCoin' id={`${classPass}4`}/>
+      <img src={bpm_coin} width="40" height="40" className='bpmCoin' id={`${classPass}5`}/>
+      <img src={bpm_coin} width="40" height="40" className='bpmCoin' id={`${classPass}6`}/>
     </>
   )
 };
