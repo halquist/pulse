@@ -45,6 +45,7 @@
 
 .pollDisplayTopBar {
   width: 100%;
+  min-height: 41px;
   padding: 8px 12px;
   display: flex;
   justify-content: space-between;
@@ -53,11 +54,15 @@
 .pollDisplayUsername {
   color: #003B31;
   font-size: 1.1em;
+  flex: 1;
 }
 
 .pollDisplayVotesNum {
+  display: flex;
+  justify-content: flex-end;
   color: rgb(218, 224, 230);
   font-size: 1.1em;
+  flex: 1;
 }
 
 .pollDisplayText {
@@ -412,6 +417,10 @@
 }
 
 .bpmValueDisplaySpinner {
+  /* position: fixed; */
+  /* left: 54%; */
+  /* right: 50%; */
+  transform: translateX(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -423,6 +432,11 @@
   background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
   /* clip-path: border-box; */
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  width: fit-content;
+}
+
+.spinnerContainer {
+  position: relative;
 }
 
 .bpmIcon {

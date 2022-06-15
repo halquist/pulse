@@ -205,10 +205,13 @@ useEffect(()=> {
         <div className='pollDisplayTopBar'>
           <div className='pollDisplayUsername'>{onePoll.User.username}</div>
           {spinnerTrigger &&
-            <div className='bpmValueDisplaySpinner'>
-              <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
-              <SlotSpinner number={bpmValue} trigger={setPrizeTrigger} />
-              {/* <div className='bpmDisplayTextDark'>bpm</div> */}
+            <div className='spinnerContainer'>
+              <BpmCoin classPass={classPass}/>
+              <div className='bpmValueDisplaySpinner'>
+                <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
+                <SlotSpinner number={bpmValue} trigger={setPrizeTrigger} />
+                {/* <div className='bpmDisplayTextDark'>bpm</div> */}
+              </div>
             </div>
           }
           <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>
@@ -263,7 +266,6 @@ useEffect(()=> {
               <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
               <div className='voteText'>1</div>
               <VotedSticker />
-              <BpmCoin classPass={classPass}/>
             </div> :
             <div className={`${voteId}`} onClick={handleVote}>
               <div className='voteText'>Vote -</div>
