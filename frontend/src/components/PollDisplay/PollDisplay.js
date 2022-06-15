@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getOnePoll, getPolls } from '../../store/poll';
 import { getVotes, clearOutVotes } from '../../store/uservote';
-import { LoadingIcon, VotedSticker } from '../Logo';
+import { LoadingIcon, VotedSticker, BpmCoin, SlotSpinner } from '../Logo';
 import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
 import { bpmChange } from '../../store/session';
 import XMark from '../XMark';
 import bpm_symbol from '../../images/bpm_symbol.svg'
+
+
 
 
 const PollDisplay = ({ pollId }) => {
@@ -33,7 +35,10 @@ const PollDisplay = ({ pollId }) => {
   const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined);
   const [voteId, setVoteId] = useState(canVote ? 'submitVote' : 'cannotSubmitVote')
   const [bpmValue, setBpmValue] = useState(0);
-  const [votePercentScroll, setVotePercentScroll] = useState(50);
+  const [votePercentScroll, setVotePercentScroll] = useState(votePercent);
+  const [classPass, setClassPass] = useState('');
+  const [spinnerValue, setSpinnerValue] = useState(10);
+
 
   // const [voteBarChange, setVoteBarChange] = useState(false)
   // const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
@@ -83,7 +88,9 @@ useEffect(() => {
         })
         .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
           // creates a percentage value for option one to display, option 2 percent will also be based on this value
-          setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
+          const percent = (opOneVotes / (opOneVotes + opTwoVotes)) * 100;
+          setVotePercent(percent);
+          // setVotePercentScroll(percent);
           return { returnVotes, opOneVotes, opTwoVotes };
         })
         .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
@@ -214,13 +221,13 @@ useEffect(() => {
           if (onePoll.User.id !== sessionUser.id) {
             // console.log(newVote.userId, sessionUser.id)
             dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
+            setClassPass('coin');
           }
         }
     } else {
       return;
     }
   };
-
 
 
   if (!loaded) {
@@ -240,6 +247,11 @@ useEffect(() => {
             <div className='bpmDisplayTextPlus'>+</div>
             <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
             <div className='bpmDisplayText'>{bpmValue}</div>
+            {/* <div className='bpmDisplayTextDark'>bpm</div> */}
+          </div>
+          <div className='bpmValueDisplaySpinner'>
+          <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
+            <SlotSpinner number={spinnerValue} />
             {/* <div className='bpmDisplayTextDark'>bpm</div> */}
           </div>
           <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>
@@ -285,7 +297,7 @@ useEffect(() => {
           }
           {userVoteSticker === true ?
           <>
-            <div className={`${voteId}`}>Submit Vote <VotedSticker /> </div>
+            <div className={`${voteId}`}>Submit Vote <VotedSticker /> <BpmCoin classPass={classPass}/></div>
           </> :
           <div className={`${voteId}`} onClick={handleVote}>Submit Vote</div>
         }

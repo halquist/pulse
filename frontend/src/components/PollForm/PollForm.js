@@ -68,18 +68,18 @@ const PollForm = ({ mode }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
+    if (sessionUser.bpm >= 10) {
       let newPoll = await dispatch(pollActions.createPoll({ title, description, optionOneTitle, optionTwoTitle, userId: sessionUser.id }))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         });
         if (newPoll) {
-          if (sessionUser.bpm >= 10) {
-            dispatch(bpmChange(sessionUser.id, -10, 'subtract'))
-            history.push(`/polls/${newPoll.poll.id}`);
-          } else {
-            setErrors(['You don\t have enough bpm to create this poll. Better go vote on some other user\'s polls!'])
-          }
+          dispatch(bpmChange(sessionUser.id, -10, 'subtract'))
+          history.push(`/polls/${newPoll.poll.id}`);
+        }
+        } else {
+          setErrors(['You don\t have enough bpm to create this poll. Better go vote on some other user\'s polls!'])
         }
   };
 
@@ -147,6 +147,7 @@ const PollForm = ({ mode }) => {
                 id='titleInput'
                 name='title'
                 type='text'
+                maxLength="100"
                 value={title}
                 onChange={e => setTitle(e.target.value)}
                 autoFocus={true}
@@ -176,6 +177,7 @@ const PollForm = ({ mode }) => {
                   id='optionOneTitleInput'
                   name='optionOneTitle'
                   type='text'
+                  maxLength="50"
                   value={optionOneTitle}
                   onChange={e => setOptionOneTitle(e.target.value)}
                 >
@@ -189,6 +191,7 @@ const PollForm = ({ mode }) => {
                   id='optionTwoTitleInput'
                   name='optionTwoTitle'
                   type='text'
+                  maxLength="50"
                   value={optionTwoTitle}
                   onChange={e => setOptionTwoTitle(e.target.value)}
                 >

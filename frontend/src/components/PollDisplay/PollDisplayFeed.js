@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getPolls } from '../../store/poll';
 import { getVotes, clearOutVotes } from '../../store/uservote';
-import { VotedSticker } from '../Logo';
+import { VotedSticker, BpmCoin } from '../Logo';
 import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
 import { bpmChange } from '../../store/session';
@@ -40,6 +40,7 @@ const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
   const [errors, setErrors] = useState([]);
   const [bpmValue, setBpmValue] = useState(0);
   const [votePercentScroll, setVotePercentScroll] = useState(50);
+  const [classPass, setClassPass] = useState('');
 
 
 
@@ -165,6 +166,7 @@ useEffect(()=> {
           setVoteId('cannotSubmitVote');
           if (pollSend.User.id !== sessionUser.id) {
             dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
+            setClassPass('coin');
           }
         }
     } else {
@@ -237,7 +239,7 @@ useEffect(()=> {
           }
           {userVoteSticker === true ?
           <>
-            <div className={`${voteId}`}>Submit Vote <VotedSticker /> </div>
+            <div className={`${voteId}`}>Submit Vote <VotedSticker /> <BpmCoin classPass={classPass}/></div>
           </> :
           <div className={`${voteId}`} onClick={handleVote}>Submit Vote</div>
         }
