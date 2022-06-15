@@ -2,7 +2,7 @@ import './Logo.css';
 import { useEffect, useState } from 'react';
 import bpm_symbol from '../../images/bpm_symbol.svg'
 
-const SlotSpinner = ({ number }) => {
+const SlotSpinner = ({ number, trigger }) => {
 
   const [displayNum, setDisplayNum] = useState(1);
   // const [counter, setCounter] = useState(0);
@@ -17,6 +17,7 @@ const SlotSpinner = ({ number }) => {
       if (counter === 10) {
         clearInterval(spinnerTimeout);
         setDisplayNum(number);
+        trigger();
       }
     }, 500);
   },[])
