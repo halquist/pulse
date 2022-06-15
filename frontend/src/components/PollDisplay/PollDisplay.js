@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getOnePoll, getPolls } from '../../store/poll';
 import { getVotes, clearOutVotes } from '../../store/uservote';
-import { LoadingIcon, VotedSticker } from '../Logo';
+import { LoadingIcon, VotedSticker, BpmCoin } from '../Logo';
 import * as pollActions from '../../store/poll'
 import * as voteActions from '../../store/uservote'
 import { bpmChange } from '../../store/session';
 import XMark from '../XMark';
 import bpm_symbol from '../../images/bpm_symbol.svg'
+
 
 
 const PollDisplay = ({ pollId }) => {
@@ -33,7 +34,7 @@ const PollDisplay = ({ pollId }) => {
   const [canVote, setCanVote] = useState(userVote[0]?.voteSelection === 0 || userVote[0]?.voteSelection === undefined);
   const [voteId, setVoteId] = useState(canVote ? 'submitVote' : 'cannotSubmitVote')
   const [bpmValue, setBpmValue] = useState(0);
-  const [votePercentScroll, setVotePercentScroll] = useState(50);
+  const [votePercentScroll, setVotePercentScroll] = useState(votePercent);
 
   // const [voteBarChange, setVoteBarChange] = useState(false)
   // const [optionOneVotesDisplay, setOptionOneVotesDisplay] = useState(0);
@@ -83,7 +84,9 @@ useEffect(() => {
         })
         .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
           // creates a percentage value for option one to display, option 2 percent will also be based on this value
-          setVotePercent(Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100));
+          const percent = (opOneVotes / (opOneVotes + opTwoVotes)) * 100;
+          setVotePercent(percent);
+          // setVotePercentScroll(percent);
           return { returnVotes, opOneVotes, opTwoVotes };
         })
         .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
@@ -222,7 +225,6 @@ useEffect(() => {
   };
 
 
-
   if (!loaded) {
     return (
     <div className='loadingContainer'>
@@ -285,7 +287,7 @@ useEffect(() => {
           }
           {userVoteSticker === true ?
           <>
-            <div className={`${voteId}`}>Submit Vote <VotedSticker /> </div>
+            <div className={`${voteId}`}>Submit Vote <VotedSticker /> <BpmCoin /></div>
           </> :
           <div className={`${voteId}`} onClick={handleVote}>Submit Vote</div>
         }

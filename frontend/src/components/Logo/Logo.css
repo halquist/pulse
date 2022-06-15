@@ -138,6 +138,8 @@
   animation: sticker_stick .8s ease-in;
 }
 
+
+
 @keyframes sticker_stick {
   0% {
     opacity: 0;
@@ -184,3 +186,104 @@
     stroke-dasharray: 1000 200;
   }
 } */
+
+
+.bpmCoin {
+  width: 60px;
+  position: absolute;
+  right: 262px;
+  bottom: 229px;
+  opacity: 0;
+}
+
+#coin1 {
+  offset-path: path('M250,250c0,0,23.916-38.743,79.782-38.743,S470.006,271.983,468.33,500');
+  animation: coin_1 1.3s ease-out;
+}
+#coin2 {
+  offset-path: path('M250.002,249.589c0,0,4.017-115.643,19.66-63.688,s43.574,220.67,43.574,279.889');
+  animation: coin_2 1.3s ease-out;
+}
+#coin3 {
+  offset-path: path('M250,250c0,0-25-86.333-67.667-3s-41.511,228-41.511,228');
+  animation: coin_3 1.3s ease-out;
+}
+#coin4 {
+  offset-path: path('M250.002,249.589c0,0,111.664-191.255,132.331,222.078');
+  animation: coin_4 1.3s ease-out;
+}
+#coin5 {
+  offset-path: path('M250.002,249.589C250.002,249.589,223,31,213,500');
+  animation: coin_5 1.3s ease-out;
+}
+#coin6 {
+  offset-path: path('M250,250c0,0,23.916-38.743,79.782-38.743,S470.006,271.983,468.33,500');
+  animation: coin_6 1.3s ease-out;
+}
+
+@keyframes coin_1 {
+  0% {
+    opacity: 1;
+    transform: scale(.4);
+    offset-distance: 0%;
+  } 100% {
+    opacity: 0;
+    transform: scale(1.4);
+    offset-distance: 100%;
+  }
+}
+@keyframes coin_2 {
+  0% {
+    opacity: 1;
+    transform: scale(.4);
+    offset-distance: 0%;
+  } 100% {
+    opacity: 0;
+    transform: scale(1.4);
+    offset-distance: 100%;
+  }
+}
+@keyframes coin_3 {
+  0% {
+    opacity: 1;
+    transform: scale(.4);
+    offset-distance: 0%;
+  } 100% {
+    opacity: 0;
+    transform: scale(1.4);
+    offset-distance: 100%;
+  }
+}
+@keyframes coin_4 {
+  0% {
+    opacity: 1;
+    transform: scale(.4);
+    offset-distance: 0%;
+  } 100% {
+    opacity: 0;
+    transform: scale(1.4);
+    offset-distance: 100%;
+  }
+}
+@keyframes coin_5 {
+  0% {
+    opacity: 1;
+    transform: scale(.4);
+    offset-distance: 0%;
+  } 100% {
+    opacity: 0;
+    transform: scale(1.4);
+    offset-distance: 100%;
+  }
+}
+@keyframes coin_6 {
+  0% {
+    opacity: 1;
+    transform: scale(.4);
+    offset-distance: 0%;
+  } 100% {
+    opacity: 0;
+    transform: scale(1.4);
+    offset-distance: 100%;
+  }
+}
