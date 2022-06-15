@@ -79,7 +79,7 @@ const PollForm = ({ mode }) => {
           history.push(`/polls/${newPoll.poll.id}`);
         }
         } else {
-          setErrors(['You don\t have enough bpm to create this poll. Better go vote on some other user\'s polls!'])
+          setErrors(['You don\'t have enough bpm to create this poll. Better go vote on some other user\'s polls!'])
         }
   };
 
