@@ -72,3 +72,34 @@
 .smallPinkButton:hover {
   background-color: #b44c80;
 }
+
+#searchForm {
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#storeContentsDiv {
+  padding: 8px;
+  min-height: 100px;
+  width: 100%;
+  max-width: 700px;
+  align-items: center;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
+  color: rgb(218, 224, 230);
+  /* background-image: url("../../images/splash_background_mk2.svg"); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-image: linear-gradient(-45deg, #B76A91, #B76A91,#539A94, #539A94);
+  margin-top: none;
+  height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}

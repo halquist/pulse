@@ -40,15 +40,19 @@ function App() {
             <LoginFormPage />
           </Route>
           <ProtectedRoute path='/' exact={true}>
-          <SideNavigation />
+            <SideNavigation />
             <PollFeed type='latest' title='Latest Polls' />
           </ProtectedRoute>
           <ProtectedRoute path='/pollfeed/user' exact={true}>
-          <SideNavigation />
+            <SideNavigation />
             <PollFeed type='user' title='My Polls' />
           </ProtectedRoute>
+          <ProtectedRoute path='/pollfeed/:otherUserId/user' exact={true}>
+            <SideNavigation />
+            <PollFeed type='otherUser' title="User's Polls" />
+          </ProtectedRoute>
           <ProtectedRoute path='/pollfeed/hot' exact={true}>
-          <SideNavigation />
+            <SideNavigation />
             <PollFeed type='hot' title='Hottest Polls' />
           </ProtectedRoute>
           <ProtectedRoute path='/polls/new' exact={true}>

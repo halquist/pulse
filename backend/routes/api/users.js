@@ -63,8 +63,22 @@ router.put(
     const userId = req.params.id;
     const { bpm, addOrSubtract } = req.body;
     const id = userId;
-    const updateUserBpm = await User.addBpm({ id, bpm, addOrSubtract })
-    return res.json(updateUserBpm)
+    const updateUserBpm = await User.addBpm({ id, bpm, addOrSubtract });
+    return res.json(updateUserBpm);
+  })
+)
+
+// change profile image
+router.put(
+  '/:id(\\d+)/image',
+  requireAuth, restoreUser,
+  asyncHandler( async (req, res) => {
+    console.log('in api')
+    const userId = req.params.id;
+    const { profileImageUrl } = req.body;
+    const id = userId;
+    const updateUserImage = await User.changeImage({ id, profileImageUrl });
+    return res.json(updateUserImage);
   })
 )
 

@@ -55,6 +55,15 @@
   color: #003B31;
   font-size: 1.1em;
   flex: 1;
+  width: fit-content;
+}
+
+.pollDisplayUsernameLink {
+  width: 100px;
+}
+
+.pollDisplayUsername:hover {
+  color: #1f645f;
 }
 
 .pollDisplayVotesNum {

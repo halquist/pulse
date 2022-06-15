@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import { LoadingIcon } from '../Logo';
 import TitleBar from '../TitleBar';
 import StoreImage from './StoreImage';
+import { useSelector } from 'react-redux';
 
 const PulseStore = () => {
+  const sessionUser = useSelector(state => state.session.user);
+
   const [images, setImages] = useState([]);
   const [loaded, setLoaded] = useState([]);
   const searchArr = ['animals', 'cats', 'dogs', 'robots', 'spaceships', 'planets', 'pyramids', 'mythical creatures', 'greek gods', 'aliens']
@@ -43,27 +46,27 @@ const PulseStore = () => {
 
   return (
     <div className='storeDisplayDiv'>
-      <TitleBar title='Store' />
-      <div id='searchForm'>
-        <form onSubmit={handleSubmit}>
-        <label htmlFor='search'>Search Profile Images</label>
-          <input
-            id='searchInput'
-            name='search'
-            type='text'
-            maxLength="90"
-            value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
-          >
-          </input>
-          <button type='submit' className='pinkButton'>Search</button> :
-        </form>
+      <TitleBar title='Change Your Profile Picture' />
+        <div id='storeContentsDiv'>
+          <form onSubmit={handleSubmit} id='searchForm'>
+            <label htmlFor='search'>Search Profile Images:</label>
+              <input
+                id='searchInput'
+                name='search'
+                type='text'
+                maxLength="90"
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+              >
+              </input>
+              <button type='submit' className='pinkButton'>Search</button>
+          </form>
+        {images.map((image) => {
+          return (
+            <StoreImage image={image} user={sessionUser} key={image.id}/>
+          )
+        })}
       </div>
-      {images.map((image) => {
-        return (
-          <StoreImage image={image} key={image.id}/>
-        )
-      })}
     </div>
   )
 };

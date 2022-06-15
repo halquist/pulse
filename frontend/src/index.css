@@ -186,3 +186,16 @@ textarea {
   margin-top: 40px;
 }
 
+.profileIcon {
+  border-radius: 10px;
+  width: 37px;
+  height: 37px;
+  background-color: transparent;
+}
+
+.profileIconLarge {
+  border-radius: 10px;
+  width: 110px;
+  height: 110px;
+  background-color: transparent;
+}

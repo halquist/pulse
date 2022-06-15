@@ -109,6 +109,13 @@ module.exports = (sequelize, DataTypes) => {
     return user;
   }
 
+  User.changeImage = async function ({id, profileImageUrl}) {
+    const user = await User.scope('currentUser').findByPk(id);
+    user.profileImageUrl = profileImageUrl;
+    await user.save();
+    return user;
+  }
+
   User.associate = function(models) {
     // associations can be defined here
     User.hasMany(models.Poll, { foreignKey: 'userId' })

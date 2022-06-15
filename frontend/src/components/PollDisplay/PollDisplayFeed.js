@@ -210,7 +210,9 @@ useEffect(()=> {
     <div className='tempPollContainer'>
       <div className='pollDisplayDivFeed'>
         <div className='pollDisplayTopBar'>
-          <div className='pollDisplayUsername'>{onePoll.User.username}</div>
+            <Link to={`/pollfeed/${onePoll.User.id}/user`} className='pollDisplayUsernameLink'>
+              <div className='pollDisplayUsername'>{onePoll.User.username}</div>
+            </Link>
           {spinnerTrigger &&
             <div className='spinnerContainer'>
               <BpmCoin classPass={classPass}/>
