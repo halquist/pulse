@@ -55,8 +55,8 @@ function ProfileButton({ user }) {
             }}>
             </div>
         </li>
-          <Link to="/pollfeed/user" className='iconTextNav'>
-            <li>{user.username}</li>
+          <Link to="/pollfeed/user" className='profileNameDrop'>
+            <li className='profileNameDropText'>{user.username}</li>
           </Link>
           <li>{user.email}</li>
           <li>
