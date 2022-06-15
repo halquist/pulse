@@ -14,7 +14,7 @@ function Navigation({ isLoaded }){
 
   useEffect(() => {
     setBpmScrollUp(sessionUser?.bpm)
-  },[])
+  },[sessionUser?.id])
 
   useEffect(() => {
     setIdPass('bpm_svg_animate')

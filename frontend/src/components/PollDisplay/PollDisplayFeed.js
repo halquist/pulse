@@ -52,12 +52,17 @@ const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
 // adds bpm when spinner is done
 useEffect(() => {
   dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
-  if (bpmValue > 0) {
-    const coinTimeout = setTimeout(setClassPass('coin'), 5000);
-    if (classPass === 'coin') {
-      clearTimeout(coinTimeout);
-    };
+  let coinTimeout;
+  if (bpmValue > 0 && bpmValue < 10) {
+    coinTimeout = setTimeout(setClassPass('coin'), 5000);
+  } else if (bpmValue >= 10 && bpmValue < 50) {
+    coinTimeout = setTimeout(setClassPass('bigCoin'), 5000);
+  } else if (bpmValue >= 50 ) {
+    coinTimeout = setTimeout(setClassPass('megaCoin'), 5000);
   }
+  if (classPass === 'coin' || classPass === 'bigCoin' || classPass === 'megaCoin') {
+    clearTimeout(coinTimeout);
+  };
 },[prizeTrigger]);
 
 // allows for a gradual change on the percent bar

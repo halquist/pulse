@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import SplashPage from './components/SplashPage';
 import Texture from './components/Texture';
 import PollFeed from './components/PollFeed/PollFeed';
+import PulseStore from './components/PulseStore';
 
 function App() {
   const dispatch = useDispatch();
@@ -61,6 +62,10 @@ function App() {
           <ProtectedRoute path='/polls/:pollId' exact={true}>
             <SideNavigation />
             <PollFocus type='focus' title='Poll Focus'/>
+          </ProtectedRoute>
+          <ProtectedRoute path='/store' exact={true}>
+            <SideNavigation />
+            <PulseStore />
           </ProtectedRoute>
           <Route path='*' exact={true}>
             <SideNavigation />
