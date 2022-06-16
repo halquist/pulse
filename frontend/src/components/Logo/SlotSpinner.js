@@ -17,7 +17,7 @@ const SlotSpinner = ({ number, trigger }) => {
       if (counter === 10) {
         clearInterval(spinnerTimeout);
         setDisplayNum(number);
-        trigger();
+        trigger(true);
       }
     }, 500);
   },[])

@@ -16,14 +16,13 @@ import user_icon from '../../images/user_icon.svg'
 
 
 
-const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
+const PollDisplayDemo = ({ pollSend, type, deletedPoll }) => {
 
   // console.log('pollsend', pollSend)
 
-  const dispatch = useDispatch();
-  const history = useHistory();
 
-  const sessionUser = useSelector(state => state.session.user);
+
+  const sessionUser = (0);
   // const onePoll = useSelector(state => state.poll.singlePoll);
   // const votes = useSelector(state => state.vote.pollVotes);
 
@@ -48,23 +47,59 @@ const PollDisplayFeed = ({ pollSend, type, deletedPoll }) => {
   const [classPass, setClassPass] = useState('');
   const [spinnerTrigger, setSpinnerTrigger] = useState(false);
   const [prizeTrigger, setPrizeTrigger] = useState(false);
+  const [demoTrigger, setDemoTrigger] = useState(false);
 
 
 // adds bpm when spinner is done
 useEffect(() => {
-  dispatch(bpmChange(sessionUser.id, bpmValue, 'add'))
   let coinTimeout;
-  if (bpmValue > 0 && bpmValue < 10) {
+  let resetTimeout;
+  const reset = () => {
+    console.log('resetstart')
+    const resetTimeout = setTimeout(() => {
+    console.log('resetend')
+    setCanVote(true);
+    setUserVoteSticker(false);
+    setVoteId('submitVote');
+    setClassPass('');
+    setVoteSelection(0);
+    setSpinnerTrigger(false);
+    setPrizeTrigger(false);
+    setDemoTrigger(false);
+    clearTimeout(coinTimeout);
+    }, 5000);
+  }
+  if (bpmValue >= 0 && bpmValue < 10 && demoTrigger && prizeTrigger) {
+    console.log('running')
     coinTimeout = setTimeout(setClassPass('coin'), 5000);
-  } else if (bpmValue >= 10 && bpmValue < 50) {
+    reset();
+  } else if (bpmValue >= 10 && bpmValue < 50 && demoTrigger && prizeTrigger) {
+    console.log('running')
     coinTimeout = setTimeout(setClassPass('bigCoin'), 5000);
-  } else if (bpmValue >= 50 ) {
+    reset();
+  } else if (bpmValue >= 50  && demoTrigger && prizeTrigger) {
+    console.log('running')
     coinTimeout = setTimeout(setClassPass('megaCoin'), 5000);
+    reset();
   }
   if (classPass === 'coin' || classPass === 'bigCoin' || classPass === 'megaCoin') {
     clearTimeout(coinTimeout);
-  };
-},[prizeTrigger]);
+  };},[prizeTrigger]);
+
+  console.log('prizeTrigger', prizeTrigger, 'demotrigger', demoTrigger)
+
+// const reset = () => {
+//   const resetTimeout = setTimeout(() => {
+//   setCanVote(true);
+//   setUserVoteSticker(false);
+//   setVoteId('submitVote');
+//   setClassPass('');
+//   setVoteSelection(0);
+//   setSpinnerTrigger(false);
+//   setPrizeTrigger(false);
+//   setDemoTrigger(false);
+//   }, 5000);
+// }
 
 // allows for a gradual change on the percent bar
 useEffect(() => {
@@ -78,72 +113,63 @@ useEffect(() => {
   }
 },[votePercent, votePercentScroll])
 
-
-useEffect(()=> {
-  setClassPass('')
-  dispatch(getVotes(pollId))
-    .then((returnVotes) => {
-      // counts how many votes exist for option one
-      const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
-      setOptionOneVotes(opOneVotes);
-      return { returnVotes, opOneVotes };
-    })
-    .then(({ returnVotes, opOneVotes }) => {
-      // counts how many votes exist for option two
-      const opTwoVotes = returnVotes.filter((vote) => vote.voteSelection === 2).length
+useEffect(() => {
+  const opOneVotes = pollSend.UserVotes.filter((vote) => vote.voteSelection === 1).length
+  setOptionOneVotes(opOneVotes);
+  const opTwoVotes = pollSend.UserVotes.filter((vote) => vote.voteSelection === 2).length
       setOptionTwoVotes(opTwoVotes);
-      return { returnVotes, opOneVotes, opTwoVotes };
-    })
-    .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
-      // creates a percentage value for option one to display, option 2 percent will also be based on this value
-      const percent = Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100)
-      setVotePercent(percent);
-      // setVotePercentScroll(percent);
-      return { returnVotes, opOneVotes, opTwoVotes };
-    })
-    .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
-      // sets how much bpm voting on a poll is worth based on how many votes already exist
-      // const numVotes = opOneVotes + opTwoVotes;
-      // let bpmValue = 1;
-      // if (numVotes <= 1) {
-      //   bpmValue = 10
-      // } else if (numVotes <= 2) {
-      //   bpmValue = 8
-      // } else if (numVotes <= 3) {
-      //   bpmValue = 6
-      // } else if (numVotes <= 4) {
-      //   bpmValue = 4
-      // } else if (numVotes <= 5) {
-      //   bpmValue = 2
-      // } else if (numVotes <= 10) {
-      //   bpmValue = 1
-      // }
-      // setBpmValue(bpmValue)
-      return { returnVotes, opOneVotes, opTwoVotes };
-    })
-    .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
-      dispatch(pollActions.editPollVotes(pollId, opOneVotes, opTwoVotes))
-    })
-},[optionOneVotes, optionTwoVotes, userVote])
+  const percent = Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100)
+  setVotePercent(percent);
+},[])
 
 
+// useEffect(()=> {
+//   setClassPass('')
+//   dispatch(getVotes(pollId))
+//     .then((returnVotes) => {
+//       // counts how many votes exist for option one
+//       const opOneVotes = returnVotes.filter((vote) => vote.voteSelection === 1).length
+//       setOptionOneVotes(opOneVotes);
+//       return { returnVotes, opOneVotes };
+//     })
+//     .then(({ returnVotes, opOneVotes }) => {
+//       // counts how many votes exist for option two
+//       const opTwoVotes = returnVotes.filter((vote) => vote.voteSelection === 2).length
+//       setOptionTwoVotes(opTwoVotes);
+//       return { returnVotes, opOneVotes, opTwoVotes };
+//     })
+//     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
+//       // creates a percentage value for option one to display, option 2 percent will also be based on this value
+//       const percent = Math.floor((opOneVotes / (opOneVotes + opTwoVotes)) * 100)
+//       setVotePercent(percent);
+//       // setVotePercentScroll(percent);
+//       return { returnVotes, opOneVotes, opTwoVotes };
+//     })
+//     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
+//       // sets how much bpm voting on a poll is worth based on how many votes already exist
+//       // const numVotes = opOneVotes + opTwoVotes;
+//       // let bpmValue = 1;
+//       // if (numVotes <= 1) {
+//       //   bpmValue = 10
+//       // } else if (numVotes <= 2) {
+//       //   bpmValue = 8
+//       // } else if (numVotes <= 3) {
+//       //   bpmValue = 6
+//       // } else if (numVotes <= 4) {
+//       //   bpmValue = 4
+//       // } else if (numVotes <= 5) {
+//       //   bpmValue = 2
+//       // } else if (numVotes <= 10) {
+//       //   bpmValue = 1
+//       // }
+//       // setBpmValue(bpmValue)
+//       return { returnVotes, opOneVotes, opTwoVotes };
+//     })
+//     .then(({ returnVotes, opOneVotes, opTwoVotes }) => {
+//       dispatch(pollActions.editPollVotes(pollId, opOneVotes, opTwoVotes))
+//     })
+// },[optionOneVotes, optionTwoVotes, userVote])
 
-
-  // toggles showing the delete confirmation form
-  const deleteForm = () => {
-    setShowDelete(!showDelete)
-  }
-
-  // handles deletion of poll
-  const handleDelete = async () => {
-    let deletePoll = await dispatch(pollActions.removePoll(pollId))
-      if (deletePoll.poll.message === 'Success') {
-        if (type === 'focus') {
-          history.push(`/`)
-        }
-        deletedPoll(deletePoll)
-      }
-  }
 
   // toggles checkmark display on the 2 choices if voting is allowed for user and sets the choice value for submission
   const handleSetVote = (vote) => {
@@ -170,32 +196,20 @@ useEffect(()=> {
 
   // submits user poll vote
   const handleVote = async () => {
-    if (sessionUser.bpm >= 1) {
-      if(voteSelection > 0) {
-        let newVote = await dispatch(voteActions.createVote({ userId: sessionUser.id, pollId, voteSelection }))
-          .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-          });
-          if (newVote) {
-            dispatch(bpmChange(sessionUser.id, -1, 'subtract'))
-            setUserVote(newVote);
-            setOptionOneVotes(Object.values(votes).filter((vote) => vote.voteSelection === 1 && vote.pollId === onePoll.id).length);
-            setOptionTwoVotes(Object.values(votes).filter((vote) => vote.voteSelection === 2 && vote.pollId === onePoll.id).length);
-            setCanVote(false);
-            setUserVoteSticker(true);
-            setVoteId('cannotSubmitVote');
-            if (pollSend.User.id !== sessionUser.id) {
-              setBpmValue(PrizeArr[Math.floor(Math.random() * 100)]);
-              setSpinnerTrigger(true);
-            }
-          }
-      } else {
-        return;
-      }
-    } else {
-      setErrors(['You don\'t have enough bpm to create this poll. Better go vote on some other user\'s polls!'])
-   }
+    if (voteSelection === 1){
+    setOptionOneVotes(prev => prev +1);
+    setVotePercent(Math.floor(((optionOneVotes + 1) / ((optionOneVotes + 1) + optionTwoVotes)) * 100));
+    }
+    if (voteSelection === 2){
+      setOptionTwoVotes(prev => prev + 1);
+      setVotePercent(Math.floor((optionOneVotes / (optionOneVotes + (optionTwoVotes + 1))) * 100));
+    }
+    setCanVote(false);
+    setUserVoteSticker(true);
+    setVoteId('cannotSubmitVote');
+    setBpmValue(PrizeArr[Math.floor(Math.random() * 100)]);
+    setSpinnerTrigger(true);
+    setDemoTrigger(true);
   };
 
 
@@ -264,22 +278,11 @@ useEffect(()=> {
             </div>
         </div>
         <div className='pollDisplayBottomBar'>
-          {type !== 'focus' ?
-          <NavLink to={`/polls/${pollSend.id}`}>
             <div className='pollDisplayCommentNum'>
               <div className='voteText'>
                 {comments.length} Comments
               </div>
             </div>
-          </NavLink> :
-          <div className='pollDisplayCommentBlank'></div>
-          }
-          {sessionUser?.id === onePoll?.User.id &&
-            <>
-              <Link to={`/polls/${onePoll.id}/edit`} className='editDiv'>Edit Poll</Link>
-              <div className='editDiv' onClick={deleteForm}>Delete Poll</div>
-            </>
-          }
           {userVoteSticker === true ?
             <div className={`${voteId}`} >
               <div className='voteText'>Vote -</div>
@@ -294,15 +297,6 @@ useEffect(()=> {
             </div>
           }
         </div>
-            {showDelete &&
-              <>
-                <div className='deleteConfirmText'>Are you sure you want to delete this poll?</div>
-                <div className='pollDeleteBar'>
-                  <button onClick={deleteForm} className='pinkButton'>Cancel</button>
-                  <button onClick={handleDelete} className='greenButton'>Delete</button>
-                </div>
-              </>
-            }
       </div>
       <div id='pollErrors'>
         {
@@ -315,4 +309,4 @@ useEffect(()=> {
   )
 };
 
-export default PollDisplayFeed
+export default PollDisplayDemo;

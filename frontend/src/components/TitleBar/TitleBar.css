@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #495151;
+  background-color: #B76A91;
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
@@ -22,11 +22,21 @@
   bottom: 0;
   margin-right: 10px;
   margin-bottom: 8px;
-  background-color: grey;
   padding: 5px 10px;
-  border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, .3);
-  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
-  color: rgb(218, 224, 230);
+  background-color: #5ec3b1;
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .4);
+  border-radius: 6px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
   cursor: pointer;
+}
+
+#editButton:hover {
+  background-color: #26b2a6;
+
+}
+
+#addText {
+  color: white;
+  filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
 }

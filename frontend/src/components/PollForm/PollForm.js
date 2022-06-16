@@ -155,7 +155,7 @@ const PollForm = ({ mode }) => {
               </input>
             </div>
             <div id='descDiv'>
-              <label htmlFor='description'>Poll Description(optional)</label>
+              <label htmlFor='description'>Poll Description (optional)</label>
               <textarea
                 id='descriptionInput'
                 name='description'
