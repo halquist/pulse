@@ -1,5 +1,5 @@
 import './PollFeed.css';
-import { PollDisplayFeed } from '../PollDisplay';
+import PollDisplay from '../PollDisplay';
 import { useDispatch, useSelector } from 'react-redux';
 import TitleBar from '../TitleBar';
 import { LoadingIcon } from '../Logo';
@@ -82,7 +82,7 @@ const PollFeed = ({ type, title }) => {
       <TitleBar title={title} />
       {allPolls.map((poll) => {
         return (
-          <PollDisplayFeed pollSend={poll} type={type} deletedPoll={setDeletePoll} key={poll.id} />
+          <PollDisplay pollSend={poll} type={type} deletedPoll={setDeletePoll} key={poll.id} />
         )
       })}
       <div id='feedSpacerDiv'></div>

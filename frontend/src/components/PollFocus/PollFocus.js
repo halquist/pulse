@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import PollDisplay from "../PollDisplay"
-import { PollDisplayFeed } from '../PollDisplay';
 import TitleBar from '../TitleBar';
 import CommentFeed from '../CommentFeed';
 import { CommentForm } from '../CommentFeed';
@@ -23,6 +22,8 @@ const PollFocus = ({ type, title }) => {
   const [addComment, setAddComment] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [sendPoll, setSendPoll] = useState(onePoll || null)
+  const [deletePoll, setDeletePoll] = useState([]);
+
 
   useEffect(() => {
     dispatch(getOnePoll(pollId))
@@ -59,13 +60,11 @@ const PollFocus = ({ type, title }) => {
     )
   };
 
-  console.log(sendPoll)
-
   return (
     <div className='pollFeedDisplayDiv'>
       <TitleBar title='Poll Focus' />
         {/* <PollDisplay pollId={pollId} /> */}
-         <PollDisplayFeed pollSend={sendPoll} type='focus' />
+         <PollDisplay pollSend={sendPoll} type='focus' deletedPoll={setDeletePoll} />
       <div className='spacer' ></div>
       <TitleBar title='Comments' button='comment' callback={showAddComment} />
       {addComment &&
