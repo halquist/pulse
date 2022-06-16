@@ -3,7 +3,10 @@ import './Texture.css'
 
 const Texture = () => {
   return (
-    <div id='textureOverlay'></div>
+    <>
+      <div id='textureOverlay'></div>
+      <div id='backgroundGrad'></div>
+    </>
   )
 }
 

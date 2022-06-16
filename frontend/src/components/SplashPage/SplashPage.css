@@ -62,18 +62,22 @@
   margin-top: 40px;
   font-size: 3.5em;
   color: white;
+  text-align: center;
 }
 
 #splashMidText {
   margin-top: 5px;
   font-size: 1.3em;
   color: white;
+  text-align: center;
 }
 
 #splashPollDisplay {
-  width: 700px;
+  width: 100%;
+  max-width: 700px;
   display: flex;
   justify-content: center;
+  margin-bottom: 100px;
 }
 
 .aboutFooter {
@@ -83,10 +87,11 @@
   right: 0;
   bottom: 0;
   background-color: #495151;
-  height: 70px;
+  height: fit-content;
   border-top: 1px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 20px;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as sessionActions from '../../store/session';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import BpmDisplay from './BpmDisplay';
@@ -69,7 +69,9 @@ function Navigation({ isLoaded }){
     <div className='navBar'>
       <ul className='navContainer'>
         <li className='navContent'>
-          <Logo />
+          <Link to={`/`} >
+            <Logo />
+          </Link>
           {/* <NavLink exact to="/" className='homeText'>Home</NavLink> */}
           {/* <NavLink exact to="/polls/new" className='homeText'>New Poll</NavLink> */}
           {isLoaded && sessionLinks}
