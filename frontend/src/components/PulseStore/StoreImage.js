@@ -9,7 +9,8 @@ import bpm_symbol from '../../images/bpm_symbol.svg'
 const StoreImage = ({ image, user }) => {
   const dispatch = useDispatch();
 
-  const [cost, setCost] = useState(image.likes * 1);
+  // const [cost, setCost] = useState(image.likes * 1);
+  const [cost, setCost] = useState(1);
   const [purchaseConfirm, setPurchaseConfirm] = useState(false);
 
   const purchase = async (e) => {

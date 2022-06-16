@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import * as sessionActions from '../../store/session';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import BpmDisplay from './BpmDisplay';
 import Logo from '../Logo';
@@ -8,9 +9,17 @@ import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 
 function Navigation({ isLoaded }){
+  const dispatch = useDispatch();
+
+
   const sessionUser = useSelector(state => state.session.user);
   const [idPass, setIdPass] = useState(null);
   const [bpmScrollUp, setBpmScrollUp] = useState(sessionUser?.bpm);
+  const [profileImage, setProfileImage] = useState(sessionUser?.profileImageUrl);
+
+  useEffect(()=>{
+    dispatch(sessionActions.restoreUser())
+  },[sessionUser?.profileImageUrl, profileImage])
 
   useEffect(() => {
     setBpmScrollUp(sessionUser?.bpm)
