@@ -30,10 +30,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Texture />
       <Navigation isLoaded={loaded} />
       {loaded && (
-      <div id='mainContainerDiv'>
+        <div id='mainContainerDiv'>
         <Switch>
           <Route path='/signup' exact={true}>
             <SignupFormPage />
@@ -48,8 +47,8 @@ function App() {
               <PollFeed type='latest' title='Latest Polls' />
             </>
              :
-            <SplashPage />
-           }
+             <SplashPage />
+            }
           </Route>
           <ProtectedRoute path='/pollfeed/user' exact={true}>
             <SideNavigation />
@@ -84,6 +83,7 @@ function App() {
             page not found
           </Route>
         </Switch>
+        <Texture />
       </div>
       )}
     </BrowserRouter>

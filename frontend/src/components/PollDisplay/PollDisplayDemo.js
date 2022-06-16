@@ -278,7 +278,7 @@ useEffect(() => {
             </div>
         </div>
         <div className='pollDisplayBottomBar'>
-            <div className='pollDisplayCommentNum'>
+            <div className='pollDisplayCommentNumDemo'>
               <div className='voteText'>
                 {comments.length} Comments
               </div>

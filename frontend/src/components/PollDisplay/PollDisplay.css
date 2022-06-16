@@ -275,6 +275,20 @@
   background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
 }
 
+.pollDisplayCommentNumDemo {
+  color: white;
+  padding: 4px 20px;
+  font-size: 1.2em;
+  border: 1px solid rgba(0, 0, 0, .3);
+  user-select: none;
+  background-color: #B76A91;
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .4);
+  border-radius: 6px;
+  padding: 4px 20px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+}
+
 .pollDisplayCommentBlank {
   padding: 4px 20px;
   width: 150px;

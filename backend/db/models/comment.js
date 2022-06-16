@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     })
     if (killComment.length){
       for (const oneComment of killComment) {
-        await oneComment.destroy ()
+        await oneComment.destroy()
       }
     }
   })
