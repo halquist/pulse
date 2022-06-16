@@ -228,16 +228,17 @@ useEffect(() => {
               }}></div>
               <div className='pollDisplayUsername'>{onePoll.User.username}</div>
             </Link>
-          {spinnerTrigger &&
+         {spinnerTrigger &&
             <div className='spinnerContainer'>
               <BpmCoin classPass={classPass}/>
               <div className='bpmValueDisplaySpinner'>
+              <div className='spinnerHighlight'></div>
                 <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
                 <SlotSpinner number={bpmValue} trigger={setPrizeTrigger} />
                 {/* <div className='bpmDisplayTextDark'>bpm</div> */}
               </div>
             </div>
-          }
+          } 
           <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>
         </div>
         <div className='pollDisplayText'>
