@@ -1,7 +1,10 @@
 import './CommentFeed.css'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as commentActions from '../../store/comment'
+import user_icon from '../../images/user_icon.svg'
+
 
 import CommentForm from './CommentForm';
 import CommentEdit from './CommentEdit';
@@ -65,7 +68,17 @@ const CommentDisplay = ({ comment, comments, resetComments }) => {
         <div className='expander' onClick={expanderFunc}>{expander}</div> :
         <div className='expander' >{expander}</div>
         }
-        <div className='commentUser' >{thisComment.User.username}</div>
+        <Link to={`/pollfeed/${thisComment.User.id}/user`} className='commentUser'>
+              <div className='profileIconSmall' style={{
+                backgroundImage: `url(${thisComment.User.profileImageUrl || user_icon})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat'
+              }}></div>
+
+            {thisComment.User.username}
+            </Link>
+
         {expandedCheck && replyComments.length > 0 && <div className='collapsed'>(collapsed)</div>}
       </div>
       {!showEdit ?

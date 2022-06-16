@@ -59,7 +59,10 @@
 }
 
 .pollDisplayUsernameLink {
-  width: 100px;
+  /* width: 100px; */
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .pollDisplayUsername:hover {
@@ -69,9 +72,10 @@
 .pollDisplayVotesNum {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   color: rgb(218, 224, 230);
   font-size: 1.1em;
-  flex: 1;
+  flex: .35;
 }
 
 .pollDisplayText {
@@ -446,6 +450,9 @@
 
 .spinnerContainer {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bpmIcon {

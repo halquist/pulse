@@ -127,3 +127,12 @@ color: white;
   color: rgb(158, 158, 158);
   font-size: .7em;
 }
+
+.profileNameDropText{
+  color: white;
+  padding-top: 10px;
+}
+
+.profileNameDropText:hover {
+  color: rgb(175, 175, 175);
+}

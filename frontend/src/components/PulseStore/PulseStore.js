@@ -11,7 +11,7 @@ const PulseStore = () => {
 
   const [images, setImages] = useState([]);
   const [loaded, setLoaded] = useState([]);
-  const searchArr = ['animals', 'cats', 'dogs', 'robots', 'spaceships', 'planets', 'pyramids', 'mythical creatures', 'greek gods', 'aliens']
+  const searchArr = ['animals', 'cats', 'dogs', 'flowers', 'spaceships', 'planets', 'pyramids', 'mythical creatures', 'greek gods', 'aliens']
   const [searchTerm, setSearchTerm] = useState(searchArr[Math.floor(Math.random() * 10)])
 
   // requests images from the pixabay api with given search terms
