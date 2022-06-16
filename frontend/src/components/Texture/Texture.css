@@ -11,7 +11,7 @@
   opacity: 1;
   z-index: -1;
   background-attachment: scroll;
-  animation: fade_in 2s ease-in 1;
+  /* animation: fade_in 2s ease-in 1; */
 }
 
 #backgroundGrad {
