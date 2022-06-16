@@ -15,7 +15,6 @@ const StoreImage = ({ image, user }) => {
 
   const purchase = async (e) => {
     e.preventDefault();
-    console.log('in purchase')
     dispatch(changeProfileImage(user.id, image.webformatURL));
     dispatch(bpmChange(user.id, -cost, 'subtract'));
   }

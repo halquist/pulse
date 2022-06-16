@@ -73,7 +73,6 @@ router.put(
   '/:id(\\d+)/image',
   requireAuth, restoreUser,
   asyncHandler( async (req, res) => {
-    console.log('in api')
     const userId = req.params.id;
     const { profileImageUrl } = req.body;
     const id = userId;

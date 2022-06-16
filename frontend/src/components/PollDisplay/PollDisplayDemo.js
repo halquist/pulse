@@ -55,9 +55,7 @@ useEffect(() => {
   let coinTimeout;
   let resetTimeout;
   const reset = () => {
-    console.log('resetstart')
     const resetTimeout = setTimeout(() => {
-    console.log('resetend')
     setCanVote(true);
     setUserVoteSticker(false);
     setVoteId('submitVote');
@@ -70,15 +68,12 @@ useEffect(() => {
     }, 5000);
   }
   if (bpmValue >= 0 && bpmValue < 10 && demoTrigger && prizeTrigger) {
-    console.log('running')
     coinTimeout = setTimeout(setClassPass('coin'), 5000);
     reset();
   } else if (bpmValue >= 10 && bpmValue < 50 && demoTrigger && prizeTrigger) {
-    console.log('running')
     coinTimeout = setTimeout(setClassPass('bigCoin'), 5000);
     reset();
   } else if (bpmValue >= 50  && demoTrigger && prizeTrigger) {
-    console.log('running')
     coinTimeout = setTimeout(setClassPass('megaCoin'), 5000);
     reset();
   }
@@ -86,7 +81,6 @@ useEffect(() => {
     clearTimeout(coinTimeout);
   };},[prizeTrigger]);
 
-  console.log('prizeTrigger', prizeTrigger, 'demotrigger', demoTrigger)
 
 // const reset = () => {
 //   const resetTimeout = setTimeout(() => {
@@ -278,11 +272,13 @@ useEffect(() => {
             </div>
         </div>
         <div className='pollDisplayBottomBar'>
-            <div className='pollDisplayCommentNumDemo'>
+          <Link to={`/polls/${pollSend.id}`}>
+            <div className='pollDisplayCommentNum'>
               <div className='voteText'>
                 {comments.length} Comments
               </div>
             </div>
+          </Link>
           {userVoteSticker === true ?
             <div className={`${voteId}`} >
               <div className='voteText'>Vote -</div>
