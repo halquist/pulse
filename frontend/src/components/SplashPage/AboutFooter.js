@@ -30,6 +30,7 @@ const AboutFooter = () => {
             <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' height='35'alt='use_icon'/>
             <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' height='35'alt='use_icon'/>
             <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain-wordmark.svg' height='60'alt='use_icon'/>
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original-wordmark.svg" height='50' alt='use_icon'/>
           </div>
       </div>
       <div className='spacerDivVert'></div>
