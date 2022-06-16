@@ -25,7 +25,7 @@ module.exports = {
       bpm: {
         allowNull: true,
         type: Sequelize.INTEGER,
-        defaultValue: 100
+        defaultValue: 1000
       },
       profileImageUrl: {
         allowNull: true,
