@@ -19,9 +19,9 @@ const CommentFeed = ({ pollId }) => {
   const [numComments, setNumComments] = useState(comments.length);
   const [resetComments, setResetComments] = useState(false);
 
-  useEffect(() => {
-    dispatch(clearOutComments())
-  },[])
+  // useEffect(() => {
+  //   dispatch(clearOutComments())
+  // },[])
 
   useEffect(() => {
     dispatch(clearOutComments())
