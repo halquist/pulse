@@ -3,6 +3,8 @@ Pulse is a social polling site where users can create quick, 2 choice polls on a
 
 Try it out at the live site: [Pulse](https://pulsepolls.herokuapp.com/)
 
+![example_main_page](https://user-images.githubusercontent.com/20021488/174172094-82e02b1b-9c4f-409a-b63b-80cdd0f860bc.png)
+
 # Index
 
 |
