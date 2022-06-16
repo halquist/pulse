@@ -58,6 +58,11 @@ color: white;
   border-radius: 0px 0px 3px 3px;
   color: white;
   transform: translate(-10%, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
 }
 
 .profile-dropdown > li {
