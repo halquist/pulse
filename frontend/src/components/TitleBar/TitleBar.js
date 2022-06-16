@@ -8,7 +8,9 @@ const TitleBar = ({ title, button, callback }) => {
   let buttonType = null;
   if (button === 'comment') {
     buttonType = (
-      <div id='editButton' onClick={() => {callback()}}>Add Comment</div>
+      <div id='editButton' onClick={() => {callback()}}>
+        <div id='addText'>Add Comment</div>
+      </div>
     );
   } else {
     buttonType = null;

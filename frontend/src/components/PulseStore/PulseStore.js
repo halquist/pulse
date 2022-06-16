@@ -6,6 +6,7 @@ import TitleBar from '../TitleBar';
 import StoreImage from './StoreImage';
 import { useSelector } from 'react-redux';
 
+
 const PulseStore = () => {
   const sessionUser = useSelector(state => state.session.user);
 
@@ -69,6 +70,7 @@ const PulseStore = () => {
           )
         })}
       </div>
+      <div>Images Provided by <a href='https://pixabay.com/' target="_blank">Pixabay</a></div>
     </div>
   )
 };

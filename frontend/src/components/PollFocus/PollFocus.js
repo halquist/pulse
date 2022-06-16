@@ -59,6 +59,8 @@ const PollFocus = ({ type, title }) => {
     )
   };
 
+  console.log(sendPoll)
+
   return (
     <div className='pollFeedDisplayDiv'>
       <TitleBar title='Poll Focus' />

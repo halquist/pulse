@@ -178,7 +178,7 @@
   cursor: pointer;
   user-select: none;
   background-image: linear-gradient(#8ED0B9 ,#539A94);
-  max-width: 300px;
+  max-width: 340px;
 }
 
 .pollDisplayOptionOne:active {
@@ -200,7 +200,7 @@
   cursor: pointer;
   user-select: none;
   background-image: linear-gradient(#DDB3D3 ,#B76A91);
-  max-width: 300px;
+  max-width: 340px;
 }
 
 .pollDisplayOptionTwo:active {
@@ -261,15 +261,18 @@
 }
 
 .pollDisplayCommentNum {
-  background-color: #DDB3D3;
-  color: #680F3F;
+  color: white;
   padding: 4px 20px;
-  border: 1px solid rgba(0, 0, 0, .3);
-  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
-  border-radius: 3px;
   font-size: 1.2em;
+  border: 1px solid rgba(0, 0, 0, .3);
   cursor: pointer;
   user-select: none;
+  background-color: #B76A91;
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .4);
+  border-radius: 6px;
+  padding: 4px 20px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
 }
 
 .pollDisplayCommentBlank {
@@ -283,7 +286,6 @@
   position: relative;
   color: white;
   border: 1px solid rgba(0, 0, 0, .3);
-  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
   font-size: 1.2em;
   cursor: pointer;
   transition: .2s;
@@ -478,4 +480,8 @@
   color: #ffffff;
   font-size: .7em;
   filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
+}
+
+.tempPollContainer {
+  width: 100%;
 }

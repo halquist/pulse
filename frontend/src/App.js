@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
@@ -16,6 +16,9 @@ import PulseStore from './components/PulseStore';
 
 function App() {
   const dispatch = useDispatch();
+
+  const sessionUser = useSelector((state) => state.session.user);
+
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setLoaded(true));
@@ -29,7 +32,6 @@ function App() {
     <BrowserRouter>
       <Texture />
       <Navigation isLoaded={loaded} />
-      <SplashPage />
       {loaded && (
       <div id='mainContainerDiv'>
         <Switch>
@@ -39,10 +41,16 @@ function App() {
           <Route path='/login' exact={true}>
             <LoginFormPage />
           </Route>
-          <ProtectedRoute path='/' exact={true}>
-            <SideNavigation />
-            <PollFeed type='latest' title='Latest Polls' />
-          </ProtectedRoute>
+          <Route path='/' exact={true}>
+           {sessionUser ?
+            <>
+              <SideNavigation />
+              <PollFeed type='latest' title='Latest Polls' />
+            </>
+             :
+            <SplashPage />
+           }
+          </Route>
           <ProtectedRoute path='/pollfeed/user' exact={true}>
             <SideNavigation />
             <PollFeed type='user' title='My Polls' />
