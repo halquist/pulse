@@ -15,7 +15,6 @@ const PollFeed = ({ type, title }) => {
 
   // console.log(otherUserId);
 
-  console.log('pollfeed hot', type, title )
 
   const userId = useSelector(state => state.session.user.id);
   const polls = useSelector(state => state.poll.allPolls);

@@ -97,7 +97,6 @@ export const bpmChange = (id, bpm, addOrSubtract) => async (dispatch) => {
 }
 
 export const changeProfileImage = (id, profileImageUrl) => async (dispatch) => {
-  console.log('in store')
   const response = await csrfFetch(`/api/users/${id}/image`, {
     method: 'PUT',
     headers: {
