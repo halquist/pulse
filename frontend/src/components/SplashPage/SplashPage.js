@@ -17,7 +17,7 @@ const SplashPage = () => {
     optionOneVotes: 6,
     optionTwoVotes: 9,
     Comments:[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-    User: {id: 0, username: 'pollMaster', profileImageUrl: 'https://pixabay.com/get/gca2d5ca56957d09c533515904ad1d484070815cb79033e38a4bb66f796ecbbb76b82fe3a173da9f0b5374dbf70c445fbdc0485550a346704d7ab1b7365916f6e_640.jpg'},
+    User: {id: 0, username: 'pollMaster', profileImageUrl: 'https://cdn.pixabay.com/photo/2018/12/25/12/22/dolphin-3894171_960_720.jpg'},
     UserVotes: [
       {userId: 0, pollId: 0, voteSelection: 1},
       {userId: 0, pollId: 0, voteSelection: 1},

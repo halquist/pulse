@@ -35,6 +35,7 @@ const PollForm = ({ mode }) => {
   const [errors, setErrors] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [canChange, setCanChange] = useState(false);
+  
 
   useEffect(() => {
     if (pollId && mode === 'edit') {
