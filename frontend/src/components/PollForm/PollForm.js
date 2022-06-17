@@ -47,7 +47,7 @@ const PollForm = ({ mode }) => {
         .then(() => setOptionOneVotes(editPoll.optionOneVotes || 0))
         .then(() => setOptionTwoVotes(editPoll.optionTwoVotes || 0))
         .then(() => setBarTitle(mode === 'edit' ? 'Edit Poll' : 'Create Poll'))
-        .then(() => setCanChange(!editPoll?.UserVotes.length))
+        .then(() => setCanChange(!editPoll?.UserVotes?.length))
         .then(() => setLoaded(true))
     } else {
       dispatch(clearOnePoll())
