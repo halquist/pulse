@@ -52,12 +52,16 @@ const SplashPage = () => {
       </div>
       <div id='splashMidText'>
         Have you ever wondered what other people think about, well, anything?
+        Pulse is a community for sharing quick, 2 choice polls with everyone!
       </div>
       <div id='splashMidText'>
-        Pulse is a community for sharing quick, 2 choice polls with everyone!
       </div>
       <div id='splashPollDisplay'>
         <PollDisplayDemo pollSend={demoPoll} type='demo'/>
+      </div>
+      <div id='splashMidText'>
+        Vote on other user's polls to win bpm! Spend bpm to create your
+        own polls or customize your profile in the Pulse store!
       </div>
       <AboutFooter/>
       <div id='splashBackground'></div>

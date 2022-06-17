@@ -58,7 +58,7 @@ useEffect(() => {
     const resetTimeout = setTimeout(() => {
     setCanVote(true);
     setUserVoteSticker(false);
-    setVoteId('submitVote');
+    setVoteId('cannotSubmitVote');
     setClassPass('');
     setVoteSelection(0);
     setSpinnerTrigger(false);
@@ -206,7 +206,6 @@ useEffect(() => {
     setDemoTrigger(true);
   };
 
-
   // if (!loaded || !data) {
   //   return (
   //   <div className='loadingContainer'>
@@ -228,10 +227,11 @@ useEffect(() => {
               }}></div>
               <div className='pollDisplayUsername'>{onePoll.User.username}</div>
             </Link>
-          {spinnerTrigger &&
+         {spinnerTrigger &&
             <div className='spinnerContainer'>
               <BpmCoin classPass={classPass}/>
               <div className='bpmValueDisplaySpinner'>
+              <div className='spinnerHighlight'></div>
                 <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
                 <SlotSpinner number={bpmValue} trigger={setPrizeTrigger} />
                 {/* <div className='bpmDisplayTextDark'>bpm</div> */}
@@ -251,12 +251,14 @@ useEffect(() => {
         </div>
         <div className='pollDisplayVoteBar'>
           <div className='pollDisplayOptionOne' onClick={() => handleSetVote(1)}>
+            <div className='pollVoteHighlight'></div>
             <div className='voteBoxPink'>
               <div className={`voteCheck ${voteSelection === 1 || userVote[0]?.voteSelection === 1 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>
             <div className='optionOneText'>{onePoll.optionOneTitle}</div>
           </div>
           <div className='pollDisplayOptionTwo' onClick={() => handleSetVote(2)}>
+            <div className='pollVoteHighlight'></div>
             <div className='voteBoxGreen'>
               <div className={`voteCheck ${voteSelection === 2 || userVote[0]?.voteSelection === 2 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>
