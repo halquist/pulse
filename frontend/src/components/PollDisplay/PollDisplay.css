@@ -58,7 +58,7 @@
 .pollDisplayUsername {
   color: #003B31;
   font-size: 1.1em;
-  flex: 1;
+  /* flex: 1; */
   width: fit-content;
   filter: drop-shadow(1px  1px rgba(255, 255, 255, .3));
   font-weight: bold;
@@ -67,6 +67,7 @@
 .pollDisplayUsernameLink {
   /* width: 100px; */
   display: flex;
+  flex: 1;
   align-items: center;
   gap: 10px;
 }
@@ -81,7 +82,7 @@
   align-items: center;
   color: rgb(218, 224, 230);
   font-size: 1.1em;
-  flex: .35;
+  flex: 1;
   filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
 }
 

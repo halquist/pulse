@@ -4,6 +4,7 @@
 
 .singleCommentContainer {
   background-color: #141616;
+  /* background-image: linear-gradient(rgba(255, 255, 255, .05), rgba(0, 0, 0, 0)); */
   border: 1px solid #495151;
   border-radius: 3px;
   margin-top: 6px;
@@ -116,7 +117,9 @@
 }
 
 #commentHeader {
-  background-color: #495151;
+  background-color: rgb(104, 111, 117);
+  border: 1px solid rgba(0, 0, 0, .4);
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .6);
   margin-top: 10px;
   margin-bottom: -8px;
   padding: 4px 10px;
