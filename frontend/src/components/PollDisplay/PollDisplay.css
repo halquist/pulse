@@ -13,11 +13,11 @@
   border: 1px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
   color: rgb(218, 224, 230);
-  /* background-image: url("../../images/splash_background_mk2.svg"); */
+  background-image: url("../../images/splash_background_mk2.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
-  background-image: linear-gradient(#539A94, #539A94, rgba(255, 255, 255, .2), #539A94, #539A94);
+  /* background-image: linear-gradient(#539A94, #539A94, rgba(255, 255, 255, .2), #539A94, #539A94); */
 
 }
 
@@ -34,13 +34,15 @@
   align-items: center;
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, .3);
+  border-bottom: 1px solid rgba(0, 0, 0, .4);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
   color: rgb(218, 224, 230);
   /* background-image: url("../../images/splash_background_mk2.svg"); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
-  background-image: linear-gradient(#539A94,  rgba(255, 255, 255, .3),  #539A94);
+  /* background-image: linear-gradient(rgba(255, 255, 255, 0.4) 20%,  rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0.7) 20%); */
+  background-image: linear-gradient(rgba(255, 255, 255, 0.4) 0%,  rgba(255, 255, 255, 0) 15%,rgba(255, 255, 255, 0) 85%, rgba(0, 0, 0, 0.25) 100%);
 }
 
 .pollDisplayTopBar {
@@ -56,6 +58,7 @@
   font-size: 1.1em;
   flex: 1;
   width: fit-content;
+  filter: drop-shadow(1px  1px rgba(255, 255, 255, .3));
 }
 
 .pollDisplayUsernameLink {
@@ -76,6 +79,7 @@
   color: rgb(218, 224, 230);
   font-size: 1.1em;
   flex: .35;
+  filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
 }
 
 .pollDisplayText {
@@ -87,7 +91,7 @@
   color: rgb(218, 224, 230);
   font-size: 1.6em;
   overflow-wrap: break-word;
-
+  filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
 }
 
 .pollDescription {
@@ -96,7 +100,9 @@
   font-size: 1.1em;
   overflow-wrap: break-word;
   width: 100%;
-  transition:max-height 1s ease-out;
+  /* transition:max-height 1s ease-out; */
+  filter: drop-shadow(1px  1px rgba(255, 255, 255, .3));
+
 }
 
 .truncateBlock {
@@ -167,33 +173,40 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: #8ED0B9;
-  color: #003B31;
+  /* color: #003B31; */
   padding: 12px 20px;
-  border: 2px solid rgba(0, 0, 0, .3);
-  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
+  /* border: 2px solid rgba(0, 0, 0, .3); */
+  /* box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1); */
   /* border-radius: 3px; */
   border-radius: 40px;
   font-size: 1.2em;
   cursor: pointer;
   user-select: none;
-  background-image: linear-gradient(#8ED0B9 ,#539A94);
+  /* background-image: linear-gradient(#8ED0B9 ,#539A94); */
+  /* background-image: linear-gradient(#8ED0B9 ,#539A94); */
   max-width: 340px;
+  background-color: #5ec3b1;
+  border-top: 2px solid rgba(0, 59, 49, .4);
+  border-left: 2px solid rgba(0, 59, 49, .4);
+  border-right: 2px solid rgba(0, 59, 49, .4);
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .4);
+  color: #003B31;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.1));
+  transition: .1s;
 }
 
 .pollDisplayOptionOne:active {
-  background-image: linear-gradient(#539A94, #8ED0B9);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.15) 0%,rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0.2) 60%, rgba(255, 255, 255, 0.15) 100%);
+  /* transform: scale(.995); */
 }
 
 .pollDisplayOptionTwo {
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: #DDB3D3;
   color: #680F3F;
   padding: 12px 20px;
-  border: 2px solid rgba(0, 0, 0, .3);
-  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
   /* border-radius: 3px; */
   border-radius: 40px;
   font-size: 1.2em;
@@ -201,10 +214,19 @@
   user-select: none;
   background-image: linear-gradient(#DDB3D3 ,#B76A91);
   max-width: 340px;
+  border-top: 2px solid rgba(104, 15, 63, .4);
+  border-right: 2px solid rgba(104, 15, 63, .4);
+  border-left: 2px solid rgba(110, 7, 62, 0.4);
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .4);
+  background-color: #c97ca2;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.3) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.3));
+  transition: .1s;
 }
 
 .pollDisplayOptionTwo:active {
-  background-image: linear-gradient(#B76A91, #DDB3D3);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.3) 0%,rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.1) 60%, rgba(255, 255, 255, 0.3) 100%);
+  /* transform: scale(.995); */
 }
 
 .voteBoxPink {
@@ -354,38 +376,36 @@
 }
 
 .optionOnePercent {
-  background-color: #5ec3b1;
   width: 100%;
   height: 20px;
-  border-top: 2px solid rgba(0, 59, 49, .4);
-  border-left: 2px solid rgba(0, 59, 49, .4);
   /* border: 2px solid rgba(0, 59, 49, .4); */
-  border-bottom: 1px solid rgba(0, 0, 0, .3);
-  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .4);
   border-radius: 10px 0px 0px 10px;
   display: flex;
   justify-content: center;
-  color: #003B31;
   min-width: 30px;
   /* background-image: linear-gradient(#8ED0B9 ,#539A94); */
-  background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
-
-}
-.optionTwoPercent {
-  background-color: #c97ca2;
-  width: 100%;
-  height: 20px;
-  border-top: 2px solid rgba(104, 15, 63, .4);
-  border-right: 2px solid rgba(104, 15, 63, .4);
-  /* border: 2px solid rgba(104, 15, 63, .4); */
+  background-color: #5ec3b1;
+  border-top: 2px solid rgba(0, 59, 49, .4);
+  border-left: 2px solid rgba(0, 59, 49, .4);
   border-bottom: 1px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .4);
+  color: #003B31;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+}
+.optionTwoPercent {
+  width: 100%;
+  height: 20px;
+  /* border: 2px solid rgba(104, 15, 63, .4); */
   border-radius: 0px 10px 10px 0px;
   display: flex;
   justify-content: center;
   color: #680F3F;
   min-width: 30px;
-  /* background-image: linear-gradient(#DDB3D3 ,#B76A91); */
+  border-top: 2px solid rgba(104, 15, 63, .4);
+  border-right: 2px solid rgba(104, 15, 63, .4);
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, .4);
+  background-color: #c97ca2;
   background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
 }
 
@@ -503,7 +523,7 @@
 
 .spinnerHighlight {
   position: absolute;
-  top: 0px;
+  top: 1px;
   width: 58px;
   height: 10px;
   border-radius: 14px 14px 3px 3px;

@@ -15,7 +15,10 @@ const StoreImage = ({ image, user }) => {
 
   const purchase = async (e) => {
     e.preventDefault();
-    dispatch(changeProfileImage(user.id, image.webformatURL));
+    // api only gives out temp links to high res images, so we need to take the preview url and change it to get the permanent link to higher res image
+    const imageUrlEdit = image.previewURL.split('_150').join('_960_720')
+    dispatch(changeProfileImage(user.id, imageUrlEdit));
+    // dispatch(changeProfileImage(user.id, image.previewURL));
     dispatch(bpmChange(user.id, -cost, 'subtract'));
   }
 

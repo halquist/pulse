@@ -30,6 +30,7 @@ const PulseStore = () => {
       .catch((err) => console.log(err))
   };
 
+  console.log(images)
 
   useEffect(() => {
     getImages(searchTerm)
