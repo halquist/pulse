@@ -219,12 +219,14 @@ useEffect(() => {
       <div className='pollDisplayDivFeed'>
         <div className='pollDisplayTopBar'>
             <Link to={`/pollfeed/${onePoll.User.id}/user`} className='pollDisplayUsernameLink'>
-              <div className='profileIcon' style={{
-                backgroundImage: `url(${pollSend.User.profileImageUrl || user_icon})`,
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat'
-              }}></div>
+              <div className='profileIconContainer'>
+                <div className='profileIcon' style={{
+                  backgroundImage: `url(${pollSend.User.profileImageUrl || user_icon})`,
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat'
+                }}></div>
+              </div>
               <div className='pollDisplayUsername'>{onePoll.User.username}</div>
             </Link>
          {spinnerTrigger &&
