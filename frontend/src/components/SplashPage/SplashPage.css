@@ -23,6 +23,7 @@
   justify-content: space-between;
   width: 400px;
   height: fit-content;
+  margin-top: 20px;
 }
 
 #splashTopBar > a {
@@ -59,7 +60,8 @@
 }
 
 #splashTopText {
-  margin-top: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   font-size: 3.5em;
   color: white;
   text-align: center;
@@ -70,6 +72,8 @@
   font-size: 1.3em;
   color: white;
   text-align: center;
+  width: 100%;
+  max-width: 710px;
 }
 
 #splashPollDisplay {
@@ -77,7 +81,8 @@
   max-width: 700px;
   display: flex;
   justify-content: center;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
+  margin-top: 40px;
 }
 
 .aboutFooter {

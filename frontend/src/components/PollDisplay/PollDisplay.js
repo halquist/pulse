@@ -246,12 +246,14 @@ useEffect(()=> {
         </div>
         <div className='pollDisplayVoteBar'>
           <div className='pollDisplayOptionOne' onClick={() => handleSetVote(1)}>
+            <div className='pollVoteHighlight'></div>
             <div className='voteBoxPink'>
               <div className={`voteCheck ${voteSelection === 1 || userVote[0]?.voteSelection === 1 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>
             <div className='optionOneText'>{onePoll.optionOneTitle}</div>
           </div>
           <div className='pollDisplayOptionTwo' onClick={() => handleSetVote(2)}>
+            <div className='pollVoteHighlight'></div>
             <div className='voteBoxGreen'>
               <div className={`voteCheck ${voteSelection === 2 || userVote[0]?.voteSelection === 2 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>

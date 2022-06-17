@@ -58,7 +58,7 @@ useEffect(() => {
     const resetTimeout = setTimeout(() => {
     setCanVote(true);
     setUserVoteSticker(false);
-    setVoteId('submitVote');
+    setVoteId('cannotSubmitVote');
     setClassPass('');
     setVoteSelection(0);
     setSpinnerTrigger(false);
@@ -206,7 +206,7 @@ useEffect(() => {
     setDemoTrigger(true);
   };
 
-
+  console.log(voteId)
   // if (!loaded || !data) {
   //   return (
   //   <div className='loadingContainer'>
@@ -238,7 +238,7 @@ useEffect(() => {
                 {/* <div className='bpmDisplayTextDark'>bpm</div> */}
               </div>
             </div>
-          } 
+          }
           <div className='pollDisplayVotesNum'>{optionOneVotes + optionTwoVotes} Votes</div>
         </div>
         <div className='pollDisplayText'>
@@ -252,12 +252,14 @@ useEffect(() => {
         </div>
         <div className='pollDisplayVoteBar'>
           <div className='pollDisplayOptionOne' onClick={() => handleSetVote(1)}>
+            <div className='pollVoteHighlight'></div>
             <div className='voteBoxPink'>
               <div className={`voteCheck ${voteSelection === 1 || userVote[0]?.voteSelection === 1 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>
             <div className='optionOneText'>{onePoll.optionOneTitle}</div>
           </div>
           <div className='pollDisplayOptionTwo' onClick={() => handleSetVote(2)}>
+            <div className='pollVoteHighlight'></div>
             <div className='voteBoxGreen'>
               <div className={`voteCheck ${voteSelection === 2 || userVote[0]?.voteSelection === 2 ? 'visible' : 'invisible'}`}><XMark /></div>
             </div>

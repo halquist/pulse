@@ -13,7 +13,6 @@
   border: 1px solid rgba(0, 0, 0, .3);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
   color: rgb(218, 224, 230);
-  background-image: url("../../images/splash_background_mk2.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
@@ -22,6 +21,7 @@
 }
 
 .pollDisplayDivFeed {
+  position: relative;
   margin-top: 10px;
   /* margin-bottom: 8px; */
   min-height: 100px;
@@ -33,7 +33,7 @@
   flex-direction: column;
   align-items: center;
   border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, .3);
+  border: 1px solid rgba(0, 0, 0, .4);
   border-bottom: 1px solid rgba(0, 0, 0, .4);
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
   color: rgb(218, 224, 230);
@@ -42,7 +42,7 @@
   background-repeat: no-repeat;
   background-position: top;
   /* background-image: linear-gradient(rgba(255, 255, 255, 0.4) 20%,  rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0.7) 20%); */
-  background-image: linear-gradient(rgba(255, 255, 255, 0.4) 0%,  rgba(255, 255, 255, 0) 15%,rgba(255, 255, 255, 0) 85%, rgba(0, 0, 0, 0.25) 100%);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.4) 0%,  rgba(255, 255, 255, 0) 5%,rgba(255, 255, 255, 0) 95%, rgba(0, 0, 0, 0.25) 100%);
 }
 
 .pollDisplayTopBar {
@@ -59,6 +59,7 @@
   flex: 1;
   width: fit-content;
   filter: drop-shadow(1px  1px rgba(255, 255, 255, .3));
+  font-weight: bold;
 }
 
 .pollDisplayUsernameLink {
@@ -98,6 +99,7 @@
   margin-top: 8px;
   color: #003B31;
   font-size: 1.1em;
+  font-weight: bold;
   overflow-wrap: break-word;
   width: 100%;
   /* transition:max-height 1s ease-out; */
@@ -170,6 +172,7 @@
 }
 
 .pollDisplayOptionOne {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -178,7 +181,7 @@
   /* border: 2px solid rgba(0, 0, 0, .3); */
   /* box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1); */
   /* border-radius: 3px; */
-  border-radius: 40px;
+  border-radius: 26px;
   font-size: 1.2em;
   cursor: pointer;
   user-select: none;
@@ -202,13 +205,14 @@
 }
 
 .pollDisplayOptionTwo {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
   color: #680F3F;
   padding: 12px 20px;
   /* border-radius: 3px; */
-  border-radius: 40px;
+  border-radius: 26px;
   font-size: 1.2em;
   cursor: pointer;
   user-select: none;
@@ -529,4 +533,16 @@
   border-radius: 14px 14px 3px 3px;
   z-index: 1;
   background-image: linear-gradient( rgba(255, 255, 255, .7), rgba(255, 255, 255, .07));
+}
+
+.pollVoteHighlight {
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  /* right: calc(0px + 10%); */
+  width: calc(100% - 10px);
+  height: 20px;
+  border-radius: 60px 60px 3px 3px;
+  z-index: 1;
+  background-image: linear-gradient( rgba(255, 255, 255, .5), rgba(255, 255, 255, .07));
 }
