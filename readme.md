@@ -11,6 +11,8 @@ Try it out at the live site: [Pulse](https://pulsepolls.herokuapp.com/)
 [Database Schema](https://github.com/halquist/pulse/wiki/Database-Schema) |
 [Feature List](https://github.com/halquist/pulse/wiki/Pulse-Features) |
 [Wireframes](https://github.com/halquist/pulse/wiki/Wireframes) |
+[API Routes](https://github.com/halquist/pulse/wiki/API-Routes) |
+
 
 # Technologies Used
 
