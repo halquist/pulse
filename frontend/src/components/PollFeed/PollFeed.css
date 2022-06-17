@@ -9,3 +9,11 @@
 #feedSpacerDiv {
   height: 20px;
 }
+
+#noPollsMessage {
+  color: white;
+  margin-top: 20px;
+  font-size: 1.4em;
+  text-align: center;
+  width: 100%;
+}
