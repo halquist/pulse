@@ -62,7 +62,7 @@ function SignupFormPage() {
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              autoFocus='true'
+              autoFocus={true}
             />
           <label>
             Username

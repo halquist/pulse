@@ -80,11 +80,12 @@ const PollFeed = ({ type, title }) => {
   return (
     <div className='pollFeedDisplayDiv'>
       <TitleBar title={title} />
-      {allPolls.map((poll) => {
+      {allPolls && allPolls.map((poll) => {
         return (
           <PollDisplay pollSend={poll} type={type} deletedPoll={setDeletePoll} key={poll.id} />
         )
       })}
+      {!allPolls?.length && <div id='noPollsMessage'>No polls here! Try a different poll feed.</div>}
       <div id='feedSpacerDiv'></div>
     </div>
   )

@@ -5,6 +5,8 @@ import github_icon from '../../images/githubIcon.svg';
 const AboutFooter = () => {
   return (
     <div className='aboutFooter'>
+      <div id='git_link'>© 2022 Jon Halquist</div>
+      <div className='spacerDivVert'></div>
       <div className='creator_container'>
           <div className='creator_name'>Created By: Jon Halquist</div>
           <div className='git_link_container'>

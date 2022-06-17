@@ -100,6 +100,7 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
+  z-index: 2000;
 }
 
 .creatorContainer {
@@ -129,9 +130,6 @@
   height: 35px;
 }
 
-.image_container > img {
-
-}
 
 #icon_container {
   display: flex;
@@ -142,7 +140,7 @@
 
 .spacerDivVert {
   background-color: #363D44;
-  width: 2px;
-  border-radius: 1px;
-  height: 90%;
+  width: 2px !important;
+  /* border-radius: 1px; */
+  height: 50px;
 }
