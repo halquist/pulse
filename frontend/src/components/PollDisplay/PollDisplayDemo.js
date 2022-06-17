@@ -206,7 +206,6 @@ useEffect(() => {
     setDemoTrigger(true);
   };
 
-  console.log(voteId)
   // if (!loaded || !data) {
   //   return (
   //   <div className='loadingContainer'>

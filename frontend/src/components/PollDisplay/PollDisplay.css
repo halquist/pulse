@@ -28,21 +28,23 @@
   width: 100%;
   max-width: 700px;
   flex-shrink: .5;
-  background-color: #539A94;
+  background-color: #50918b;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, .4);
-  border-bottom: 1px solid rgba(0, 0, 0, .4);
-  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2);
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, .5);
+  /* border-bottom: 1px solid rgba(0, 0, 0, .5); */
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, .6);
   color: rgb(218, 224, 230);
   /* background-image: url("../../images/splash_background_mk2.svg"); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
-  /* background-image: linear-gradient(rgba(255, 255, 255, 0.4) 20%,  rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0.7) 20%); */
-  background-image: linear-gradient(rgba(255, 255, 255, 0.4) 0%,  rgba(255, 255, 255, 0) 5%,rgba(255, 255, 255, 0) 95%, rgba(0, 0, 0, 0.25) 100%);
+  /* background-image: linear-gradient(rgba(255, 255, 255, 0.2) ,  rgba(255, 255, 255, 0) , rgba(0, 0, 0, 0.1)); */
+  /* background-image: linear-gradient(360deg, rgba(255, 255, 255, 0.2) 0%,  rgba(255, 255, 255, 0) 5%,rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0.2) 100%); */
+  /* background-image: linear-gradient(360deg, rgba(0, 0, 0, 0.2) 0%,  rgba(255, 255, 255, 0) 10%,rgba(0, 0, 0, 0) 90%, rgba(0, 0, 0, 0.2) 100%); */
+  background-image: linear-gradient(rgba(255, 255, 255, .1) 0%,  rgba(255, 255, 255, .2) 10%,rgba(255, 255, 255, 0) 90%, rgba(0, 0, 0, 0) 100%);
 }
 
 .pollDisplayTopBar {
@@ -356,13 +358,15 @@
   color: white;
   padding: 4px 20px;
   border: 1px solid rgba(0, 0, 0, .3);
-  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .1);
-  border-radius: 3px;
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .4);
+  border-radius: 6px;
   font-size: 1.2em;
   pointer-events: none;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1) ,rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+  transition: .2s;
 }
 
 .voteText {
