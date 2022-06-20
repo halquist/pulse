@@ -7,7 +7,7 @@
 }
 
 #splashBackground {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -74,6 +74,16 @@
   text-align: center;
   width: 100%;
   max-width: 710px;
+}
+
+#splashBotText {
+  margin-top: 5px;
+  font-size: 1.3em;
+  color: white;
+  text-align: center;
+  width: 100%;
+  max-width: 710px;
+  padding-bottom: 200px;
 }
 
 #splashPollDisplay {

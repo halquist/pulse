@@ -59,7 +59,7 @@ const SplashPage = () => {
       <div id='splashPollDisplay'>
         <PollDisplayDemo pollSend={demoPoll} type='demo'/>
       </div>
-      <div id='splashMidText'>
+      <div id='splashBotText'>
         Vote on other user's polls to win bpm! Spend bpm to create your
         own polls or customize your profile in the Pulse store!
       </div>
