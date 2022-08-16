@@ -32,18 +32,18 @@ const StoreImage = ({ image, user }) => {
       {purchaseConfirm ?
       <div className='storeSubDisplayTop'>
        {user.bpm >= cost ?
-        <>
+        <div className='buttonBarStore'>
           <button className='smallGreenButton'>Cancel</button>
           <button className='smallPinkButton' onClick={purchase} >Buy</button>
-        </> :
-        <div className='storeImageText'>Not enough bpm</div>
-        }
+        </div> :
+        <div className='storeImageTextTop'>Not enough bpm</div>
+      }
       </div> :
       <div></div>
       }
       <div className='storeSubDisplayBottom' >
         <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
-        <div className='storeImageText'>{cost}</div>
+        <div className='storeImageTextBottom'>{cost}</div>
       </div>
     </div>
   )
