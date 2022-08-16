@@ -295,6 +295,9 @@ useEffect(()=> {
               <VotedSticker />
             </div> :
             <div className={`${voteId}`} onClick={handleVote}>
+              {voteId === 'submitVote' &&
+                <div className='confirmVotePopup'>Confirm Vote?</div>
+              }
               <div className='voteText'>Vote -</div>
               <img src={bpm_symbol} width="14" height="14" className='bpmIcon'/>
               <div className='voteText'>1</div>
