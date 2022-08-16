@@ -50,6 +50,7 @@ const PulseStore = () => {
     <div className='storeDisplayDiv'>
       <TitleBar title='Change Your Profile Picture' />
         <div id='storeContentsDiv'>
+          <div id='storeTopTitle'>Purchase will replace your current profile image</div>
           <form onSubmit={handleSubmit} id='searchForm'>
             <label htmlFor='search'>Search Profile Images:</label>
               <input

@@ -46,9 +46,22 @@
   align-items: center;
 }
 
-.storeImageText {
+.storeImageTextTop {
   filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
   color: white;
+  width: 100%;
+  text-align: center;
+}
+
+.storeImageTextBottom {
+  filter: drop-shadow(-1px  -1px rgba(0, 0, 0, 0.3));
+  color: white;
+}
+
+.buttonBarStore {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .smallGreenButton {
@@ -100,4 +113,9 @@
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+}
+
+#storeTopTitle {
+  margin-top: 10px;
+  margin-bottom: -10px;
 }
