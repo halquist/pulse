@@ -34,7 +34,13 @@ const validateSignup = [
       .exists({ checkFalsy: true })
       .withMessage('Password field is required')
       .bail()
-      .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+      .isLength({ min: 8 })
+      .withMessage('Password must be 8 characters or more & include at least 1 letter and 1 number')
+      .bail()
+      .matches(/[A-Za-z]/)
+      .withMessage('Password must be 8 characters or more & include at least 1 letter and 1 number')
+      .bail()
+      .matches(/\d/)
       .withMessage('Password must be 8 characters or more & include at least 1 letter and 1 number'),
     // handleValidationErrors
 ];
