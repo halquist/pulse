@@ -11,6 +11,6 @@ module.exports = {
   },
   jwtConfig: {
     secret: process.env.JWT_SECRET,
-    expiresIn: process.env.JWT_EXPIRES_IN
-  }
+    expiresIn: parseInt(process.env.JWT_EXPIRES_IN, 10) || 604800,
+  },
 };
